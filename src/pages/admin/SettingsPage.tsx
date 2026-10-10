@@ -58,6 +58,13 @@ export function SettingsPage() {
             onChange={(e) => set("whatsapp", e.target.value)}
           />
           <Field
+            id="s-instagram"
+            label="Instagram do clube"
+            hint="Só o nome do perfil, sem o @"
+            value={s.instagram}
+            onChange={(e) => set("instagram", e.target.value.replace(/^@/, "").trim())}
+          />
+          <Field
             id="s-owner"
             label="E-mail do dono"
             hint="Recebe os avisos de interesse e é o login da área do clube"

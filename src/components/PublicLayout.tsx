@@ -88,6 +88,14 @@ export function PublicLayout() {
               <p>
                 E-mail: <span className="selectable">{s?.ownerEmail}</span>
               </p>
+              {s?.instagram && (
+                <p>
+                  Instagram:{" "}
+                  <a href={`https://www.instagram.com/${s.instagram}/`} target="_blank" rel="noopener noreferrer">
+                    @{s.instagram}
+                  </a>
+                </p>
+              )}
             </div>
           </div>
           {demo && (

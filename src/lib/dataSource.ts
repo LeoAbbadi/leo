@@ -39,7 +39,8 @@ function upsert<T extends { id: string }>(list: T[], item: T): T[] {
 /** Completa dados salvos por versões anteriores do site. */
 function migrate(snap: Snapshot): Snapshot {
   const saved: Partial<Settings> = snap.settings;
-  const settings: Settings = saved.ownerWhatsapp !== undefined ? snap.settings : { ...createSeed().settings, ...saved };
+  const complete = saved.ownerWhatsapp !== undefined && saved.instagram !== undefined;
+  const settings: Settings = complete ? snap.settings : { ...createSeed().settings, ...saved };
   const outbox: OutboxMessage[] = (snap.outbox ?? []).map((m) => ({
     ...m,
     channel: m.channel ?? "email",

@@ -137,6 +137,7 @@ export function createSeed(today = new Date()): Snapshot {
     city: "São Paulo, SP",
     address: "Rua Exemplo, 100",
     whatsapp: "(11) 90000-0000",
+    instagram: "",
     ownerEmail: "dono@exemplo.com",
     ownerWhatsapp: "5511900000000",
     autoConfirm: true,

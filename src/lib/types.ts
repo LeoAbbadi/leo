@@ -80,6 +80,8 @@ export interface Settings {
   city: string;
   address: string;
   whatsapp: string;
+  /** Perfil do clube no Instagram, sem o @. Vazio esconde o link. */
+  instagram: string;
   ownerEmail: string;
   /** Número do dono que recebe o aviso de cada inscrição, no formato 55DDDNÚMERO. */
   ownerWhatsapp: string;
