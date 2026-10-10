@@ -24,8 +24,9 @@ export interface DataSource {
   subscribe(onChange: () => void): () => void;
 }
 
-const STORAGE_KEY = "clube-poker:v1";
-const CHANNEL = "clube-poker";
+// Trocar a versão da chave recomeça os dados de exemplo para todos os visitantes.
+const STORAGE_KEY = "ypiranga-poker:v2";
+const CHANNEL = "ypiranga-poker";
 
 function upsert<T extends { id: string }>(list: T[], item: T): T[] {
   const idx = list.findIndex((x) => x.id === item.id);

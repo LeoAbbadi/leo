@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { useMemo } from "react";
 import { ChipTop } from "../components/Cards";
+import { Glass, Reveal, SplitText } from "../components/Kinetic";
 import { CountUp } from "../components/ui";
 import { countdown, parseLocalDate, shortDate } from "../lib/format";
 import { computeRanking } from "../lib/ranking";
@@ -8,7 +9,37 @@ import { useData, useNow } from "../lib/store";
 
 const PODIUM_ORDER = [1, 0, 2];
 const PODIUM_HEIGHT = [100, 76, 58];
-const PODIUM_CHIP = ["brass", "ivory", "red"] as const;
+const PODIUM_CHIP = ["metal", "white", "red"] as const;
+const BURST = ["♠", "♥", "♣", "♦", "♥", "♠", "♦", "♣", "♥", "♦", "♠", "♥"];
+
+/** Naipes que explodem para cima atrás do campeão. */
+function SuitBurst() {
+  return (
+    <span className="suit-burst" aria-hidden="true">
+      {BURST.map((s, i) => {
+        const angle = -Math.PI / 2 + ((i - (BURST.length - 1) / 2) / BURST.length) * Math.PI * 1.1;
+        const dist = 90 + (i % 3) * 30;
+        return (
+          <motion.span
+            key={i}
+            className={`burst-suit ${s === "♥" || s === "♦" ? "is-red" : ""}`}
+            initial={{ x: 0, y: 0, scale: 0.2, opacity: 0, rotate: 0 }}
+            animate={{
+              x: Math.cos(angle) * dist,
+              y: Math.sin(angle) * dist,
+              scale: [0.2, 1.2, 0.9],
+              opacity: [0, 1, 0],
+              rotate: (i % 2 ? 1 : -1) * 160,
+            }}
+            transition={{ duration: 1.8, delay: 1.2 + (i % 4) * 0.05, ease: [0.2, 0.8, 0.2, 1] }}
+          >
+            {s}
+          </motion.span>
+        );
+      })}
+    </span>
+  );
+}
 
 export function Ranking() {
   const { data } = useData();
@@ -28,16 +59,18 @@ export function Ranking() {
           <p className="eyebrow">
             {shortDate(parseLocalDate(s.seasonStart))} a {shortDate(end)}
           </p>
-          <h1 className="page-title">{s.seasonName}</h1>
+          <h1 className="page-title">
+            <SplitText text={s.seasonName} />
+          </h1>
           <div className="season-bar">
-            <div className="prize prize-large">
+            <Glass className="prize prize-large" tilt={5}>
               <span className="prize-label">Prêmio para o campeão</span>
               {s.seasonPrize}
-            </div>
-            <div className="season-left">
+            </Glass>
+            <Glass className="season-left" tilt={8}>
               <span className="big-figure">{left.done ? "0" : <CountUp value={left.days} />}</span>
               <span>{left.done ? "temporada encerrada" : "dias até o fim do semestre"}</span>
-            </div>
+            </Glass>
           </div>
 
           {top.length === 3 && (
@@ -48,16 +81,23 @@ export function Ranking() {
                   <div className="podium-col" key={r.player.id}>
                     <motion.div
                       className="podium-player"
-                      initial={{ y: 20, opacity: 0.2 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.6 + idx * 0.15 }}
+                      initial={{ y: 30, opacity: 0.2, scale: 0.8 }}
+                      animate={{ y: 0, opacity: 1, scale: 1 }}
+                      transition={{ type: "spring", stiffness: 160, damping: 14, delay: 0.6 + idx * 0.15 }}
                     >
-                      <ChipTop color={PODIUM_CHIP[idx]} size={idx === 0 ? 64 : 48} />
+                      {idx === 0 && <SuitBurst />}
+                      <motion.span
+                        className="podium-chip"
+                        animate={{ rotateY: [0, 360] }}
+                        transition={{ duration: 3, delay: 1 + idx * 0.3, repeat: Infinity, repeatDelay: 4, ease: "easeInOut" }}
+                      >
+                        <ChipTop color={PODIUM_CHIP[idx]} size={idx === 0 ? 72 : 52} />
+                      </motion.span>
                       <strong>{r.player.name}</strong>
                       <span>{r.points} pts</span>
                     </motion.div>
                     <motion.div
-                      className={`podium-block podium-${idx + 1}`}
+                      className={`podium-block glass podium-${idx + 1}`}
                       style={{ height: `${PODIUM_HEIGHT[idx] * 1.4}px`, originY: 1 }}
                       initial={{ scaleY: 0 }}
                       animate={{ scaleY: 1 }}
@@ -74,8 +114,8 @@ export function Ranking() {
       </section>
 
       <section className="section">
-        <div className="wrap rank-layout">
-          <div className="table-wrap">
+        <Reveal className="wrap rank-layout">
+          <div className="table-wrap glass">
             <table className="rank-table">
               <thead>
                 <tr>
@@ -132,7 +172,7 @@ export function Ranking() {
             </table>
           </div>
 
-          <aside className="scoring">
+          <aside className="scoring glass">
             <h2>Como pontuar</h2>
             <p>
               Do 1º ao {s.pointsTable.length}º lugar de cada torneio, o jogador soma pontos. Torneios marcados com
@@ -150,7 +190,7 @@ export function Ranking() {
               Empate: vence quem tem mais vitórias, depois quem pontuou mais vezes, depois a melhor colocação.
             </p>
           </aside>
-        </div>
+        </Reveal>
       </section>
     </>
   );

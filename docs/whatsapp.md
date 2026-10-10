@@ -89,7 +89,7 @@ Guarde esta mensagem como comprovante. Até a mesa!
 
 Exemplo: `Marina`, `Sexta Big Night`, `sexta-feira, 16 de outubro`, `21:00`,
 `R$ 250`, `R$ 20.000`, `30.000`, `garantido, +5.000 fichas no stack inicial`,
-`Clube do Flop, Rua dos Pinheiros, 1000, Pinheiros, São Paulo, SP`.
+`Ypiranga Poker, Rua Exemplo, 100, São Paulo, SP`.
 
 ### `inscricao_recebida` (para o jogador, quando o dono confirma manualmente)
 

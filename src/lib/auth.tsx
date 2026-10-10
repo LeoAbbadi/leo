@@ -6,8 +6,8 @@ import { useData } from "./store";
  * configurações e uma senha fixa. Não protege nada de verdade; será
  * substituído pelo login do banco de dados (ex.: Supabase Auth).
  */
-export const DEMO_PASSWORD = "flop2026";
-const SESSION_KEY = "clube-poker:sessao";
+export const DEMO_PASSWORD = "ypiranga2026";
+const SESSION_KEY = "ypiranga-poker:sessao";
 
 interface AuthContextValue {
   email: string | null;

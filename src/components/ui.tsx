@@ -189,7 +189,7 @@ export function ConfirmButton({
   );
 }
 
-export function Pill({ tone, children }: { tone: "ok" | "warn" | "danger" | "muted" | "brass"; children: ReactNode }) {
+export function Pill({ tone, children }: { tone: "ok" | "warn" | "danger" | "muted" | "brand"; children: ReactNode }) {
   return <span className={`pill pill-${tone}`}>{children}</span>;
 }
 

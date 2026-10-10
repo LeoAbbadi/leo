@@ -8,7 +8,7 @@ import { displayPhone, normalizeBrPhone } from "../lib/messages";
 import { Field, Modal } from "./ui";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const BURST: ChipColor[] = ["red", "brass", "ivory", "brass", "red", "ivory", "brass", "red"];
+const BURST: ChipColor[] = ["red", "white", "black", "red", "metal", "white", "red", "black", "metal", "red"];
 
 interface Props {
   tournament: Tournament | null;
@@ -135,7 +135,7 @@ export function InterestModal({ tournament, onClose }: Props) {
               animate={{ scale: 1, rotate: 0 }}
               transition={{ type: "spring", stiffness: 260, damping: 15 }}
             >
-              <ChipTop color="brass" size={72} />
+              <ChipTop color="red" size={72} />
             </motion.span>
           </div>
           <p className="interest-done-lead">

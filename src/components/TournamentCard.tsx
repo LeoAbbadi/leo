@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { brl, countdown, countdownLabel, dayMonth, earlyBirdDeadline, num, tournamentStart, weekdayShort } from "../lib/format";
 import type { Settings, Tournament } from "../lib/types";
+import { Glass } from "./Kinetic";
 import { Pill } from "./ui";
 
 interface Props {
@@ -21,13 +22,14 @@ export function TournamentCard({ tournament: t, settings, interested, now, onInt
   const open = t.status === "agendado" && !started && !full;
 
   return (
-    <motion.article
-      className={`tcard ${t.featured ? "tcard-featured" : ""}`}
-      initial={{ y: 18, opacity: 0.4 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.45, delay: Math.min(index, 8) * 0.05, ease: [0.2, 0.8, 0.2, 1] }}
-      whileHover={{ y: -4 }}
+    <motion.div
+      className="tcard-wrap"
+      initial={{ y: 40, opacity: 0.3, scale: 0.97 }}
+      whileInView={{ y: 0, opacity: 1, scale: 1 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.7, delay: Math.min(index, 6) * 0.06, ease: [0.2, 0.8, 0.2, 1] }}
     >
+    <Glass as="article" tilt={3} className={`tcard ${t.featured ? "tcard-featured" : ""}`}>
       <div className="tcard-stub">
         <span className="tcard-weekday">{weekdayShort(start)}</span>
         <span className="tcard-day">{dayMonth(start)}</span>
@@ -36,7 +38,7 @@ export function TournamentCard({ tournament: t, settings, interested, now, onInt
 
       <div className="tcard-main">
         <div className="tcard-tags">
-          {t.featured && <Pill tone="brass">Destaque</Pill>}
+          {t.featured && <Pill tone="brand">Destaque</Pill>}
           {t.pointsMultiplier !== 1 && (
             <Pill tone="muted">{String(t.pointsMultiplier).replace(".", ",")}x pontos</Pill>
           )}
@@ -87,6 +89,7 @@ export function TournamentCard({ tournament: t, settings, interested, now, onInt
         <div className="tcard-seats">
           <div className="seat-bar" aria-hidden="true">
             <motion.span
+              className="seat-fill"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: Math.min(1, interested / t.maxPlayers) }}
               transition={{ duration: 0.9, delay: 0.2 + index * 0.05, ease: [0.2, 0.8, 0.2, 1] }}
@@ -108,6 +111,7 @@ export function TournamentCard({ tournament: t, settings, interested, now, onInt
           </motion.button>
         )}
       </div>
-    </motion.article>
+    </Glass>
+    </motion.div>
   );
 }

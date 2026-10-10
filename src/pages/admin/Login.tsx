@@ -1,7 +1,8 @@
 import { motion } from "motion/react";
 import { useState, type FormEvent } from "react";
 import { Link, Navigate, useNavigate } from "react-router";
-import { ChipTop } from "../../components/Cards";
+import { Backdrop } from "../../components/Backdrop";
+import { LogoCoin } from "../../components/Brand";
 import { Field } from "../../components/ui";
 import { DEMO_PASSWORD, useAuth } from "../../lib/auth";
 import { useData } from "../../lib/store";
@@ -24,20 +25,21 @@ export function Login() {
 
   return (
     <div className="login">
+      <Backdrop />
       <motion.form
-        className="login-card"
+        className="login-card glass"
         onSubmit={submit}
         initial={{ y: 24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 260, damping: 24 }}
       >
         <motion.div
-          className="login-chip"
+          className="login-coin"
           initial={{ rotate: -200, scale: 0.4 }}
           animate={{ rotate: 0, scale: 1 }}
-          transition={{ type: "spring", stiffness: 140, damping: 12 }}
+          transition={{ type: "spring", stiffness: 120, damping: 12 }}
         >
-          <ChipTop color="red" size={64} />
+          <LogoCoin size={96} period={5} />
         </motion.div>
         <h1>Área do clube</h1>
         <p className="muted">Entre para editar torneios, jogadores e o ranking de {data?.settings.clubName}.</p>

@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { InterestModal } from "../components/InterestModal";
+import { SplitText } from "../components/Kinetic";
 import { TournamentCard } from "../components/TournamentCard";
 import { isoDate, longDate, parseLocalDate, tournamentStart } from "../lib/format";
 import { useData, useNow } from "../lib/store";
@@ -41,9 +42,11 @@ export function Schedule() {
         <div className="section-head">
           <div>
             <p className="eyebrow">Grade de torneios</p>
-            <h1 className="page-title">Escolha sua mesa</h1>
+            <h1 className="page-title">
+              <SplitText text="Escolha sua mesa" />
+            </h1>
           </div>
-          <div className="segmented" role="tablist" aria-label="Período">
+          <div className="segmented glass" role="tablist" aria-label="Período">
             {(
               [
                 ["semana", "Próximos 7 dias"],

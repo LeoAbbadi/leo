@@ -1,4 +1,4 @@
-# Clube do Flop: gerenciador de torneios de poker
+# Ypiranga Poker: gerenciador de torneios
 
 Site do clube com grade de torneios, inscrição com early bird, ranking do semestre
 e uma área privada para o dono do clube editar tudo.
@@ -9,8 +9,12 @@ e uma área privada para o dono do clube editar tudo.
 
 ## O que já funciona
 
+**Visual:** cores da logo (preto, branco, vermelho e o metálico do aro), superfícies de
+vidro translúcido com reflexos que seguem o ponteiro e animações com a biblioteca Motion.
+
 **Site público**
-- Início com animação da mesa (cartas sendo distribuídas e fichas caindo), relógio do próximo torneio e letreiro com a grade.
+- Início com a ficha 3D da logo girando numa lente de vidro, royal flush de copas sendo
+  distribuído, fichas em órbita, título animado letra a letra, relógio com dígitos que viram e letreiros.
 - Grade de torneios (próximos 7 dias, todas as datas, já jogados) com contagem regressiva do early bird.
 - Botão “Quero jogar”: inscreve o jogador, marca se ganhou early bird e gera os avisos:
   WhatsApp e e-mail para o dono, e confirmação com os dados do torneio no WhatsApp do jogador.
@@ -26,7 +30,7 @@ e uma área privada para o dono do clube editar tudo.
 - Configurações: dados do clube, WhatsApp do dono, confirmação automática ou manual,
   prazo e bônus do early bird, temporada, prêmio e tabela de pontos.
 
-Acesso de demonstração: `dono@clubedoflop.com.br` / `flop2026`.
+Acesso de demonstração: `dono@exemplo.com` / `ypiranga2026`.
 
 ## Rodando no computador
 
@@ -50,7 +54,8 @@ src/
     messages.ts     Textos das mensagens de WhatsApp e e-mail
     seed.ts         Dados de exemplo
     auth.tsx        Login (demonstração)
-  components/       Cartas, fichas, cartão de torneio, modal, layouts
+  assets/           Logo do clube
+  components/       Ficha 3D, palco animado, vidro, cartas, cartão de torneio, layouts
   pages/            Início, Grade, Ranking
   pages/admin/      Área do clube
   styles/global.css Visual do site

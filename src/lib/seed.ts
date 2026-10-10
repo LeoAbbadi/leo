@@ -132,12 +132,12 @@ function seasonFor(today: Date) {
 export function createSeed(today = new Date()): Snapshot {
   const season = seasonFor(today);
   const settings: Settings = {
-    clubName: "Clube do Flop",
+    clubName: "Ypiranga Poker",
     tagline: "Torneios de poker toda semana",
     city: "São Paulo, SP",
-    address: "Rua dos Pinheiros, 1000, Pinheiros",
+    address: "Rua Exemplo, 100",
     whatsapp: "(11) 90000-0000",
-    ownerEmail: "dono@clubedoflop.com.br",
+    ownerEmail: "dono@exemplo.com",
     ownerWhatsapp: "5511900000000",
     autoConfirm: true,
     earlyBirdHours: 24,
