@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>g2</title>
+<script src="gsap.min.js"></script>
+<script src="scene.js"></script>
+<style>
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Bold.ttf") format("truetype"); font-weight: 700; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #F3F3F0; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Poppins", sans-serif; color: #111111; }
+.bg { position: absolute; inset: 0; background: radial-gradient(ellipse closest-side at 50% 36%, #FFFFFF 0%, #F3F3F0 100%); }
+.stage { position: absolute; inset: 0; }
+.stage.split { -webkit-mask-image: linear-gradient(to bottom, #000 0px, #000 900px, transparent 1060px); mask-image: linear-gradient(to bottom, #000 0px, #000 900px, transparent 1060px); }
+#world { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.card { position: absolute; background: #FFFFFF; overflow: hidden;
+  box-shadow: 0 60px 120px rgba(24,24,32,0.16), 0 24px 48px rgba(24,24,32,0.10), 0 4px 10px rgba(24,24,32,0.06); }
+.media { border-radius: 32px; }      /* 3% of the 1080 px frame width */
+.doc { border-radius: 40px; }
+.block { border-radius: 72px; }
+.media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.svgfill { position: absolute; display: block; }
+.tag { width: max-content; display: flex; align-items: center; justify-content: center; gap: 22px; overflow: visible; }
+.tag .hole { width: 30px; height: 30px; border-radius: 50%; background: #F3F3F0; box-shadow: inset 0 2px 4px rgba(24,24,32,0.25); flex: none; }
+.tag .tagtxt { font-weight: 700; letter-spacing: -0.01em; line-height: 1; }
+.h-title { font-size: 96px; font-weight: 700; line-height: 1; }
+.h-sub { font-size: 52px; font-weight: 700; line-height: 1.1; }
+.body { font-size: 30px; font-weight: 400; line-height: 1.3; }
+
+#zipTrack { position:absolute; left:0; top:0; width:100%; height:64px; background:rgba(255,255,255,0.62); }
+#zipTeeth { position:absolute; left:28px; right:28px; top:30px; height:4px; background-image:repeating-linear-gradient(90deg,#9A9AA2 0 10px,transparent 10px 18px); }
+#zipSlit { position:absolute; left:0; top:24px; height:16px; width:0; background:linear-gradient(#2A2A30,#55555C); border-radius:8px; }
+#zipPull { position:absolute; left:0; top:8px; width:48px; height:76px; border-radius:16px; background:#FFFFFF;
+  box-shadow:0 4px 10px rgba(24,24,32,0.18), 0 1px 2px rgba(24,24,32,0.2); }
+#zipPull:after { content:""; position:absolute; left:16px; top:40px; width:16px; height:22px; border-radius:6px; border:3px solid #C9C9CF; }
+
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="g2" data-start="0" data-width="1080" data-height="1920" data-duration="1.2333" data-fps="240">
+  <svg width="0" height="0" style="position:absolute">
+    <filter id="mb" filterUnits="userSpaceOnUse" x="-4000" y="-4000" width="10000" height="10000" color-interpolation-filters="sRGB">
+      <feGaussianBlur id="mbg" stdDeviation="0 0" />
+    </filter>
+  </svg>
+  <div class="bg"></div>
+  <div class="stage "><div id="world">
+
+    <div id="cardG" class="card block" style="left:360px;top:300px;width:360px;height:440px">
+      <svg class="svgfill" viewBox="0 0 300 420" style="left:50px;top:30px;width:260px;height:364.0px">
+  <path d="M98 92 L104 0" stroke="#26262B" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <path d="M202 92 L196 0" stroke="#26262B" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <path id="suitG" d="" fill="#26262B"/>
+  <path d="M112 150 C130 176 170 176 188 150" stroke="#3A3A41" stroke-width="3" fill="none"/>
+  <path d="M150 168 L150 214" stroke="#3A3A41" stroke-width="3" fill="none"/>
+</svg>
+    </div>
+    <div id="cardBag" class="card media" style="left:90px;top:567px;width:900px;height:648px">
+      <img src="img/bag.png" alt="">
+      <div id="zipTrack"><div id="zipTeeth"></div><div id="zipSlit"></div></div>
+      <div id="zipPull"></div>
+    </div>
+
+  </div></div>
+</div>
+<script>
+(function () {
+  const { K, camFor, setBlur, Scene, suitPath } = window.HF;
+  const $ = (id) => document.getElementById(id);
+
+  const T = {"zip0": 0.12, "zip1": 0.7, "rise0": 0.5, "rise1": 0.95, "D": 1.2333};
+  const A = [540, 960], id = [540, 960, 1];
+  const cam = K([[0, id], [T.D, camFor([540, 891], [540, 891], 1.02, A), "sine.inOut"]]);
+  const zx = K([[0, 34], [T.zip0, 34], [T.zip1, 818, "power2.inOut"]]);
+  const rise = K([[0, 340], [T.rise0, 340], [T.rise1, 0, "power3.out"]]);
+  $("suitG").setAttribute("d", suitPath(1));
+  const pull = $("zipPull"), slit = $("zipSlit"), cardG = $("cardG");
+  const tl = Scene({ id: "g2", duration: T.D, anchor: A, worldId: "world", blurNodeId: "mbg", filterId: "mb", cam,
+    update(t) {
+      const x = zx(t);
+      pull.style.transform = "translateX(" + x.toFixed(2) + "px)";
+      slit.style.width = Math.max(0, x + 24).toFixed(2) + "px";
+      cardG.style.transform = "translateY(" + rise(t).toFixed(2) + "px)";
+    } });
+  window.__timelines["g2"] = tl;
+
+})();
+</script>
+</body>
+</html>

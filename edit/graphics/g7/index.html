@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>g7</title>
+<script src="gsap.min.js"></script>
+<script src="scene.js"></script>
+<style>
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Bold.ttf") format("truetype"); font-weight: 700; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #F3F3F0; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Poppins", sans-serif; color: #111111; }
+.bg { position: absolute; inset: 0; background: radial-gradient(ellipse closest-side at 50% 36%, #FFFFFF 0%, #F3F3F0 100%); }
+.stage { position: absolute; inset: 0; }
+.stage.split { -webkit-mask-image: linear-gradient(to bottom, #000 0px, #000 900px, transparent 1060px); mask-image: linear-gradient(to bottom, #000 0px, #000 900px, transparent 1060px); }
+#world { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.card { position: absolute; background: #FFFFFF; overflow: hidden;
+  box-shadow: 0 60px 120px rgba(24,24,32,0.16), 0 24px 48px rgba(24,24,32,0.10), 0 4px 10px rgba(24,24,32,0.06); }
+.media { border-radius: 32px; }      /* 3% of the 1080 px frame width */
+.doc { border-radius: 40px; }
+.block { border-radius: 72px; }
+.media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.svgfill { position: absolute; display: block; }
+.tag { width: max-content; display: flex; align-items: center; justify-content: center; gap: 22px; overflow: visible; }
+.tag .hole { width: 30px; height: 30px; border-radius: 50%; background: #F3F3F0; box-shadow: inset 0 2px 4px rgba(24,24,32,0.25); flex: none; }
+.tag .tagtxt { font-weight: 700; letter-spacing: -0.01em; line-height: 1; }
+.h-title { font-size: 96px; font-weight: 700; line-height: 1; }
+.h-sub { font-size: 52px; font-weight: 700; line-height: 1.1; }
+.body { font-size: 30px; font-weight: 400; line-height: 1.3; }
+
+#doc36 { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px; }
+#doc36 .lbl { color:#B25730; font-weight:600; }
+#doc36 .pill { width:270px; height:160px; border-radius:72px; background:#D97757; color:#FFFFFF; display:flex; align-items:center; justify-content:center; }
+#doc36 .eq { color:#111111; }
+#doc36 .note { color:#111111; opacity:0.6; }
+
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="g7" data-start="0" data-width="1080" data-height="1920" data-duration="1.8667" data-fps="240">
+  <svg width="0" height="0" style="position:absolute">
+    <filter id="mb" filterUnits="userSpaceOnUse" x="-4000" y="-4000" width="10000" height="10000" color-interpolation-filters="sRGB">
+      <feGaussianBlur id="mbg" stdDeviation="0 0" />
+    </filter>
+  </svg>
+  <div class="bg"></div>
+  <div class="stage split"><div id="world">
+
+    <div id="doc36" class="card doc" style="left:150px;top:330px;width:430px;height:560px">
+      <div class="body lbl">Eu visto</div>
+      <div class="pill"><div class="h-title">36</div></div>
+      <div class="h-sub eq">≈ PP · XS</div>
+      <div class="body note">numeração BR</div>
+    </div>
+    <div id="tag7" class="card doc tag" style="left:640px;top:560px;height:166px;padding:0 46px;transform-origin:50% 50%"><div class="hole"></div><div class="tagtxt" style="font-size:52px">XS/S</div></div>
+
+  </div></div>
+</div>
+<script>
+(function () {
+  const { K, camFor, setBlur, Scene, suitPath } = window.HF;
+  const $ = (id) => document.getElementById(id);
+
+  const T = {"in0": 1.05, "in1": 1.51, "D": 1.8667};
+  const A = [540, 960], id = [540, 960, 1];
+  const cam = K([[0, id], [T.D, camFor([540, 610], [540, 610], 1.03, A), "sine.inOut"]]);
+  const slide = K([[0, 760], [T.in0, 760], [T.in1, 0, "power3.out"]]);
+  const tg = $("tag7");
+  const tl = Scene({ id: "g7", duration: T.D, anchor: A, worldId: "world", blurNodeId: "mbg", filterId: "mb", cam,
+    update(t) { tg.style.transform = "translateX(" + slide(t).toFixed(2) + "px) rotate(-6deg)"; } });
+  window.__timelines["g7"] = tl;
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>g4</title>
+<script src="gsap.min.js"></script>
+<script src="scene.js"></script>
+<style>
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Bold.ttf") format("truetype"); font-weight: 700; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #F3F3F0; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Poppins", sans-serif; color: #111111; }
+.bg { position: absolute; inset: 0; background: radial-gradient(ellipse closest-side at 50% 36%, #FFFFFF 0%, #F3F3F0 100%); }
+.stage { position: absolute; inset: 0; }
+.stage.split { -webkit-mask-image: linear-gradient(to bottom, #000 0px, #000 900px, transparent 1060px); mask-image: linear-gradient(to bottom, #000 0px, #000 900px, transparent 1060px); }
+#world { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.card { position: absolute; background: #FFFFFF; overflow: hidden;
+  box-shadow: 0 60px 120px rgba(24,24,32,0.16), 0 24px 48px rgba(24,24,32,0.10), 0 4px 10px rgba(24,24,32,0.06); }
+.media { border-radius: 32px; }      /* 3% of the 1080 px frame width */
+.doc { border-radius: 40px; }
+.block { border-radius: 72px; }
+.media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.svgfill { position: absolute; display: block; }
+.tag { width: max-content; display: flex; align-items: center; justify-content: center; gap: 22px; overflow: visible; }
+.tag .hole { width: 30px; height: 30px; border-radius: 50%; background: #F3F3F0; box-shadow: inset 0 2px 4px rgba(24,24,32,0.25); flex: none; }
+.tag .tagtxt { font-weight: 700; letter-spacing: -0.01em; line-height: 1; }
+.h-title { font-size: 96px; font-weight: 700; line-height: 1; }
+.h-sub { font-size: 52px; font-weight: 700; line-height: 1.1; }
+.body { font-size: 30px; font-weight: 400; line-height: 1.3; }
+
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="g4" data-start="0" data-width="1080" data-height="1920" data-duration="2.7833" data-fps="240">
+  <svg width="0" height="0" style="position:absolute">
+    <filter id="mb" filterUnits="userSpaceOnUse" x="-4000" y="-4000" width="10000" height="10000" color-interpolation-filters="sRGB">
+      <feGaussianBlur id="mbg" stdDeviation="0 0" />
+    </filter>
+  </svg>
+  <div class="bg"></div>
+  <div class="stage "><div id="world">
+
+    <div id="cardM" class="card block" style="left:160px;top:355px;width:760px;height:860px">
+      <svg class="svgfill" viewBox="0 0 760 860" style="left:0;top:0;width:760px;height:860px">
+        <circle cx="380" cy="122" r="64" fill="#ECEAE5"/>
+        <path d="M352 178 L408 178 L412 222 L348 222 Z" fill="#ECEAE5"/>
+        <path d="M226 262 C250 226 300 218 348 216 L412 216 C460 218 510 226 534 262 C552 300 548 360 540 420
+                 L520 420 C516 470 512 520 522 560 C536 620 540 680 528 740 L500 860 L260 860 L232 740
+                 C220 680 224 620 238 560 C248 520 244 470 240 420 L220 420 C212 360 208 300 226 262 Z" fill="#ECEAE5"/>
+      </svg>
+      <svg class="svgfill" viewBox="0 0 300 420" style="left:230px;top:216px;width:300px;height:420.0px">
+  <path d="M98 92 L104 0" stroke="#26262B" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <path d="M202 92 L196 0" stroke="#26262B" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <path id="suitM" d="" fill="#26262B"/>
+  <path d="M112 150 C130 176 170 176 188 150" stroke="#3A3A41" stroke-width="3" fill="none"/>
+  <path d="M150 168 L150 214" stroke="#3A3A41" stroke-width="3" fill="none"/>
+</svg>
+      <svg class="svgfill" viewBox="0 0 760 860" style="left:0;top:0;width:760px;height:860px;overflow:visible">
+        <path id="chevL" d="M168 520 L198 550 L168 580" stroke="#D97757" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0"/>
+        <path id="chevR" d="M592 520 L562 550 L592 580" stroke="#D97757" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0"/>
+      </svg>
+    </div>
+
+  </div></div>
+</div>
+<script>
+(function () {
+  const { K, camFor, setBlur, Scene, suitPath } = window.HF;
+  const $ = (id) => document.getElementById(id);
+
+  const T = {"push0": 0.55, "push1": 2.35, "m0": 1.303, "m1": 2.103, "D": 2.7833};
+  const A = [540, 1215], id = [540, 1215, 1];
+  const cam = K([[0, id], [T.push0, id], [T.push1, [540, 1215, 1.6], "power2.inOut"]]);
+  const morph = K([[0, 0], [T.m0, 0], [T.m1, 1, "power2.inOut"]]);
+  const chevO = K([[0, 0], [T.m0 - 0.1, 0], [T.m0 + 0.08, 1, "power1.out"], [T.m1 + 0.15, 1], [T.m1 + 0.45, 0, "power1.in"]]);
+  const chevX = K([[0, 0], [T.m0, 0], [T.m1, 34, "power2.inOut"]]);
+  const pathM = $("suitM"), cl = $("chevL"), cr = $("chevR");
+  const tl = Scene({ id: "g4", duration: T.D, anchor: A, worldId: "world", blurNodeId: "mbg", filterId: "mb", cam,
+    update(t) {
+      pathM.setAttribute("d", suitPath(morph(t)));
+      const o = chevO(t), x = chevX(t);
+      cl.setAttribute("opacity", o.toFixed(3)); cr.setAttribute("opacity", o.toFixed(3));
+      cl.setAttribute("transform", "translate(" + x.toFixed(2) + " 0)"); cr.setAttribute("transform", "translate(" + (-x).toFixed(2) + " 0)");
+    } });
+  window.__timelines["g4"] = tl;
+
+})();
+</script>
+</body>
+</html>

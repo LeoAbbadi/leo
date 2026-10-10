@@ -1,0 +1,278 @@
+{
+ "format": {
+  "video": "h264 1080x1920 60/1 frames=1750 pix=yuv420p bitrate=6316 kb/s",
+  "audio": "aac 48000 Hz ch=2 270 kb/s",
+  "duration": "29.166667",
+  "END": 29.166666666666668
+ },
+ "decoded_frames": 1750,
+ "cut_checks": [
+  {
+   "frame": 90,
+   "seg": 1,
+   "layout": "B",
+   "expected_src": 45,
+   "best_src": 45,
+   "ok": true,
+   "mse": 6.5
+  },
+  {
+   "frame": 91,
+   "seg": 1,
+   "layout": "B",
+   "expected_src": 57,
+   "best_src": 57,
+   "ok": true,
+   "mse": 2.0
+  },
+  {
+   "frame": 315,
+   "seg": 1,
+   "layout": "B",
+   "expected_src": 169,
+   "best_src": 169,
+   "ok": true,
+   "mse": 5.6
+  },
+  {
+   "frame": 316,
+   "seg": 2,
+   "layout": "C",
+   "check": "graphics (no camera)"
+  },
+  {
+   "frame": 389,
+   "seg": 2,
+   "layout": "C",
+   "check": "graphics (no camera)"
+  },
+  {
+   "frame": 390,
+   "seg": 3,
+   "layout": "A",
+   "expected_src": 227,
+   "best_src": 227,
+   "ok": true,
+   "mse": 80.0
+  },
+  {
+   "frame": 531,
+   "seg": 3,
+   "layout": "A",
+   "expected_src": 298,
+   "best_src": 298,
+   "ok": true,
+   "mse": 260.0
+  },
+  {
+   "frame": 532,
+   "seg": 4,
+   "layout": "C",
+   "check": "graphics (no camera)"
+  },
+  {
+   "frame": 698,
+   "seg": 4,
+   "layout": "C",
+   "check": "graphics (no camera)"
+  },
+  {
+   "frame": 699,
+   "seg": 5,
+   "layout": "B",
+   "expected_src": 382,
+   "best_src": 382,
+   "ok": true,
+   "mse": 5.5
+  },
+  {
+   "frame": 829,
+   "seg": 5,
+   "layout": "B",
+   "expected_src": 447,
+   "best_src": 447,
+   "ok": true,
+   "mse": 8.3
+  },
+  {
+   "frame": 830,
+   "seg": 6,
+   "layout": "A",
+   "expected_src": 461,
+   "best_src": 461,
+   "ok": true,
+   "mse": 147.5
+  },
+  {
+   "frame": 1098,
+   "seg": 6,
+   "layout": "A",
+   "expected_src": 595,
+   "best_src": 595,
+   "ok": true,
+   "mse": 232.9
+  },
+  {
+   "frame": 1099,
+   "seg": 7,
+   "layout": "B",
+   "expected_src": 610,
+   "best_src": 610,
+   "ok": true,
+   "mse": 5.9
+  },
+  {
+   "frame": 1210,
+   "seg": 7,
+   "layout": "B",
+   "expected_src": 666,
+   "best_src": 666,
+   "ok": true,
+   "mse": 5.5
+  },
+  {
+   "frame": 1211,
+   "seg": 8,
+   "layout": "C",
+   "check": "graphics (no camera)"
+  },
+  {
+   "frame": 1370,
+   "seg": 8,
+   "layout": "C",
+   "check": "graphics (no camera)"
+  },
+  {
+   "frame": 1371,
+   "seg": 8,
+   "layout": "C",
+   "check": "graphics (no camera)"
+  },
+  {
+   "frame": 1433,
+   "seg": 8,
+   "layout": "C",
+   "check": "graphics (no camera)"
+  },
+  {
+   "frame": 1434,
+   "seg": 9,
+   "layout": "A",
+   "expected_src": 787,
+   "best_src": 787,
+   "ok": true,
+   "mse": 297.2
+  }
+ ],
+ "head_alignment": [
+  {
+   "seg": 1,
+   "frame": 0,
+   "kind": "primeiro quadro",
+   "seam_step": 9.1,
+   "inside_step": 10.8
+  },
+  {
+   "seg": 1,
+   "frame": 120,
+   "kind": "movimento mais rápido",
+   "seam_step": 6.9,
+   "inside_step": 5.7
+  },
+  {
+   "seg": 5,
+   "frame": 699,
+   "kind": "primeiro quadro",
+   "seam_step": 13.7,
+   "inside_step": 11.6
+  },
+  {
+   "seg": 5,
+   "frame": 745,
+   "kind": "movimento mais rápido",
+   "seam_step": 2.2,
+   "inside_step": 3.3
+  },
+  {
+   "seg": 7,
+   "frame": 1099,
+   "kind": "primeiro quadro",
+   "seam_step": 15.4,
+   "inside_step": 14.1
+  },
+  {
+   "seg": 7,
+   "frame": 1142,
+   "kind": "movimento mais rápido",
+   "seam_step": 11.4,
+   "inside_step": 11.8
+  }
+ ],
+ "loudness": {
+  "voice": {
+   "I_LUFS": -14.0,
+   "TP_dBTP": 3.7
+  },
+  "sfx": {
+   "I_LUFS": -17.7,
+   "TP_dBTP": -5.1
+  },
+  "riser": {
+   "I_LUFS": -20.4,
+   "TP_dBTP": -10.3
+  },
+  "music": {
+   "I_LUFS": -24.0,
+   "TP_dBTP": -10.9
+  },
+  "master_wav": {
+   "I_LUFS": -14.0,
+   "TP_dBTP": -1.4
+  },
+  "final_mp4": {
+   "I_LUFS": -14.0,
+   "TP_dBTP": -1.3
+  }
+ },
+ "whoosh_alignment": [
+  {
+   "motion_mid_s": 1.75,
+   "whoosh_peak_s": 1.75
+  },
+  {
+   "motion_mid_s": 21.0773,
+   "whoosh_peak_s": 21.0773
+  }
+ ],
+ "riser": {
+  "audible_end_s": 5.2666,
+  "hook_junction_s": 5.2667
+ },
+ "junction_silence": [
+  {
+   "junction_s": 1.507,
+   "silence_ms": 130
+  },
+  {
+   "junction_s": 6.49,
+   "silence_ms": 120
+  },
+  {
+   "junction_s": 13.823,
+   "silence_ms": 120
+  },
+  {
+   "junction_s": 18.307,
+   "silence_ms": 100
+  },
+  {
+   "junction_s": 22.84,
+   "silence_ms": 120
+  },
+  {
+   "junction_s": 23.89,
+   "silence_ms": 120
+  }
+ ],
+ "voice_last_audible_s": 29.128
+}

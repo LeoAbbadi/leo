@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>g8</title>
+<script src="gsap.min.js"></script>
+<script src="scene.js"></script>
+<style>
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Bold.ttf") format("truetype"); font-weight: 700; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #F3F3F0; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Poppins", sans-serif; color: #111111; }
+.bg { position: absolute; inset: 0; background: radial-gradient(ellipse closest-side at 50% 36%, #FFFFFF 0%, #F3F3F0 100%); }
+.stage { position: absolute; inset: 0; }
+.stage.split { -webkit-mask-image: linear-gradient(to bottom, #000 0px, #000 900px, transparent 1060px); mask-image: linear-gradient(to bottom, #000 0px, #000 900px, transparent 1060px); }
+#world { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.card { position: absolute; background: #FFFFFF; overflow: hidden;
+  box-shadow: 0 60px 120px rgba(24,24,32,0.16), 0 24px 48px rgba(24,24,32,0.10), 0 4px 10px rgba(24,24,32,0.06); }
+.media { border-radius: 32px; }      /* 3% of the 1080 px frame width */
+.doc { border-radius: 40px; }
+.block { border-radius: 72px; }
+.media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.svgfill { position: absolute; display: block; }
+.tag { width: max-content; display: flex; align-items: center; justify-content: center; gap: 22px; overflow: visible; }
+.tag .hole { width: 30px; height: 30px; border-radius: 50%; background: #F3F3F0; box-shadow: inset 0 2px 4px rgba(24,24,32,0.25); flex: none; }
+.tag .tagtxt { font-weight: 700; letter-spacing: -0.01em; line-height: 1; }
+.h-title { font-size: 96px; font-weight: 700; line-height: 1; }
+.h-sub { font-size: 52px; font-weight: 700; line-height: 1.1; }
+.body { font-size: 30px; font-weight: 400; line-height: 1.3; }
+
+#checkB { position:absolute; left:560px; top:600px; width:170px; height:170px; border-radius:50%; background:#34C759;
+  display:flex; align-items:center; justify-content:center; transform:scale(0);
+  box-shadow:0 60px 120px rgba(24,24,32,0.16), 0 24px 48px rgba(24,24,32,0.10), 0 4px 10px rgba(24,24,32,0.06); }
+#photo8 { position:absolute; left:60px; top:60px; width:300px; height:241px; }
+
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="g8" data-start="0" data-width="1080" data-height="1920" data-duration="3.7167" data-fps="240">
+  <svg width="0" height="0" style="position:absolute">
+    <filter id="mb" filterUnits="userSpaceOnUse" x="-4000" y="-4000" width="10000" height="10000" color-interpolation-filters="sRGB">
+      <feGaussianBlur id="mbg" stdDeviation="0 0" />
+    </filter>
+  </svg>
+  <div class="bg"></div>
+  <div class="stage "><div id="world">
+
+    <div id="tag8" class="card doc tag" style="left:290px;top:875px;height:340px;padding:0 95px;transform-origin:50% 50%"><div class="hole"></div><div class="tagtxt" style="font-size:96px">XS/S</div></div>
+    <div id="block8" class="card block" style="left:1250px;top:355px;width:820px;height:860px;transform-origin:50% 100%">
+      <svg class="svgfill" viewBox="0 0 820 860" style="left:0;top:0;width:820px;height:860px">
+        <path d="M120 860 C150 600 260 420 470 360 C560 336 660 340 820 380 L820 860 Z" fill="#EFEDE8"/>
+        <path id="loop8" d="" stroke="#3A3A41" stroke-width="30" fill="none" stroke-linecap="round"/>
+        <path d="M528 0 C524 120 520 220 512 330 C506 420 500 560 488 860" stroke="#26262B" stroke-width="34" fill="none"/>
+        <circle cx="519" cy="236" r="26" stroke="#BDBDC4" stroke-width="9" fill="none"/>
+        <g id="slider8">
+          <rect x="-46" y="-62" width="92" height="124" rx="22" fill="#F4F4F6" stroke="#B9B9C0" stroke-width="4"/>
+          <rect x="-28" y="-40" width="56" height="16" rx="8" fill="#2A2A30"/>
+          <rect x="-28" y="24" width="56" height="16" rx="8" fill="#2A2A30"/>
+        </g>
+      </svg>
+      <div id="photo8" class="card media"><img src="img/strap.png" alt=""></div>
+      <div id="checkB"><svg viewBox="0 0 100 100" width="96" height="96"><path d="M24 52 L43 70 L77 32" stroke="#FFFFFF" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+
+  </div></div>
+</div>
+<script>
+(function () {
+  const { K, camFor, setBlur, Scene, suitPath } = window.HF;
+  const $ = (id) => document.getElementById(id);
+
+  const T = {"w0": 0.444, "wmid": 0.894, "w1": 1.494, "z0": 1.604, "z1": 2.154, "s0": 2.194, "s1": 2.794, "ok": 2.657, "D": 3.7167};
+  const A = [540, 960], id = [540, 960, 1];
+  const cS = camFor([1660, 785], [540, 785], 1.0, A);
+  const mid = id.map((v, i) => v + (cS[i] - v) * (0.45 / 1.05));
+  const cam = K([[0, id], [T.w0, id], [T.wmid, mid, "power3.in"], [T.w1, cS, "power3.out"]]);
+  const zoom = K([[0, 1], [T.z0, 1], [T.z1, 1.25, "power2.inOut"]]);
+  const sy = K([[0, 300], [T.s0, 300], [T.s1, 470, "power2.inOut"]]);
+  const pop = K([[0, 0], [T.ok, 0], [T.ok + 0.35, 1, "back.out(1.7)"]]);
+  const tBlur = K([[0, 0], [T.w0, 0], [T.wmid, 14, "power2.in"], [T.w1, 9, "power2.out"]]);
+  const tOp = K([[0, 1], [T.w0, 1], [T.wmid, 0.7], [T.w1, 0.4]]);
+  const block = $("block8"), slider = $("slider8"), loop = $("loop8"), chk = $("checkB"), tg = $("tag8");
+  // strap x on the main band at height y (matches the band path)
+  const bandX = (y) => 528 - (y / 330) * 16 - Math.max(0, (y - 330) / 530) * 8;
+  const tl = Scene({ id: "g8", duration: T.D, anchor: A, worldId: "world", blurNodeId: "mbg", filterId: "mb", cam,
+    update(t) {
+      block.style.transform = "scale(" + zoom(t).toFixed(4) + ")";
+      const y = sy(t), x = bandX(y);
+      slider.setAttribute("transform", "translate(" + x.toFixed(2) + " " + y.toFixed(2) + ")");
+      loop.setAttribute("d", "M" + (x + 30).toFixed(1) + " " + (y - 50).toFixed(1) + " C" + (x + 52).toFixed(1) + " " + (y - 120).toFixed(1) + " " + (560).toFixed(1) + " 300 545 262");
+      chk.style.transform = "scale(" + pop(t).toFixed(4) + ")";
+      setBlur(tg, tBlur(t)); tg.style.opacity = tOp(t);
+    } });
+  window.__timelines["g8"] = tl;
+
+})();
+</script>
+</body>
+</html>
