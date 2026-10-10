@@ -1,0 +1,122 @@
+:root {
+  --bg: #ffffff;
+  --text: #1a1a1a;
+  --muted: #5b6270;
+  --accent: #2563eb;
+  --accent-text: #ffffff;
+  --border: #e5e7eb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1115;
+    --text: #f3f4f6;
+    --muted: #9ca3af;
+    --accent: #60a5fa;
+    --accent-text: #0f1115;
+    --border: #262a33;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f1115;
+  --text: #f3f4f6;
+  --muted: #9ca3af;
+  --accent: #60a5fa;
+  --accent-text: #0f1115;
+  --border: #262a33;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 16px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+}
+
+.logo {
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.site-header nav a {
+  margin-left: 1rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.site-header nav a:hover {
+  color: var(--accent);
+}
+
+.hero {
+  text-align: center;
+  padding: 5rem 16px;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  margin: 0 0 0.5rem;
+}
+
+.hero p {
+  color: var(--muted);
+  max-width: 36rem;
+  margin: 0 auto 2rem;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--accent-text);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.content {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 3rem 16px;
+  border-top: 1px solid var(--border);
+}
+
+.content h2 {
+  margin-top: 0;
+}
+
+.site-footer {
+  text-align: center;
+  padding: 2rem 16px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .site-header nav a:first-child {
+    margin-left: 0;
+  }
+}
