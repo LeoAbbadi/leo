@@ -4,6 +4,7 @@ import { earlyBirdDeadline, longDate, tournamentStart } from "../lib/format";
 import { useData } from "../lib/store";
 import type { Interest, Tournament } from "../lib/types";
 import { ChipTop, type ChipColor } from "./Cards";
+import { displayPhone, normalizeBrPhone } from "../lib/messages";
 import { Field, Modal } from "./ui";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -38,6 +39,8 @@ export function InterestModal({ tournament, onClose }: Props) {
     const next: Record<string, string> = {};
     if (form.name.trim().length < 3) next.name = "Escreva seu nome completo.";
     if (!EMAIL_RE.test(form.email.trim())) next.email = "Digite um e-mail válido, como nome@exemplo.com.";
+    if (form.phone.trim() && !normalizeBrPhone(form.phone))
+      next.phone = "Use DDD e número, como (11) 91234-5678.";
     setErrors(next);
     if (Object.keys(next).length) return;
     setBusy(true);
@@ -51,7 +54,11 @@ export function InterestModal({ tournament, onClose }: Props) {
   }
 
   return (
-    <Modal open={!!tournament} onClose={onClose} title={done ? "Interesse registrado" : "Quero jogar"}>
+    <Modal
+      open={!!tournament}
+      onClose={onClose}
+      title={done ? (done.status === "confirmado" ? "Inscrição confirmada" : "Interesse registrado") : "Quero jogar"}
+    >
       {tournament && !done && (
         <form className="interest-form" onSubmit={submit} noValidate>
           <div className="interest-summary">
@@ -89,9 +96,13 @@ export function InterestModal({ tournament, onClose }: Props) {
           <Field
             id="interest-phone"
             label="WhatsApp (opcional)"
+            hint="Enviamos a confirmação com data, horário e local para este número."
             type="tel"
+            inputMode="tel"
             autoComplete="tel"
+            placeholder="(11) 91234-5678"
             value={form.phone}
+            error={errors.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
           />
           {errors.form && <p className="field-error">{errors.form}</p>}
@@ -128,14 +139,34 @@ export function InterestModal({ tournament, onClose }: Props) {
             </motion.span>
           </div>
           <p className="interest-done-lead">
-            Pronto, {done.name.split(" ")[0]}. O clube recebeu seu pedido para o <strong>{tournament.name}</strong>.
+            {done.status === "confirmado" ? (
+              <>
+                Pronto, {done.name.split(" ")[0]}. Você está inscrito no <strong>{tournament.name}</strong>,{" "}
+                {longDate(tournamentStart(tournament))} às {tournament.time}.
+              </>
+            ) : (
+              <>
+                Pronto, {done.name.split(" ")[0]}. O clube recebeu seu pedido para o <strong>{tournament.name}</strong> e
+                vai confirmar sua vaga.
+              </>
+            )}
           </p>
           {done.earlyBird && (
             <p className="eb-note is-on">
               Early bird garantido: <strong>{settings.earlyBirdBonus}</strong>.
             </p>
           )}
-          <p className="muted">A confirmação da vaga chega no e-mail {done.email}.</p>
+          {done.phone ? (
+            <p className="wa-note">
+              <span className="wa-dot" aria-hidden="true" />
+              {done.status === "confirmado"
+                ? "A confirmação com data, horário e local vai para o WhatsApp "
+                : "Você recebe a confirmação da vaga no WhatsApp "}
+              <strong>{displayPhone(done.phone)}</strong>.
+            </p>
+          ) : (
+            <p className="muted">Sem WhatsApp informado, o clube entra em contato pelo e-mail {done.email}.</p>
+          )}
           <button type="button" className="btn btn-ghost btn-block" onClick={onClose}>
             Voltar para a grade
           </button>

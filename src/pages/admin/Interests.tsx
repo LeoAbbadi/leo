@@ -2,17 +2,26 @@ import { useMemo, useState } from "react";
 import { ConfirmButton, Pill, useToast } from "../../components/ui";
 import { dateTime, isoDate, tournamentStart, weekdayShort } from "../../lib/format";
 import { useData } from "../../lib/store";
-import type { InterestStatus } from "../../lib/types";
+import { displayPhone } from "../../lib/messages";
+import type { InterestStatus, MessageChannel, OutboxMessage } from "../../lib/types";
 
-type Tab = "inscricoes" | "emails";
+type Tab = "inscricoes" | "mensagens";
+type ChannelFilter = "" | MessageChannel;
+
+const KIND_LABEL: Record<OutboxMessage["kind"], string> = {
+  aviso_dono: "Para o dono",
+  confirmacao_jogador: "Para o jogador",
+  interesse_recebido: "Para o jogador",
+};
 
 export function Interests() {
   const { data, updateInterest, deleteInterest } = useData();
   const toast = useToast();
   const [tab, setTab] = useState<Tab>("inscricoes");
   const [tournamentId, setTournamentId] = useState("");
-  const [status, setStatus] = useState<InterestStatus | "">("pendente");
+  const [status, setStatus] = useState<InterestStatus | "">("");
   const [openEmail, setOpenEmail] = useState<string | null>(null);
+  const [channel, setChannel] = useState<ChannelFilter>("");
 
   const tournaments = useMemo(() => {
     if (!data) return [];
@@ -28,10 +37,13 @@ export function Interests() {
     .filter((i) => (!tournamentId || i.tournamentId === tournamentId) && (!status || i.status === status))
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 
-  async function setInterestStatus(id: string, next: InterestStatus, name: string) {
+  async function setInterestStatus(id: string, next: InterestStatus, name: string, phone: string) {
     await updateInterest(id, { status: next });
-    toast(next === "confirmado" ? `Vaga de ${name} confirmada.` : `Inscrição de ${name} cancelada.`);
+    if (next === "cancelado") return toast(`Inscrição de ${name} cancelada.`);
+    toast(phone ? `Vaga de ${name} confirmada. A mensagem de confirmação entrou na fila do WhatsApp.` : `Vaga de ${name} confirmada.`);
   }
+
+  const messages = data.outbox.filter((m) => !channel || m.channel === channel);
 
   return (
     <div className="admin-page">
@@ -41,8 +53,8 @@ export function Interests() {
           <button type="button" role="tab" aria-selected={tab === "inscricoes"} className={tab === "inscricoes" ? "is-active" : ""} onClick={() => setTab("inscricoes")}>
             Interessados
           </button>
-          <button type="button" role="tab" aria-selected={tab === "emails"} className={tab === "emails" ? "is-active" : ""} onClick={() => setTab("emails")}>
-            E-mails recebidos ({data.outbox.length})
+          <button type="button" role="tab" aria-selected={tab === "mensagens"} className={tab === "mensagens" ? "is-active" : ""} onClick={() => setTab("mensagens")}>
+            Mensagens ({data.outbox.length})
           </button>
         </div>
       </header>
@@ -96,7 +108,7 @@ export function Interests() {
                         <br />
                         <small className="muted selectable">
                           {i.email}
-                          {i.phone && ` · ${i.phone}`}
+                          {i.phone && ` · ${displayPhone(i.phone)}`}
                         </small>
                       </td>
                       <td>
@@ -121,12 +133,12 @@ export function Interests() {
                       </td>
                       <td className="row-actions">
                         {i.status !== "confirmado" && (
-                          <button type="button" className="btn btn-primary btn-sm" onClick={() => setInterestStatus(i.id, "confirmado", i.name)}>
+                          <button type="button" className="btn btn-primary btn-sm" onClick={() => setInterestStatus(i.id, "confirmado", i.name, i.phone)}>
                             Confirmar vaga
                           </button>
                         )}
                         {i.status !== "cancelado" && (
-                          <button type="button" className="btn btn-ghost btn-sm" onClick={() => setInterestStatus(i.id, "cancelado", i.name)}>
+                          <button type="button" className="btn btn-ghost btn-sm" onClick={() => setInterestStatus(i.id, "cancelado", i.name, i.phone)}>
                             Cancelar
                           </button>
                         )}
@@ -156,26 +168,58 @@ export function Interests() {
         </>
       )}
 
-      {tab === "emails" && (
+      {tab === "mensagens" && (
         <section className="panel">
           <p className="muted">
-            Cada “Quero jogar” no site gera um e-mail para {data.settings.ownerEmail}. O envio real começa quando o
-            serviço de e-mail for conectado; até lá, eles ficam guardados aqui.
+            Cada inscrição gera um aviso para o dono no WhatsApp {displayPhone(data.settings.ownerWhatsapp)} e no e-mail{" "}
+            {data.settings.ownerEmail}. Quem informa o WhatsApp recebe a confirmação com os dados do torneio. Todas as
+            mensagens saem do mesmo número do clube. O envio real começa quando o WhatsApp do clube for conectado; até lá,
+            elas ficam guardadas aqui.
           </p>
-          {data.outbox.length === 0 && <p className="empty">Nenhum e-mail ainda. Faça uma inscrição pelo site para testar.</p>}
-          <ul className="mail-list">
-            {data.outbox.map((m) => (
-              <li key={m.id} className="mail">
-                <button type="button" className="mail-head" aria-expanded={openEmail === m.id} onClick={() => setOpenEmail(openEmail === m.id ? null : m.id)}>
-                  <span className="mail-subject">{m.subject}</span>
-                  <span className="mail-meta">
-                    {dateTime(new Date(m.createdAt))}
-                    <Pill tone={m.sent ? "ok" : "warn"}>{m.sent ? "Enviado" : "Aguardando envio"}</Pill>
-                  </span>
-                </button>
-                {openEmail === m.id && <pre className="mail-body">{`Para: ${m.to}\n\n${m.body}`}</pre>}
-              </li>
+          <div className="segmented" role="tablist" aria-label="Canal">
+            {(
+              [
+                ["", "Todas"],
+                ["whatsapp", "WhatsApp"],
+                ["email", "E-mail"],
+              ] as [ChannelFilter, string][]
+            ).map(([key, label]) => (
+              <button key={key || "all"} type="button" role="tab" aria-selected={channel === key} className={channel === key ? "is-active" : ""} onClick={() => setChannel(key)}>
+                {label}
+              </button>
             ))}
+          </div>
+          {messages.length === 0 && <p className="empty">Nenhuma mensagem ainda. Faça uma inscrição pelo site para testar.</p>}
+          <ul className="mail-list">
+            {messages.map((m) =>
+              m.channel === "whatsapp" ? (
+                <li key={m.id} className="wa-item">
+                  <div className="wa-meta">
+                    <span className="wa-dot" aria-hidden="true" />
+                    <span>
+                      <b>{KIND_LABEL[m.kind]}</b> · {displayPhone(m.to)}
+                    </span>
+                    <Pill tone={m.sent ? "ok" : "warn"}>{m.sent ? "Enviada" : "Aguardando envio"}</Pill>
+                  </div>
+                  <div className="wa-bubble">
+                    <p>{m.body}</p>
+                    <span className="wa-time">{dateTime(new Date(m.createdAt))}</span>
+                  </div>
+                  {m.template && <small className="muted">Modelo: {m.template}</small>}
+                </li>
+              ) : (
+                <li key={m.id} className="mail">
+                  <button type="button" className="mail-head" aria-expanded={openEmail === m.id} onClick={() => setOpenEmail(openEmail === m.id ? null : m.id)}>
+                    <span className="mail-subject">E-mail · {m.subject}</span>
+                    <span className="mail-meta">
+                      {dateTime(new Date(m.createdAt))}
+                      <Pill tone={m.sent ? "ok" : "warn"}>{m.sent ? "Enviado" : "Aguardando envio"}</Pill>
+                    </span>
+                  </button>
+                  {openEmail === m.id && <pre className="mail-body">{`Para: ${m.to}\n\n${m.body}`}</pre>}
+                </li>
+              ),
+            )}
           </ul>
         </section>
       )}

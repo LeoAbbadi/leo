@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { ConfirmButton, Field, TextArea, useToast } from "../../components/ui";
+import { displayPhone, normalizeBrPhone } from "../../lib/messages";
 import { useData } from "../../lib/store";
 import type { Settings } from "../../lib/types";
 
@@ -7,6 +8,7 @@ export function SettingsPage() {
   const { data, saveSettings, resetDemo, demo } = useData();
   const toast = useToast();
   const [s, setS] = useState<Settings | null>(null);
+  const [waError, setWaError] = useState<string | null>(null);
 
   useEffect(() => {
     if (data && !s) setS(data.settings);
@@ -18,7 +20,17 @@ export function SettingsPage() {
   async function submit(e: FormEvent) {
     e.preventDefault();
     if (!s) return;
-    await saveSettings({ ...s, pointsTable: s.pointsTable.map((n) => Math.max(0, Math.round(n || 0))) });
+    const ownerWhatsapp = normalizeBrPhone(s.ownerWhatsapp);
+    if (!ownerWhatsapp) {
+      setWaError("Número inválido. Use DDD e número, como (11) 91234-5678.");
+      return;
+    }
+    setWaError(null);
+    await saveSettings({
+      ...s,
+      ownerWhatsapp,
+      pointsTable: s.pointsTable.map((n) => Math.max(0, Math.round(n || 0))),
+    });
     toast("Configurações salvas.");
   }
 
@@ -38,7 +50,13 @@ export function SettingsPage() {
           <Field id="s-tagline" label="Frase de apresentação" value={s.tagline} onChange={(e) => set("tagline", e.target.value)} />
           <Field id="s-address" label="Endereço" value={s.address} onChange={(e) => set("address", e.target.value)} />
           <Field id="s-city" label="Cidade" value={s.city} onChange={(e) => set("city", e.target.value)} />
-          <Field id="s-whats" label="WhatsApp" value={s.whatsapp} onChange={(e) => set("whatsapp", e.target.value)} />
+          <Field
+            id="s-whats"
+            label="Telefone de contato"
+            hint="Aparece no rodapé do site"
+            value={s.whatsapp}
+            onChange={(e) => set("whatsapp", e.target.value)}
+          />
           <Field
             id="s-owner"
             label="E-mail do dono"
@@ -48,6 +66,34 @@ export function SettingsPage() {
             onChange={(e) => set("ownerEmail", e.target.value)}
           />
         </div>
+      </section>
+
+      <section className="panel">
+        <h2>Avisos no WhatsApp</h2>
+        <p className="muted">
+          Todas as mensagens saem do número oficial do clube no WhatsApp. O dono recebe um aviso a cada inscrição, e o
+          jogador que informar o WhatsApp recebe a confirmação com data, horário, buy-in e local.
+        </p>
+        <div className="form-grid">
+          <Field
+            id="s-owner-wa"
+            label="WhatsApp do dono (recebe os avisos)"
+            hint="Com DDD, por exemplo (11) 91234-5678"
+            type="tel"
+            value={displayPhone(s.ownerWhatsapp)}
+            error={waError ?? undefined}
+            onChange={(e) => set("ownerWhatsapp", e.target.value)}
+          />
+        </div>
+        <label className="check">
+          <input type="checkbox" checked={s.autoConfirm} onChange={(e) => set("autoConfirm", e.target.checked)} />
+          Confirmar inscrições automaticamente
+        </label>
+        <p className="muted">
+          {s.autoConfirm
+            ? "Ao clicar em “Quero jogar”, o jogador já fica inscrito e recebe a confirmação na hora."
+            : "O jogador recebe um aviso de que o pedido chegou, e a confirmação só quando você aprovar a vaga em Inscrições."}
+        </p>
       </section>
 
       <section className="panel">

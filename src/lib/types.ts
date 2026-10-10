@@ -51,12 +51,25 @@ export interface Result {
   position: number;
 }
 
-/** E-mail que o sistema deve enviar ao dono do clube. */
-export interface OutboxEmail {
+export type MessageChannel = "email" | "whatsapp";
+
+/** Para quem é a mensagem e por quê. */
+export type MessageKind = "aviso_dono" | "confirmacao_jogador" | "interesse_recebido";
+
+/**
+ * Mensagem que o sistema precisa enviar. No WhatsApp, `template` e `params`
+ * são o modelo aprovado pela Meta e as variáveis dele; `body` é o texto final.
+ */
+export interface OutboxMessage {
   id: string;
+  channel: MessageChannel;
+  kind: MessageKind;
+  interestId: string;
   to: string;
   subject: string;
   body: string;
+  template?: string;
+  params?: string[];
   createdAt: string;
   sent: boolean;
 }
@@ -68,6 +81,10 @@ export interface Settings {
   address: string;
   whatsapp: string;
   ownerEmail: string;
+  /** Número do dono que recebe o aviso de cada inscrição, no formato 55DDDNÚMERO. */
+  ownerWhatsapp: string;
+  /** true: a inscrição já entra confirmada. false: o dono confirma uma a uma. */
+  autoConfirm: boolean;
   /** Inscrições feitas até X horas antes do início ganham early bird. */
   earlyBirdHours: number;
   earlyBirdBonus: string;
@@ -85,5 +102,5 @@ export interface Snapshot {
   players: Player[];
   interests: Interest[];
   results: Result[];
-  outbox: OutboxEmail[];
+  outbox: OutboxMessage[];
 }

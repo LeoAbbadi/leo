@@ -1,5 +1,5 @@
 import { createSeed } from "./seed";
-import type { Interest, OutboxEmail, Player, Result, Settings, Snapshot, Tournament } from "./types";
+import type { Interest, OutboxMessage, Player, Result, Settings, Snapshot, Tournament } from "./types";
 
 /**
  * Contrato entre o site e onde os dados ficam guardados.
@@ -13,7 +13,9 @@ export interface DataSource {
   deleteTournament(id: string): Promise<void>;
   savePlayer(p: Player): Promise<void>;
   deletePlayer(id: string): Promise<void>;
-  createInterest(i: Interest, email: OutboxEmail): Promise<void>;
+  createInterest(i: Interest, messages: OutboxMessage[]): Promise<void>;
+  /** Coloca mensagens (e-mail, WhatsApp) na fila de envio. */
+  queueMessages(messages: OutboxMessage[]): Promise<void>;
   updateInterest(id: string, patch: Partial<Interest>): Promise<void>;
   deleteInterest(id: string): Promise<void>;
   setResults(tournamentId: string, results: Result[]): Promise<void>;
@@ -33,6 +35,19 @@ function upsert<T extends { id: string }>(list: T[], item: T): T[] {
   return copy;
 }
 
+/** Completa dados salvos por versões anteriores do site. */
+function migrate(snap: Snapshot): Snapshot {
+  const saved: Partial<Settings> = snap.settings;
+  const settings: Settings = saved.ownerWhatsapp !== undefined ? snap.settings : { ...createSeed().settings, ...saved };
+  const outbox: OutboxMessage[] = (snap.outbox ?? []).map((m) => ({
+    ...m,
+    channel: m.channel ?? "email",
+    kind: m.kind ?? "aviso_dono",
+    interestId: m.interestId ?? "",
+  }));
+  return { ...snap, settings, outbox };
+}
+
 export class LocalDataSource implements DataSource {
   private memory: Snapshot | null = null;
   private channel: BroadcastChannel | null =
@@ -41,7 +56,7 @@ export class LocalDataSource implements DataSource {
   private read(): Snapshot {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) return JSON.parse(raw) as Snapshot;
+      if (raw) return migrate(JSON.parse(raw) as Snapshot);
     } catch {
       // Armazenamento bloqueado (janela anônima, prévia): segue em memória.
     }
@@ -104,8 +119,12 @@ export class LocalDataSource implements DataSource {
     }));
   }
 
-  createInterest(i: Interest, email: OutboxEmail) {
-    return this.mutate((s) => ({ ...s, interests: [...s.interests, i], outbox: [email, ...s.outbox] }));
+  createInterest(i: Interest, messages: OutboxMessage[]) {
+    return this.mutate((s) => ({ ...s, interests: [...s.interests, i], outbox: [...messages, ...s.outbox] }));
+  }
+
+  queueMessages(messages: OutboxMessage[]) {
+    return this.mutate((s) => ({ ...s, outbox: [...messages, ...s.outbox] }));
   }
 
   updateInterest(id: string, patch: Partial<Interest>) {

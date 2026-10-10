@@ -1,4 +1,5 @@
 import { isoDate } from "./format";
+import { registrationMessages } from "./messages";
 import type { Interest, Player, Result, Settings, Snapshot, Tournament } from "./types";
 
 /**
@@ -137,6 +138,8 @@ export function createSeed(today = new Date()): Snapshot {
     address: "Rua dos Pinheiros, 1000, Pinheiros",
     whatsapp: "(11) 90000-0000",
     ownerEmail: "dono@clubedoflop.com.br",
+    ownerWhatsapp: "5511900000000",
+    autoConfirm: true,
     earlyBirdHours: 24,
     earlyBirdBonus: "+5.000 fichas no stack inicial",
     seasonName: season.name,
@@ -192,10 +195,22 @@ export function createSeed(today = new Date()): Snapshot {
         phone: p.phone,
         createdAt: new Date(today.getTime() - (pi + 1) * 3_600_000 * (ti + 2)).toISOString(),
         earlyBird: pi % 3 !== 2,
-        status: pi === 0 ? "confirmado" : "pendente",
+        status: ti === 1 && pi === 2 ? "cancelado" : "confirmado",
       });
     });
   });
 
-  return { settings, tournaments, players, interests, results, outbox: [] };
+  // Exemplos de mensagens das duas inscrições mais recentes.
+  const outbox = [...interests]
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    .slice(0, 2)
+    .reverse()
+    .flatMap((i) => {
+      const t = tournaments.find((x) => x.id === i.tournamentId)!;
+      const count = interests.filter((x) => x.tournamentId === t.id && x.status !== "cancelado").length;
+      return registrationMessages(settings, t, i, count).map((m) => ({ ...m, createdAt: i.createdAt }));
+    })
+    .reverse();
+
+  return { settings, tournaments, players, interests, results, outbox };
 }

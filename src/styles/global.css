@@ -22,6 +22,9 @@
   --card-face: #f6efe0;
   --card-ink: #17130e;
   --card-red: #c4302b;
+  --wa: #25d366;
+  --wa-chat: #0b1410;
+  --wa-bubble: #144d37;
   --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
 
   --f-display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
@@ -2081,4 +2084,71 @@ input[aria-invalid="true"] {
     right: 2%;
     top: 0;
   }
+}
+
+/* ---------- WhatsApp ---------- */
+
+.wa-dot {
+  display: inline-block;
+  flex: none;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--wa);
+  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.2);
+}
+
+.wa-note {
+  font-size: 0.92rem;
+}
+
+.wa-note .wa-dot {
+  margin-right: 0.5rem;
+}
+
+.wa-item {
+  display: grid;
+  gap: 0.4rem;
+  padding: 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--wa-chat);
+}
+
+.wa-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+  font-size: 0.82rem;
+  color: var(--ink-dim);
+}
+
+.wa-meta .pill {
+  margin-left: auto;
+}
+
+.wa-bubble {
+  position: relative;
+  justify-self: start;
+  max-width: min(100%, 30rem);
+  padding: 0.55rem 0.75rem 1.3rem;
+  border-radius: 0 10px 10px 10px;
+  background: var(--wa-bubble);
+  color: var(--ink);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.wa-bubble p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.wa-time {
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.3rem;
+  font-size: 0.68rem;
+  color: var(--ink-dim);
 }

@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { LocalDataSource, type DataSource } from "./dataSource";
-import { brl, dateTime, earlyBirdDeadline, longDate, tournamentStart, uid } from "./format";
+import { earlyBirdDeadline, uid } from "./format";
+import { normalizeBrPhone, playerConfirmation, registrationMessages } from "./messages";
 import type { Interest, Player, Result, Settings, Snapshot, Tournament } from "./types";
 
 export interface InterestInput {
@@ -55,7 +56,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
       deleteTournament: (id) => run(source.deleteTournament(id)),
       savePlayer: (p) => run(source.savePlayer(p)),
       deletePlayer: (id) => run(source.deletePlayer(id)),
-      updateInterest: (id, patch) => run(source.updateInterest(id, patch)),
       deleteInterest: (id) => run(source.deleteInterest(id)),
       setResults: (tid, results) => run(source.setResults(tid, results)),
       resetDemo: () => run(source.reset()),
@@ -64,39 +64,32 @@ export function DataProvider({ children }: { children: ReactNode }) {
         const t = data.tournaments.find((x) => x.id === input.tournamentId);
         if (!t) throw new Error("Torneio não encontrado.");
         const now = new Date();
-        const earlyBird = now <= earlyBirdDeadline(t, data.settings.earlyBirdHours);
+        const phone = input.phone.trim() ? normalizeBrPhone(input.phone) : "";
+        if (phone === null) throw new Error("Confira o WhatsApp: use DDD e número, como (11) 91234-5678.");
         const interest: Interest = {
           id: uid("in"),
           tournamentId: t.id,
           name: input.name.trim(),
           email: input.email.trim().toLowerCase(),
-          phone: input.phone.trim(),
+          phone,
           createdAt: now.toISOString(),
-          earlyBird,
-          status: "pendente",
+          earlyBird: now <= earlyBirdDeadline(t, data.settings.earlyBirdHours),
+          status: data.settings.autoConfirm ? "confirmado" : "pendente",
         };
-        const start = tournamentStart(t);
-        const email = {
-          id: uid("em"),
-          to: data.settings.ownerEmail,
-          subject: `Novo interesse: ${interest.name} no ${t.name} (${dateTime(start)})`,
-          body: [
-            `${interest.name} quer jogar o ${t.name}.`,
-            ``,
-            `Torneio: ${t.name}, ${longDate(start)} às ${t.time}`,
-            `Buy-in: ${brl(t.buyIn)}`,
-            `Jogador: ${interest.name}`,
-            `E-mail: ${interest.email}`,
-            `Telefone: ${interest.phone || "não informado"}`,
-            `Early bird: ${earlyBird ? `SIM (${data.settings.earlyBirdBonus})` : "não, inscrição fora do prazo"}`,
-            ``,
-            `Confirme a vaga na área do clube.`,
-          ].join("\n"),
-          createdAt: now.toISOString(),
-          sent: false,
-        };
-        await run(source.createInterest(interest, email));
+        const registered = data.interests.filter((i) => i.tournamentId === t.id && i.status !== "cancelado").length + 1;
+        await run(source.createInterest(interest, registrationMessages(data.settings, t, interest, registered)));
         return interest;
+      },
+      async updateInterest(id, patch) {
+        const before = data?.interests.find((i) => i.id === id);
+        await source.updateInterest(id, patch);
+        // Quando o dono confirma uma vaga pendente, o jogador recebe a confirmação no WhatsApp.
+        if (data && before && patch.status === "confirmado" && before.status !== "confirmado") {
+          const t = data.tournaments.find((x) => x.id === before.tournamentId);
+          const msg = t && playerConfirmation(data.settings, t, { ...before, ...patch });
+          if (msg) await source.queueMessages([msg]);
+        }
+        await refresh();
       },
     };
   }, [data, refresh]);

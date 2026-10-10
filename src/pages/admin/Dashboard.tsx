@@ -13,6 +13,9 @@ export function Dashboard() {
     .filter((t) => t.status === "agendado" && tournamentStart(t) > now)
     .sort((a, b) => tournamentStart(a).getTime() - tournamentStart(b).getTime());
   const pending = data.interests.filter((i) => i.status === "pendente");
+  const upcomingIds = new Set(upcoming.map((t) => t.id));
+  const registered = data.interests.filter((i) => i.status === "confirmado" && upcomingIds.has(i.tournamentId));
+  const auto = data.settings.autoConfirm && pending.length === 0;
   const leader = computeRanking(data)[0];
   const toScore = data.tournaments.filter((t) => t.status !== "finalizado" && t.status !== "cancelado" && tournamentStart(t) < now);
   const count = (id: string) => data.interests.filter((i) => i.tournamentId === id && i.status !== "cancelado").length;
@@ -28,8 +31,8 @@ export function Dashboard() {
 
       <div className="stat-row">
         <div className="stat">
-          <span className="stat-label">Inscrições a confirmar</span>
-          <span className="stat-value">{pending.length}</span>
+          <span className="stat-label">{auto ? "Inscritos nos próximos torneios" : "Inscrições a confirmar"}</span>
+          <span className="stat-value">{auto ? registered.length : pending.length}</span>
           <Link to="/admin/inscricoes">Ver inscrições</Link>
         </div>
         <div className="stat">
