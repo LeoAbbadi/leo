@@ -10,3 +10,4 @@ edit*/work/*
 !edit*/work/captions.json
 !edit*/work/audio_log.json
 !edit*/work/graphic_events.json
+__pycache__/

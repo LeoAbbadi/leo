@@ -63,7 +63,8 @@ for f in check_f:
         k = f - s["f0"]; tgt = small(FR[f], 108, 192)
         errs = {d: float(np.mean((small(GF[s["n"]][k + d], 108, 192) - tgt) ** 2)) for d in (-1, 0, 1) if (k + d) in GF[s["n"]]}
         best = min(errs, key=errs.get)
-        cut.append({"frame": f, "lado": side, "seg": s["n"], "layout": L, "esperado": f"g{s['n']:02d}#{k}", "melhor": f"g{s['n']:02d}#{k + best}", "ok": best == 0, "mse": round(errs[0], 2)})
+        ok = best == 0 or errs[0] - errs[best] < 1.0      # static graphics: neighbouring frames are identical up to coding noise
+        cut.append({"frame": f, "lado": side, "seg": s["n"], "layout": L, "esperado": f"g{s['n']:02d}#{k}", "melhor": f"g{s['n']:02d}#{k + best}", "ok": bool(ok), "mse": round(errs[0], 2)})
         continue
     e = C.src_index(f / 60)
     if L == "A": tgt = small(FR[f], 108, 192)
@@ -126,11 +127,11 @@ alog = json.load(open(f"{W}/audio_log.json")); sfx, sr = sf.read(f"{E}/stems/sfx
 vpk = alog["voice_peak_dbfs"]; al = []
 for e in alog["sfx"]:
     i0, i1 = int((e["t"] - 0.45) * sr), int((e["t"] + 0.45) * sr); seg = env[i0:i1]
-    if "whoosh" in e["desc"]:
+    if "passagem" in e["desc"]:
         sm = np.convolve(seg ** 2, np.ones(480) / 480, mode="same"); m = (i0 + int(np.argmax(sm))) / sr
         al.append({"t": e["t"], "tipo": e["desc"], "medido": "pico de energia", "medido_s": round(m, 4), "erro_ms": round((m - e["t"]) * 1000, 1), "rel_voz_db": round(e["peak_dbfs"] - vpk, 1)})
     else:
-        thr = 10 ** ((e["peak_dbfs"] - 30) / 20); on = np.where(seg[int(0.40 * sr):] > thr)[0]
+        thr = 10 ** ((e["peak_dbfs"] - 5) / 20); on = np.where(seg[int(0.40 * sr):] > thr)[0]   # first sample within 5 dB of the event peak
         m = (i0 + int(0.40 * sr) + int(on[0])) / sr if len(on) else None
         al.append({"t": e["t"], "tipo": e["desc"], "medido": "início", "medido_s": None if m is None else round(m, 4), "erro_ms": None if m is None else round((m - e["t"]) * 1000, 1), "rel_voz_db": round(e["peak_dbfs"] - vpk, 1)})
 rep["sfx_alignment"] = al

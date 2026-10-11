@@ -1,7 +1,7 @@
 """Final compositor (video 2): A = full camera, B = floating camera window over the Liquid Glass graphics, C = graphics.
 Cover on frame 0, single glass comment box as CTA. No new captions (the recording already carries burned-in ones).
 Decodes/encodes through FFmpeg pipes with explicit BT.709 matrices; pipes rawvideo to libx264 + the master."""
-import json, subprocess, sys, numpy as np, cv2
+import json, os, subprocess, sys, numpy as np, cv2
 from PIL import Image, ImageDraw, ImageFont
 E = "/home/user/leo/edit"; W_, H_ = 1080, 1920; FPS = 60; SW, SH = 576, 1024
 plan = json.load(open(f"{E}/work/plan.json"))
@@ -213,7 +213,8 @@ if __name__ == "__main__":
         sys.exit(0)
     cmd = ["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W_}x{H_}", "-r", str(FPS), "-i", "-",
            "-i", f"{E}/work/master.wav", "-map", "0:v", "-map", "1:a", "-vf", "scale=out_color_matrix=bt709:out_range=tv,format=yuv420p",
-           "-c:v", "libx264", "-preset", "slow", "-crf", "14", "-profile:v", "high", "-pix_fmt", "yuv420p",
+           "-c:v", "libx264", "-preset", "slow", "-crf", os.environ.get("CRF", "17"),   # CRF 17 keeps the file < 100 MB (GitHub limit)
+            "-profile:v", "high", "-pix_fmt", "yuv420p",
            "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-movflags", "+faststart",
            "-c:a", "aac", "-b:a", "320k", "-ar", "48000", "-ac", "2", "-frames:v", str(NF), OUT]
     pr = subprocess.Popen(cmd, stdin=subprocess.PIPE)
