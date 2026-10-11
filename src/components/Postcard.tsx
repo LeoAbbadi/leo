@@ -1,5 +1,6 @@
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { useState, type PointerEvent } from "react";
+import type { SceneName } from "../content/countries";
 import { driveImage, type Photo } from "../content/photos";
 import { Glass } from "./Glass";
 
@@ -65,7 +66,7 @@ export function Postcard({ photo, index }: { photo: Photo; index: number }) {
 }
 
 /** Ilustrações simples dos lugares, só com formas geométricas. */
-export function Scene({ name, label }: { name: Photo["scene"]; label: string }) {
+export function Scene({ name, label }: { name: SceneName; label: string }) {
   return (
     <svg className={`scene scene-${name}`} viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label={label}>
       <defs>
@@ -80,6 +81,8 @@ export function Scene({ name, label }: { name: Photo["scene"]; label: string }) 
       {name === "cliffs" && <Cliffs />}
       {name === "howth" && <Howth />}
       {name === "voo" && <circle cx="150" cy="150" r="60" fill="var(--sun-b)" />}
+      {name === "brasil" && <Brasil />}
+      {name === "proximo" && <Next />}
     </svg>
   );
 }
@@ -177,6 +180,50 @@ function Cliffs() {
       <path d="M0 96 L70 104 L134 120 L180 140 L180 146 L134 127 L70 111 L0 103 Z" fill="var(--pc-grass)" />
       <path d="M210 70 q6 -6 12 0 q6 -6 12 0" fill="none" stroke={ink} strokeWidth="2" strokeLinecap="round" />
       <path d="M244 52 q4 -4 8 0 q4 -4 8 0" fill="none" stroke={ink} strokeWidth="1.6" strokeLinecap="round" />
+    </g>
+  );
+}
+
+function Brasil() {
+  return (
+    <g>
+      <circle cx="196" cy="128" r="40" fill="var(--sun-b)" />
+      <Water y={196} sun={196} />
+      <path d="M0 214 Q80 196 170 210 L170 300 L0 300 Z" fill="var(--pc-sand)" />
+      {[
+        [60, 214, -8],
+        [104, 208, 6],
+      ].map(([x, y, lean], i) => (
+        <g key={i} transform={`translate(${x} ${y})`}>
+          <path d={`M0 0 Q${lean} -50 ${lean * 2} -96`} fill="none" stroke={ink} strokeWidth="6" strokeLinecap="round" />
+          <g transform={`translate(${lean * 2} -96)`} fill={ink}>
+            <path d="M0 0 Q-30 -14 -52 6 Q-26 -6 0 0Z" />
+            <path d="M0 0 Q30 -14 52 6 Q26 -6 0 0Z" />
+            <path d="M0 0 Q-14 -30 -36 -36 Q-12 -20 0 0Z" />
+            <path d="M0 0 Q14 -30 36 -36 Q12 -20 0 0Z" />
+            <path d="M0 0 Q-4 -30 4 -46 Q4 -24 0 0Z" />
+          </g>
+        </g>
+      ))}
+    </g>
+  );
+}
+
+/** Vista da janela do avião: o próximo país ainda está entre as nuvens. */
+function Next() {
+  return (
+    <g>
+      <g fill="#fff" opacity="0.85">
+        <rect x="20" y="180" width="160" height="22" rx="11" />
+        <rect x="60" y="164" width="80" height="26" rx="13" />
+        <rect x="150" y="222" width="140" height="18" rx="9" />
+        <rect x="190" y="208" width="60" height="22" rx="11" />
+        <rect x="-20" y="250" width="200" height="20" rx="10" />
+      </g>
+      <path d="M150 120 L300 96 L300 112 L170 132 Z" fill={ink} />
+      <path d="M262 102 L276 70 L288 70 L282 100 Z" fill={ink} />
+      <circle cx="80" cy="96" r="26" fill="var(--sun-b)" opacity="0.9" />
+      <text x="150" y="60" textAnchor="middle" className="pc-question">?</text>
     </g>
   );
 }

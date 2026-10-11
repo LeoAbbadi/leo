@@ -1,5 +1,6 @@
 import { animate, motion, useInView, useMotionValue, useTransform } from "motion/react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router";
 import { places, routes, type Place } from "../content/places";
 import land from "../content/worldLand.json";
 import { fmtDate } from "../lib/format";
@@ -137,6 +138,11 @@ export function WorldMap() {
               {current.country !== current.city ? `, ${current.country}` : ""}
             </strong>
             <span>{current.note}</span>
+            {current.album && (
+              <Link to={`/paises/${current.album}`} className="map-card-link">
+                Ver as fotos →
+              </Link>
+            )}
             {current.video && (
               <a href={current.video} target="_blank" rel="noreferrer" className="map-card-link">
                 Assistir a série →

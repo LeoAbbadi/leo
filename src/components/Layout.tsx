@@ -19,6 +19,7 @@ interface NavEntry {
 const links: NavEntry[] = [
   { to: "/", label: "Início", end: true },
   { to: "/sobre", label: "Sobre nós", short: "Sobre" },
+  { to: "/#paises", label: "Países", hash: "paises" },
   { to: "/#mapa", label: "Mapa", hash: "mapa" },
   { to: "/cursos", label: "Cursos" },
   { to: "/#videos", label: "Vídeos", hash: "videos" },
@@ -63,7 +64,10 @@ export function Layout() {
   // rola até a âncora (#mapa, #videos) ou volta ao topo ao trocar de página
   useEffect(() => {
     const anchor = hash.replace("#", "");
-    if (anchor) document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (anchor) {
+      // a página pode ter acabado de abrir: espera um quadro para a seção existir
+      requestAnimationFrame(() => document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth", block: "start" }));
+    }
     else window.scrollTo({ top: 0 });
   }, [pathname, hash]);
 
@@ -103,7 +107,7 @@ export function Layout() {
 
       <Glass as="nav" className="tabbar" radius={999} bezel={16} strength={24} blur={7} aria-label="Navegação rápida">
         <LayoutGroup id="tabbar">
-          {[links[0], links[1], links[3], links[2], { to: "/aluno", label: "Aluno" }].map((l) => (
+          {[links[0], links[2], links[4], links[1], { to: "/aluno", label: "Aluno" }].map((l) => (
             <NavItem key={l.label} entry={l} short active={activeFor(l)} />
           ))}
         </LayoutGroup>
@@ -142,6 +146,7 @@ function Footer() {
             <strong>Links úteis</strong>
             <Link to="/">Início</Link>
             <Link to="/sobre">Sobre nós</Link>
+            <Link to="/#paises">Países</Link>
             <Link to="/#mapa">Mapa</Link>
             <Link to="/cursos">Cursos</Link>
             <Link to="/#videos">Vídeos</Link>

@@ -12,6 +12,8 @@ export interface Place {
   note: string;
   /** Link do vídeo ou da série sobre o lugar (opcional). */
   video?: string;
+  /** ID do país em src/content/countries.ts (abre o álbum de fotos). */
+  album?: string;
 }
 
 export const places: Place[] = [
@@ -24,6 +26,7 @@ export const places: Place[] = [
     lon: -46.47,
     kind: "casa",
     note: "Onde tudo começou.",
+    album: "brasil",
   },
   {
     id: "dublin",
@@ -35,6 +38,7 @@ export const places: Place[] = [
     kind: "base",
     date: "2026-07-10",
     note: "Nossa casa desde julho de 2026.",
+    album: "irlanda",
   },
   {
     id: "paris",
@@ -46,6 +50,7 @@ export const places: Place[] = [
     kind: "viagem",
     date: "2026-08",
     note: "Viagem de última hora para ver a FURIA jogar ao vivo.",
+    album: "franca",
   },
 ];
 

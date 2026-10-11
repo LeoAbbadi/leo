@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import selfie from "../assets/leo-e-helena.webp";
 import { CourseTicket } from "../components/CourseTicket";
+import { Coverflow } from "../components/Coverflow";
 import { Glass } from "../components/Glass";
 import { HeroScene } from "../components/HeroScene";
 import { LogoMark } from "../components/Logo";
@@ -354,6 +355,18 @@ export function Home() {
         <Reveal>
           <WorldMap />
         </Reveal>
+      </section>
+
+      {/* ---------- países ---------- */}
+      <section className="countries on-dark" id="paises">
+        <Reveal className="section-head center">
+          <span className="eyebrow">Países</span>
+          <h2>
+            Cada país, <em>um álbum</em>
+          </h2>
+          <p>Arraste para os lados e toque no país para ver as fotos de lá.</p>
+        </Reveal>
+        <Coverflow />
       </section>
 
       {/* ---------- vídeos ---------- */}

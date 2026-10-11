@@ -23,6 +23,9 @@ como se mudar para a Irlanda (Pix e cartão, confirmação automática do pagame
 - Cena do topo: céu e mar em WebGL (ondas, reflexo dos dois sóis na água, nuvens, névoa) com
   penhascos, rocha no mar, pássaros, rota tracejada com avião e pino em SVG, em camadas que se
   movem com a rolagem e o ponteiro. Troca sozinha por uma foto do Drive quando houver.
+- Seção "Países" em carrossel 3D (cartões em perspectiva, fundo desfocado com a foto do país,
+  setas de vidro, arrastar com o dedo). Cada país abre o seu álbum (`/paises/:id`) com galeria
+  e foto em tela cheia; as fotos podem vir sozinhas de uma subpasta do Google Drive.
 - Resto da página na estrutura do Ponto Azul; menu sem fundo sobre o topo, que vira barra de
   vidro ao rolar.
 - Seção escura "Oi, prazer!" com três fotos redondas e adesivos de viagem que dá para arrastar,
@@ -67,6 +70,7 @@ npm run worldmap     # recalcula o contorno do mapa-múndi
 | Vídeos em destaque | `src/content/videos.ts` |
 | Cursos, preços, módulos e aulas | `src/content/courses.ts` (e o preço oficial na tabela `courses`) |
 | Lugares do mapa e rotas | `src/content/places.ts` |
+| Países e álbuns de fotos | `src/content/countries.ts` · [guia](docs/fotos-google-drive.md) |
 | Fotos (círculos, diário) do Google Drive | `src/content/photos.ts` · [guia](docs/fotos-google-drive.md) |
 | Cores, fontes e espaçamentos | começo de `src/styles/global.css` |
 
@@ -75,8 +79,8 @@ npm run worldmap     # recalcula o contorno do mapa-múndi
 ```
 src/
   content/        textos, cursos, lugares, fotos e pontos do mapa
-  components/     Glass (vidro líquido), Logo, HeroScene, HeroOcean (WebGL), Planner, Stickers, Sky, WorldMap, Postcard, CourseTicket
-  pages/          Início, Sobre, Termos, Cursos, Curso, Checkout, Pedido, Aluno e admin/
+  components/     Glass (vidro líquido), Logo, HeroScene, HeroOcean (WebGL), Planner, Coverflow, Stickers, Sky, WorldMap, Postcard, CourseTicket
+  pages/          Início, Sobre, País (álbum), Termos, Cursos, Curso, Checkout, Pedido, Aluno e admin/
   lib/payments/   pagamentos: demonstração (navegador) e real (Supabase + Mercado Pago)
   lib/session.tsx login do aluno e dos donos
 supabase/

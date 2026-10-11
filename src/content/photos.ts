@@ -1,3 +1,5 @@
+import type { SceneName } from "./countries";
+
 /**
  * Fotos do Google Drive, usadas direto do Drive (sem baixar).
  *
@@ -11,7 +13,7 @@ export interface Photo {
   alt: string;
   place: string;
   /** Ilustração usada enquanto a foto não existe. */
-  scene: "dublin" | "paris" | "cliffs" | "howth" | "voo";
+  scene: SceneName;
   caption: string;
   /** País ou região, mostrado no cartão do topo. */
   region?: string;

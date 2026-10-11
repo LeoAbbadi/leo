@@ -6,6 +6,7 @@ import { SessionProvider } from "./lib/session";
 import { About } from "./pages/About";
 import { Admin } from "./pages/admin/Admin";
 import { Checkout } from "./pages/Checkout";
+import { Country } from "./pages/Country";
 import { CourseDetail } from "./pages/CourseDetail";
 import { Courses } from "./pages/Courses";
 import { Home } from "./pages/Home";
@@ -24,6 +25,7 @@ export function App() {
                 <Route index element={<Home />} />
                 <Route path="sobre" element={<About />} />
                 <Route path="termos" element={<Terms />} />
+                <Route path="paises/:id" element={<Country />} />
                 <Route path="cursos" element={<Courses />} />
                 <Route path="cursos/:slug" element={<CourseDetail />} />
                 <Route path="checkout/:slug" element={<Checkout />} />
