@@ -33,12 +33,22 @@ desenha, os sóis sobem com efeito de mola, o encontro acende e o avião decola.
 | `video/logo-intro-quadrado-claro.mp4` | Abertura 1080×1080 (feed) |
 | `video/logo-intro-quadrado-escuro.mp4` | Abertura 1080×1080, fundo escuro |
 | `video/logo-intro-vertical-escuro.mp4` | Abertura 1080×1920 (Reels, Stories, TikTok) |
+| `youtube/banner-youtube-abbadi.jpg` | Banner do canal (2560×1440, pronto para enviar) |
+| `youtube/banner-youtube-abbadi.png` | O mesmo banner, sem compressão |
+| `youtube/guia-areas-do-banner.png` | O que aparece na TV, no computador e no celular |
 
 O texto "leo&helena" está convertido em curvas, então os arquivos abrem iguais em qualquer
 programa (Figma, Canva, Illustrator, CapCut) sem precisar das fontes.
 
-Para gerar tudo de novo depois de mexer na marca: `npm run brand` (SVGs) e
-`npm run logo:video` (vídeos).
+Para gerar tudo de novo depois de mexer na marca: `npm run brand` (SVGs),
+`npm run logo:video` (vídeos) e `npm run youtube:banner` (banner do YouTube).
+
+## Banner do YouTube
+
+Céu e mar do topo do site (o mesmo efeito em WebGL), sem desenhos, e "ABBADI" em letras de
+vidro líquido apoiadas no horizonte, com o reflexo no mar. O nome fica inteiro dentro da área
+de 1546×423 px que o YouTube mostra em todos os aparelhos. Para enviar: YouTube Studio →
+Personalização → Branding → Imagem do banner → `banner-youtube-abbadi.jpg`.
 
 ## Cores
 

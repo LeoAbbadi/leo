@@ -11,7 +11,8 @@
     "worldmap": "node scripts/build-worldmap.mjs",
     "logo:video": "node scripts/render-logo-video.mjs",
     "preview:artifact": "npm run build && node scripts/make-preview.mjs",
-    "brand": "node scripts/build-brand.mjs"
+    "brand": "node scripts/build-brand.mjs",
+    "youtube:banner": "node scripts/render-youtube-banner.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.75.0",
