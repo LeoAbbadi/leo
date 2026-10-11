@@ -1,51 +1,42 @@
 import { MotionConfig } from "motion/react";
 import { HashRouter, Route, Routes } from "react-router";
-import { AdminLayout } from "./components/AdminLayout";
-import { PublicLayout } from "./components/PublicLayout";
+import { Layout } from "./components/Layout";
 import { ToastProvider } from "./components/ui";
-import { AuthProvider } from "./lib/auth";
-import { DataProvider } from "./lib/store";
+import { SessionProvider } from "./lib/session";
+import { About } from "./pages/About";
+import { Admin } from "./pages/admin/Admin";
+import { Checkout } from "./pages/Checkout";
+import { CourseDetail } from "./pages/CourseDetail";
+import { Courses } from "./pages/Courses";
 import { Home } from "./pages/Home";
-import { Ranking } from "./pages/Ranking";
-import { Schedule } from "./pages/Schedule";
-import { Dashboard } from "./pages/admin/Dashboard";
-import { Interests } from "./pages/admin/Interests";
-import { Login } from "./pages/admin/Login";
-import { Players } from "./pages/admin/Players";
-import { Results } from "./pages/admin/Results";
-import { SettingsPage } from "./pages/admin/SettingsPage";
-import { Tournaments } from "./pages/admin/Tournaments";
+import { Order } from "./pages/Order";
+import { Player, Student } from "./pages/Student";
+import { Terms } from "./pages/Terms";
 
 export function App() {
   return (
     <MotionConfig reducedMotion="user">
-      <DataProvider>
-        <AuthProvider>
-          <ToastProvider>
-            <HashRouter>
-              <Routes>
-                <Route element={<PublicLayout />}>
-                  <Route index element={<Home />} />
-                  <Route path="torneios" element={<Schedule />} />
-                  <Route path="ranking" element={<Ranking />} />
-                </Route>
-                <Route path="admin/entrar" element={<Login />} />
-                <Route path="admin" element={<AdminLayout />}>
-                  <Route index element={<Dashboard />} />
-                  <Route path="torneios" element={<Tournaments />} />
-                  <Route path="torneios/:id/resultados" element={<Results />} />
-                  <Route path="jogadores" element={<Players />} />
-                  <Route path="inscricoes" element={<Interests />} />
-                  <Route path="configuracoes" element={<SettingsPage />} />
-                </Route>
-                <Route path="*" element={<PublicLayout />}>
-                  <Route path="*" element={<Home />} />
-                </Route>
-              </Routes>
-            </HashRouter>
-          </ToastProvider>
-        </AuthProvider>
-      </DataProvider>
+      <SessionProvider>
+        <ToastProvider>
+          <HashRouter>
+            <Routes>
+              <Route element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="sobre" element={<About />} />
+                <Route path="termos" element={<Terms />} />
+                <Route path="cursos" element={<Courses />} />
+                <Route path="cursos/:slug" element={<CourseDetail />} />
+                <Route path="checkout/:slug" element={<Checkout />} />
+                <Route path="pedido/:id" element={<Order />} />
+                <Route path="aluno" element={<Student />} />
+                <Route path="aluno/:slug" element={<Player />} />
+                <Route path="admin" element={<Admin />} />
+                <Route path="*" element={<Home />} />
+              </Route>
+            </Routes>
+          </HashRouter>
+        </ToastProvider>
+      </SessionProvider>
     </MotionConfig>
   );
 }

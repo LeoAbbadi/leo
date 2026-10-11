@@ -61,7 +61,6 @@ O que impede fraude:
 1. Crie um projeto em [supabase.com](https://supabase.com) (região São Paulo).
 2. Instale a CLI (`npm i -g supabase`), entre (`supabase login`) e ligue a pasta:
    ```bash
-   cd viagem
    supabase link --project-ref SEU_PROJECT_REF
    supabase db push            # cria as tabelas, regras de segurança e funções
    ```

@@ -1,5 +1,5 @@
 {
-  "name": "ypiranga-poker",
+  "name": "leo-e-helena",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -8,19 +8,29 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "typecheck": "tsc -b",
-    "preview:artifact": "npm run build && node scripts/make-preview.mjs"
+    "worldmap": "node scripts/build-worldmap.mjs",
+    "logo:video": "node scripts/render-logo-video.mjs",
+    "preview:artifact": "npm run build && node scripts/make-preview.mjs",
+    "brand": "node scripts/build-brand.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.75.0",
     "motion": "^12.43.0",
+    "qrcode": "^1.5.4",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-router": "^7.18.4"
   },
   "devDependencies": {
+    "@types/qrcode": "^1.5.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^4.7.0",
+    "opentype.js": "^1.3.4",
+    "playwright": "^1.56.1",
+    "topojson-client": "^3.1.0",
     "typescript": "~5.8",
-    "vite": "^6.4.4"
+    "vite": "^6.4.4",
+    "world-atlas": "^2.0.2"
   }
 }

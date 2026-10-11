@@ -1,300 +1,405 @@
-import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
-import { useMemo, useState, type PointerEvent, type ReactNode } from "react";
-import { Link } from "react-router";
-import { HeroStage } from "../components/HeroStage";
-import { InterestModal } from "../components/InterestModal";
-import { FlipNumber, Glass, MarqueeText, Reveal, ScriptWord, SplitText } from "../components/Kinetic";
-import { TournamentCard } from "../components/TournamentCard";
-import { CountUp, Ticker } from "../components/ui";
-import { brl, countdown, isoDate, tournamentStart, weekdayShort } from "../lib/format";
-import { computeRanking } from "../lib/ranking";
-import { useData, useNow } from "../lib/store";
-import type { Tournament } from "../lib/types";
+import { AnimatePresence, animate, motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import selfie from "../assets/leo-e-helena.webp";
+import { CourseTicket } from "../components/CourseTicket";
+import { Glass } from "../components/Glass";
+import { HeroScene } from "../components/HeroScene";
+import { LogoMark } from "../components/Logo";
+import { Postcard, Scene } from "../components/Postcard";
+import { GlassLens, Sticker, stickerArt } from "../components/Stickers";
+import { ButtonLink, Reveal } from "../components/ui";
+import { WorldMap } from "../components/WorldMap";
+import { courses } from "../content/courses";
+import { diary, driveImage, introPhotos } from "../content/photos";
+import { site } from "../content/site";
+import { videos } from "../content/videos";
+import { daysSince } from "../lib/format";
 
-/** Botão que é levemente atraído pelo ponteiro. */
-function Magnetic({ children }: { children: ReactNode }) {
-  const reduce = useReducedMotion();
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 250, damping: 15 });
-  const sy = useSpring(y, { stiffness: 250, damping: 15 });
-  function onMove(e: PointerEvent<HTMLDivElement>) {
-    if (reduce || e.pointerType === "touch") return;
-    const r = e.currentTarget.getBoundingClientRect();
-    x.set((e.clientX - r.left - r.width / 2) * 0.25);
-    y.set((e.clientY - r.top - r.height / 2) * 0.35);
-  }
+const ease = [0.16, 1, 0.3, 1] as const;
+
+function useDublinClock() {
+  const fmt = () =>
+    new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Dublin" }).format(new Date());
+  const [now, setNow] = useState(fmt);
+  useEffect(() => {
+    const t = window.setInterval(() => setNow(fmt()), 15_000);
+    return () => window.clearInterval(t);
+  }, []);
+  return now;
+}
+
+function CountUp({ value }: { value: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    const c = animate(0, value, { duration: 1.6, delay: 0.8, ease, onUpdate: (v) => (node.textContent = String(Math.round(v))) });
+    return () => c.stop();
+  }, [value]);
+  return <span ref={ref}>{value}</span>;
+}
+
+/** Segunda linha do título que troca de tempos em tempos, com desfoque líquido. */
+function Rotating({ words }: { words: readonly string[] }) {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const t = window.setInterval(() => setI((n) => (n + 1) % words.length), 3200);
+    return () => window.clearInterval(t);
+  }, [words.length]);
   return (
-    <motion.div
-      className="magnetic"
-      style={{ x: sx, y: sy }}
-      onPointerMove={onMove}
-      onPointerLeave={() => {
-        x.set(0);
-        y.set(0);
-      }}
-    >
-      {children}
-    </motion.div>
+    <span className="rotating" aria-live="polite">
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.span
+          key={words[i]}
+          className="rotating-word"
+          initial={{ y: "60%", opacity: 0, filter: "blur(10px)" }}
+          animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
+          exit={{ y: "-60%", opacity: 0, filter: "blur(10px)" }}
+          transition={{ duration: 0.7, ease }}
+        >
+          {words[i]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
   );
 }
 
-const STEPS = [
-  { suit: "♠", title: "Escolha o torneio", text: "A grade mostra horário, buy-in, garantido e quantas vagas restam." },
-  { suit: "♥", title: "Clique em “Quero jogar”", text: "" },
-  { suit: "♦", title: "Receba a confirmação", text: "A inscrição chega na hora para o clube e a confirmação vai para o seu WhatsApp." },
-];
+/** Foto redonda: do Drive quando existe, ilustração enquanto isso. */
+function Circle({ index, className = "" }: { index: number; className?: string }) {
+  const p = introPhotos[index];
+  return (
+    <div className={`circle ${className}`}>
+      {p.driveId ? (
+        <img src={driveImage(p.driveId, 700)} alt={p.alt} loading="lazy" referrerPolicy="no-referrer" />
+      ) : (
+        <Scene name={p.scene} label={p.alt} />
+      )}
+    </div>
+  );
+}
+
+function GlobeIcon() {
+  return (
+    <svg className="globe-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <ellipse cx="12" cy="12" rx="4" ry="9" />
+      <path d="M3 12h18M4.6 7.5h14.8M4.6 16.5h14.8" />
+    </svg>
+  );
+}
+
+function VideoCover({ cover }: { cover: (typeof videos)[number]["cover"] }) {
+  return (
+    <svg className="video-cover" viewBox="0 0 90 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id={`vc-${cover}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#1B3477" />
+          <stop offset="1" stopColor="#0B1626" />
+        </linearGradient>
+      </defs>
+      <rect width="90" height="160" fill={`url(#vc-${cover})`} />
+      {cover === "money" && (
+        <g>
+          <circle cx="70" cy="22" r="11" fill="#FFB46A" />
+          <text x="12" y="24" className="vc-label">
+            1º MÊS
+          </text>
+          <text x="45" y="84" textAnchor="middle" className="vc-big">
+            €
+          </text>
+          <rect x="14" y="98" width="46" height="7" rx="3.5" fill="#FF7A4D" />
+          <rect x="14" y="109" width="30" height="7" rx="3.5" fill="#4F8BFF" />
+        </g>
+      )}
+      {cover === "paris" && <Scene name="paris" label="" />}
+    </svg>
+  );
+}
 
 export function Home() {
-  const { data } = useData();
-  const now = useNow(1000);
-  const [picked, setPicked] = useState<Tournament | null>(null);
-  const { scrollY } = useScroll();
-  const stageY = useTransform(scrollY, [0, 700], [0, 140]);
-  const stageScale = useTransform(scrollY, [0, 700], [1, 0.88]);
-  const copyY = useTransform(scrollY, [0, 700], [0, -40]);
-
-  const upcoming = useMemo(
-    () =>
-      (data?.tournaments ?? [])
-        .filter((t) => t.status !== "finalizado" && t.status !== "cancelado" && tournamentStart(t) > new Date())
-        .sort((a, b) => tournamentStart(a).getTime() - tournamentStart(b).getTime()),
-    [data],
-  );
-  const ranking = useMemo(() => (data ? computeRanking(data) : []), [data]);
-
-  if (!data) return <div className="loading">Carregando…</div>;
-  const { settings } = data;
-  const next = upcoming[0];
-  const clock = next ? countdown(tournamentStart(next), now) : null;
-  const interestedIn = (id: string) =>
-    data.interests.filter((i) => i.tournamentId === id && i.status !== "cancelado").length;
-  const weekEnd = isoDate(new Date(Date.now() + 7 * 86_400_000));
-  const week = upcoming.filter((t) => t.date <= weekEnd);
-  const weekGuaranteed = week.reduce((sum, t) => sum + t.guaranteed, 0);
-  const leaderPoints = ranking[0]?.points || 1;
-  const steps = STEPS.map((s, i) =>
-    i === 1
-      ? { ...s, text: `Até ${settings.earlyBirdHours} horas antes do início, você ganha o early bird: ${settings.earlyBirdBonus}.` }
-      : s,
-  );
+  const clock = useDublinClock();
+  const days = daysSince(site.homeBase.since);
+  const featured = videos[0];
+  const instagram = site.social.instagram || site.social.youtube || site.social.tiktok;
 
   return (
     <>
-      <section className="hero">
-        <div className="wrap hero-grid">
-          <motion.div className="hero-copy" style={{ y: copyY }}>
-            <motion.p
-              className="eyebrow-pill glass"
-              initial={{ opacity: 0, y: -10, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-            >
-              <span className="live-dot" aria-hidden="true" />
-              {settings.tagline} · {settings.city}
-            </motion.p>
-            <h1 className="hero-title">
-              <SplitText text="A próxima mão" delay={0.2} />
-              <ScriptWord delay={0.85}>é sua.</ScriptWord>
-            </h1>
-            <motion.p
-              className="hero-lead"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.1, duration: 0.7 }}
-            >
-              Veja a grade da semana, garanta sua vaga com early bird e receba a confirmação no WhatsApp. Cada torneio
-              vale pontos no {settings.seasonName.toLowerCase()}.
-            </motion.p>
-            <motion.div
-              className="hero-actions"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.25, duration: 0.7 }}
-            >
-              <Magnetic>
-                <Link to="/torneios" className="btn btn-primary btn-lg">
-                  Ver grade de torneios
-                </Link>
-              </Magnetic>
-              <Magnetic>
-                <Link to="/ranking" className="btn btn-glass btn-lg">
-                  Ranking do semestre
-                </Link>
-              </Magnetic>
-            </motion.div>
-
-            {next && clock && (
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.4, duration: 0.8, ease: [0.2, 0.8, 0.2, 1] }}
-              >
-                <Glass className="clock" tilt={5}>
-                  <div className="clock-head">
-                    <span className="clock-label">
-                      <span className="live-dot" aria-hidden="true" /> Próximo torneio
-                    </span>
-                    <span className="clock-name">
-                      {next.name} · {weekdayShort(tournamentStart(next))} {next.time}
-                    </span>
-                  </div>
-                  <div className="clock-digits">
-                    {(
-                      [
-                        [clock.days, "dias"],
-                        [clock.hours, "horas"],
-                        [clock.minutes, "min"],
-                        [clock.seconds, "seg"],
-                      ] as [number, string][]
-                    ).map(([v, l]) => (
-                      <div className="clock-cell" key={l}>
-                        <FlipNumber value={v} />
-                        <span className="clock-unit">{l}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="clock-foot">
-                    <span>Buy-in {brl(next.buyIn)}</span>
-                    <span>GTD {brl(next.guaranteed)}</span>
-                    <button type="button" className="btn btn-primary btn-sm" onClick={() => setPicked(next)}>
-                      Quero jogar
-                    </button>
-                  </div>
-                </Glass>
-              </motion.div>
-            )}
+      {/* ---------- topo ---------- */}
+      <section className="hero-card" aria-label="Apresentação">
+        <HeroScene photoDriveId={site.hero.photoDriveId} />
+        <div className="hero-shade" aria-hidden="true" />
+        <div className="hero-overlay">
+          <motion.div initial={{ y: 12, scale: 0.94 }} animate={{ y: 0, scale: 1 }} transition={{ duration: 0.7, delay: 0.2, ease }}>
+            <Glass as="span" className="chip chip-dark" radius={999} bezel={10} strength={18}>
+              <span className="chip-dot" aria-hidden="true" />
+              <span className="mono">{site.hero.eyebrow}</span>
+            </Glass>
           </motion.div>
-          <motion.div className="hero-visual" style={{ y: stageY, scale: stageScale }}>
-            <HeroStage />
-          </motion.div>
+          <h1 className="hero-title">
+            <motion.span className="hero-lead" initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.9, delay: 0.3, ease }}>
+              {site.hero.lead}
+            </motion.span>
+            <Rotating words={site.hero.rotating} />
+          </h1>
+          <motion.dl className="hero-chips" initial={{ y: 16, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, delay: 0.7, ease }}>
+            <Glass className="hero-chip" radius={20} bezel={14} strength={22}>
+              <dt>Dias na Irlanda</dt>
+              <dd>
+                <CountUp value={days} />
+              </dd>
+            </Glass>
+            <Glass className="hero-chip" radius={20} bezel={14} strength={22}>
+              <dt>Agora em Dublin</dt>
+              <dd className="mono">{clock}</dd>
+            </Glass>
+          </motion.dl>
         </div>
       </section>
 
-      <section className="wrap stats">
-        {(
-          [
-            [weekGuaranteed, brl, "garantidos nos próximos 7 dias"],
-            [week.length, String, "torneios na grade da semana"],
-            [ranking.length, String, `jogadores no ${settings.seasonName.toLowerCase()}`],
-          ] as [number, (n: number) => string, string][]
-        ).map(([value, format, label], i) => (
-          <Reveal key={label} delay={i * 0.1}>
-            <Glass className="stat-tile" tilt={8}>
-              <span className="stat-tile-value">
-                <CountUp value={value} format={format} />
+      {/* ---------- oi, prazer ---------- */}
+      <section className="intro on-dark">
+        <Reveal className="intro-head">
+          <h2>
+            {site.intro.hello}{" "}
+            <span className="underlined">
+              {site.intro.names}
+              <svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true">
+                <motion.path
+                  d="M4 16 C 60 6, 140 4, 210 10 S 290 18, 296 8"
+                  initial={{ pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.1, delay: 0.3, ease: [0.65, 0, 0.35, 1] }}
+                />
+              </svg>
+            </span>
+          </h2>
+          <p>{site.intro.text}</p>
+        </Reveal>
+
+        <div className="intro-stage">
+          <Sticker x="1%" y="4%" m={["2%", "1%"]} size={70} rotate={-12} delay={0.05} label="Adesivo de lua">
+            {stickerArt.moon}
+          </Sticker>
+          <Sticker x="12%" y="0%" m={["21%", "0%"]} size={62} rotate={8} delay={0.1} label="Adesivo de trevo irlandês">
+            {stickerArt.shamrock}
+          </Sticker>
+          <Sticker x="-1%" y="40%" m={["2%", "79%"]} size={92} rotate={-6} delay={0.15} label="Adesivo com a marca Leo e Helena">
+            {stickerArt.brand}
+          </Sticker>
+          <Sticker x="11%" y="36%" m={["37%", "1%"]} size={104} rotate={-10} delay={0.2} label="Adesivo escrito Leo e Helena">
+            {stickerArt.names}
+          </Sticker>
+          <Sticker x="6%" y="74%" m={["24%", "85%"]} size={92} rotate={10} delay={0.25} label="Adesivo de avião">
+            {stickerArt.plane}
+          </Sticker>
+
+          <Sticker x="80%" y="2%" m={["66%", "1%"]} size={60} rotate={10} delay={0.1} label="Adesivo de passaporte">
+            {stickerArt.passport}
+          </Sticker>
+          <Sticker x="90%" y="6%" m={["81%", "2%"]} size={72} rotate={-8} delay={0.15} label="Selo postal de Dublin">
+            {stickerArt.stamp}
+          </Sticker>
+          <Sticker x="83%" y="38%" m={["47%", "80%"]} size={96} rotate={6} delay={0.2} label="Adesivo da Torre Eiffel">
+            {stickerArt.eiffel}
+          </Sticker>
+          <Sticker x="93%" y="44%" m={["68%", "83%"]} size={74} rotate={-10} delay={0.25} label="Adesivo de globo">
+            {stickerArt.globe}
+          </Sticker>
+          <Sticker x="86%" y="76%" m={["84%", "79%"]} size={66} rotate={-14} delay={0.3} label="Adesivo de lua">
+            {stickerArt.moon}
+          </Sticker>
+
+          <div className="circles">
+            <Circle index={0} className="circle-side" />
+            <div className="circle circle-main">
+              {introPhotos[1].driveId ? (
+                <img src={driveImage(introPhotos[1].driveId, 800)} alt={introPhotos[1].alt} loading="lazy" referrerPolicy="no-referrer" />
+              ) : (
+                <img src={selfie} alt="Helena e Leo numa selfie tirada de baixo, cabeças encostadas" loading="lazy" width="720" height="900" />
+              )}
+              <span className="circle-badge" aria-hidden="true">
+                <LogoMark />
               </span>
-              <span className="stat-tile-label">{label}</span>
-            </Glass>
-          </Reveal>
-        ))}
-      </section>
-
-      <div className="tickers">
-        <Ticker
-          items={upcoming.slice(0, 8).map((t) => (
-            <>
-              <b>
-                {weekdayShort(tournamentStart(t))} {t.time}
-              </b>{" "}
-              {t.name} · {brl(t.buyIn)} · GTD {brl(t.guaranteed)}
-            </>
-          ))}
-        />
-        <MarqueeText text="YPIRANGA POKER ♥ TORNEIOS TODA SEMANA ♠ RANKING DO SEMESTRE ♦ EARLY BIRD ♣ " />
-      </div>
-
-      <section className="section">
-        <div className="wrap">
-          <Reveal className="section-head">
-            <div>
-              <p className="eyebrow">Grade</p>
-              <h2>Próximos torneios</h2>
             </div>
-            <Link to="/torneios" className="btn btn-glass">
-              Ver a grade completa
-            </Link>
-          </Reveal>
-          <div className="tcard-list">
-            {upcoming.slice(0, 3).map((t, i) => (
-              <TournamentCard
-                key={t.id}
-                tournament={t}
-                settings={settings}
-                interested={interestedIn(t.id)}
-                now={now}
-                onInterest={setPicked}
-                index={i}
-              />
-            ))}
+            <Circle index={2} className="circle-side" />
           </div>
+          <GlassLens x="58%" y="66%" m={["60%", "50%"]} size={112} />
+        </div>
+
+        <Reveal className="intro-cta">
+          <ButtonLink to="/sobre" variant="blue" size="lg">
+            Conheça nossa história
+          </ButtonLink>
+        </Reveal>
+      </section>
+
+      {/* ---------- mapa ---------- */}
+      <section className="section world" id="mapa">
+        <LogoMark className="world-watermark" compact />
+        <Reveal className="hashtag-row">
+          <div className="pill-collage" aria-hidden="true">
+            <Scene name="cliffs" label="" />
+            <img src={selfie} alt="" />
+            <Scene name="dublin" label="" />
+          </div>
+          <span className="hashtag">{site.hashtag}</span>
+        </Reveal>
+        <Reveal className="section-head center">
+          <h2 className="plain">
+            Nosso mapa de viagens <GlobeIcon />
+          </h2>
+          <p>
+            <strong>Escolha um ponto</strong> e veja a história de cada lugar. Conforme as viagens viram vídeo, cada ponto
+            ganha a sua série completa.
+          </p>
+        </Reveal>
+        <Reveal>
+          <WorldMap />
+        </Reveal>
+      </section>
+
+      {/* ---------- diário ---------- */}
+      <section className="section" id="diario">
+        <Reveal className="section-head">
+          <span className="eyebrow">Diário de viagem</span>
+          <h2>
+            Postais de <em>onde a gente passou</em>
+          </h2>
+        </Reveal>
+        <div className="postcards">
+          {diary.map((p, i) => (
+            <Reveal key={p.caption} delay={i * 0.06}>
+              <Postcard photo={p} index={i} />
+            </Reveal>
+          ))}
         </div>
       </section>
 
-      <section className="section section-red">
-        <div className="wrap">
-          <Reveal>
-            <p className="eyebrow">Early bird</p>
-            <h2>
-              Avise antes, <ScriptWord>comece com mais fichas</ScriptWord>
-            </h2>
+      {/* ---------- vídeos ---------- */}
+      <section className="section videos" id="videos">
+        <Reveal className="section-head center">
+          <span className="video-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M8 5.5v13l11-6.5-11-6.5Z" />
+            </svg>
+          </span>
+          <h2 className="plain">A gente te leva junto nos vídeos</h2>
+          <p>Sem roteiro pronto: o dia a dia em Dublin, as viagens pela Europa e as contas de verdade de quem acabou de chegar.</p>
+          {instagram ? (
+            <a className="btn btn-blue btn-lg" href={instagram} target="_blank" rel="noreferrer">
+              Siga a gente
+            </a>
+          ) : (
+            <span className="soon">Link do perfil em breve</span>
+          )}
+        </Reveal>
+        {featured && (
+          <Reveal className="phone-stage">
+            <motion.div className="phone" whileHover={{ y: -6, rotate: 0 }} initial={{ rotate: -3 }} transition={{ type: "spring", stiffness: 200, damping: 18 }}>
+              <Glass className="phone-frame" radius={40} bezel={22} strength={30}>
+                <div className="phone-screen">
+                  {featured.thumbDriveId ? (
+                    <img src={driveImage(featured.thumbDriveId, 600)} alt="" referrerPolicy="no-referrer" />
+                  ) : (
+                    <VideoCover cover={featured.cover} />
+                  )}
+                  <div className="phone-caption">
+                    <span className="eyebrow">{featured.kicker}</span>
+                    <strong>{featured.title}</strong>
+                  </div>
+                  {featured.url ? (
+                    <a className="phone-play" href={featured.url} target="_blank" rel="noreferrer" aria-label={`Assistir: ${featured.title}`}>
+                      ▶
+                    </a>
+                  ) : (
+                    <span className="phone-play" aria-hidden="true">
+                      ▶
+                    </span>
+                  )}
+                </div>
+              </Glass>
+            </motion.div>
+            <motion.div className="float float-a" animate={{ y: [0, -8, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>
+              <Glass className="pass" radius={22} bezel={16} strength={30}>
+                <span className="pass-iata">BR</span>
+                <span className="pass-plane" aria-hidden="true">
+                  ✈
+                </span>
+                <span className="pass-iata">DUB</span>
+                <span className="pass-meta mono">10 JUL 2026 · SÓ IDA</span>
+              </Glass>
+            </motion.div>
+            <motion.div className="float float-b" animate={{ y: [0, 7, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}>
+              <Glass className="coord" radius={18} bezel={14} strength={26}>
+                <span className="mono">53.35° N</span>
+                <span className="mono">6.26° O</span>
+              </Glass>
+            </motion.div>
           </Reveal>
+        )}
+      </section>
+
+      {/* ---------- cursos ---------- */}
+      <section className="section" id="cursos">
+        <Reveal className="section-head">
+          <span className="eyebrow">Cursos</span>
+          <h2>
+            Quer ir também? <em>A gente mostra o caminho.</em>
+          </h2>
+          <p>O que aprendemos indo morar na Irlanda, organizado em cursos curtos e diretos. Você compra uma vez e assiste quando quiser.</p>
+        </Reveal>
+        <div className="tickets">
+          {courses.map((c, i) => (
+            <Reveal key={c.slug} delay={i * 0.08}>
+              <CourseTicket course={c} />
+            </Reveal>
+          ))}
+        </div>
+        <Reveal>
           <ol className="steps">
-            {steps.map((s, i) => (
-              <Reveal key={s.title} delay={i * 0.12}>
-                <Glass as="li" className="step" tilt={10}>
-                  <span className={`step-suit ${s.suit === "♥" || s.suit === "♦" ? "is-red" : ""}`} aria-hidden="true">
-                    {s.suit}
-                  </span>
-                  <span className="step-num">{i + 1}</span>
-                  <h3>{s.title}</h3>
-                  <p>{s.text}</p>
-                </Glass>
-              </Reveal>
+            {[
+              ["Escolha o curso", "Veja os módulos e assista às aulas abertas antes de decidir."],
+              ["Pague com Pix ou cartão", "Pix na hora ou cartão em até 12x, pelo checkout seguro do Mercado Pago."],
+              ["Confirmação automática", "O Mercado Pago avisa o site assim que o pagamento cai. Nós conferimos a assinatura e o valor."],
+              ["Acesso liberado", "Você entra na Área do aluno com o e-mail da compra e começa a assistir."],
+            ].map(([t, d], i) => (
+              <Glass as="li" key={t} className="step" radius={26} bezel={18} strength={26}>
+                <span className="step-n mono">{String(i + 1).padStart(2, "0")}</span>
+                <strong>{t}</strong>
+                <span>{d}</span>
+              </Glass>
             ))}
           </ol>
-        </div>
+          <p className="guarantee">
+            <strong>Garantia de 7 dias.</strong> Não gostou? Peça o reembolso em até 7 dias após a compra e devolvemos 100% do valor.
+          </p>
+        </Reveal>
       </section>
 
-      <section className="section">
-        <div className="wrap ranking-teaser">
-          <Reveal>
-            <p className="eyebrow">{settings.seasonName}</p>
-            <h2>Quem está na frente</h2>
-            <Glass className="prize" tilt={6}>
-              <span className="prize-label">Prêmio do semestre</span>
-              {settings.seasonPrize}
+      {/* ---------- perguntas ---------- */}
+      <section className="section faq" id="perguntas">
+        <Reveal className="section-head">
+          <span className="eyebrow">Perguntas frequentes</span>
+          <h2>Antes de comprar</h2>
+        </Reveal>
+        <Reveal className="faq-list">
+          {[
+            ["Como recebo o acesso?", "Assim que o pagamento é confirmado, o curso aparece na Área do aluno. Você entra com o e-mail usado na compra e recebe um link de acesso, sem precisar criar senha."],
+            ["Quanto tempo leva para o Pix ser confirmado?", "Normalmente segundos. O código Pix vale por 30 minutos; se vencer, é só gerar outro."],
+            ["Posso parcelar?", "Sim, no cartão de crédito em até 12x no curso completo, direto no checkout do Mercado Pago."],
+            ["E se eu não gostar?", "Você tem 7 dias para pedir o reembolso, como garante o Código de Defesa do Consumidor. O acesso é removido quando o valor é devolvido."],
+            ["O conteúdo serve para outros países?", "O curso é focado na Irlanda, onde moramos. Planejamento financeiro, escolha de escola e busca de casa e emprego valem para quase qualquer destino."],
+          ].map(([q, a]) => (
+            <Glass as="div" key={q} className="faq-item" radius={22} bezel={14} strength={20}>
+              <details>
+                <summary>{q}</summary>
+                <p>{a}</p>
+              </details>
             </Glass>
-            <Link to="/ranking" className="btn btn-glass">
-              Ranking completo
-            </Link>
-          </Reveal>
-          <ol className="mini-rank">
-            {ranking.slice(0, 5).map((r, i) => (
-              <Reveal key={r.player.id} delay={i * 0.08}>
-                <Glass as="li" className={`mini-row ${i === 0 ? "is-leader" : ""}`} tilt={4}>
-                  <span className="mini-pos">{i + 1}</span>
-                  <span className="mini-name">
-                    {r.player.name}
-                    <small>{r.player.nickname}</small>
-                  </span>
-                  <span className="mini-pts">{r.points} pts</span>
-                  <motion.span
-                    className="mini-bar"
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: r.points / leaderPoints }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.1, delay: 0.2 + i * 0.08, ease: [0.2, 0.8, 0.2, 1] }}
-                    aria-hidden="true"
-                  />
-                </Glass>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
+          ))}
+        </Reveal>
       </section>
-
-      <InterestModal tournament={picked} onClose={() => setPicked(null)} />
     </>
   );
 }

@@ -5,3 +5,8 @@ dist
 .env.local
 *.log
 *.tsbuildinfo
+
+# fontes baixadas pelo scripts/build-brand.mjs
+brand/fonts/
+# quadros temporários do vídeo da marca
+brand/video/.frames-*/
