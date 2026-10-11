@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<title>g24</title><script src="gsap.min.js"></script><script src="scene.js"></script>
+<style>
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Bold.ttf") format("truetype"); font-weight: 700; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #4C9EFF; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Poppins", sans-serif; color: #1D1D1F; }
+#bgfx { position: absolute; inset: 0; }
+.stage { position: absolute; inset: 0; }
+#world { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.glass { position: absolute; background: rgba(255,255,255,0.85); -webkit-backdrop-filter: blur(24px) saturate(1.6); backdrop-filter: blur(24px) saturate(1.6);
+  border: 1.5px solid rgba(255,255,255,0.95); overflow: hidden;
+  box-shadow: 0 60px 120px rgba(0,30,80,0.16), 0 24px 48px rgba(0,30,80,0.10), 0 4px 10px rgba(0,30,80,0.06), inset 0 1px 0 rgba(255,255,255,1); }
+.t-title { font-size: 96px; font-weight: 700; line-height: 1.02; letter-spacing: -0.02em; }
+.t-sub { font-size: 52px; font-weight: 700; line-height: 1.12; letter-spacing: -0.01em; }
+.t-body { font-size: 30px; font-weight: 400; line-height: 1.3; }
+.t-white { color: #FFFFFF; text-shadow: 0 2px 12px rgba(0,30,80,0.25); }
+.abs { position: absolute; }
+.row { display: flex; align-items: center; }
+.chip { position: absolute; display: flex; align-items: center; gap: 14px; padding: 10px 22px; border-radius: 40px; background: rgba(0,229,255,0.16); color: #1D1D1F; font-size: 30px; font-weight: 600; }
+.cyanbar { background: #00E5FF; border-radius: 12px; }
+
+#blurcopy { position:absolute; left:-60px; top:-60px; width:1200px; height:2040px; filter: blur(40px) saturate(0.7) brightness(1.05); transform-origin: 50% 50%; }
+#blurcopy .pg { transform: scale(1.35); transform-origin: 30% 20%; }
+#whiteov { position:absolute; inset:0; background: rgba(255,255,255,0.72); }
+#frame { position:absolute; left:24px; top:200px; width:1032px; height:1040px; border-radius:36px; overflow:hidden; background: rgba(255,255,255,0.85);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6); backdrop-filter: blur(24px) saturate(1.6); border:1.5px solid rgba(255,255,255,.95);
+  box-shadow: 0 60px 120px rgba(0,30,80,0.16), 0 24px 48px rgba(0,30,80,0.10), 0 4px 10px rgba(0,30,80,0.06); }
+#frame #world { width:1032px; height:1040px; }
+.pg { width: 1032px; padding: 50px 86px; color:#1D1D1F; }
+.pg-top { display:flex; justify-content:space-between; align-items:center; padding-bottom:22px; border-bottom:3px solid rgba(29,29,31,.12); }
+.pg-site { font-size:44px; font-weight:700; color:#C4170C; } .pg-sec { font-size:30px; opacity:.6; }
+.pg-kick { margin-top:44px; font-size:30px; font-weight:700; color:#2F7CFF; letter-spacing:.06em; }
+.pg-h { margin-top:16px; font-size:60px; font-weight:700; line-height:1.12; letter-spacing:-0.01em; }
+.pg-meta { margin-top:26px; font-size:30px; opacity:.6; }
+.pg-p { margin-top:30px; font-size:34px; line-height:1.42; }
+.pg-hl { background: linear-gradient(transparent 55%, rgba(0,229,255,.45) 55%); }
+.pg-note { margin-top:52px; font-size:30px; color:#2F7CFF; font-weight:600; }
+
+</style></head>
+<body>
+<div id="root" data-composition-id="g24" data-start="0" data-width="1080" data-height="1920" data-duration="7.2667" data-fps="240">
+  <svg width="0" height="0" style="position:absolute"><filter id="mb" filterUnits="userSpaceOnUse" x="-4000" y="-4000" width="10000" height="10000" color-interpolation-filters="sRGB"><feGaussianBlur id="mbg" stdDeviation="0 0" /></filter></svg>
+  <div id="bgfx"></div>
+<div id="blurcopy"><div class="pg">
+  <div class="pg-top"><span class="pg-site">techtudo.com.br</span><span class="pg-sec">Notícias · Jogos</span></div>
+  <div class="pg-kick">ESPORTS WORLD CUP 2026 · PARIS</div>
+  <div class="pg-h">CS2 na EWC 2026: FURIA é destaque na última semana do torneio</div>
+  <div class="pg-meta">agosto de 2026 · techtudo.com.br/noticias/2026/08/</div>
+  <div class="pg-p">A FURIA enfrenta a Aurora Gaming nesta quarta-feira (19), às 13h55 (horário de Brasília).</div>
+  <div id="pgline" class="pg-p pg-hl">Os playoffs ocorrem entre os dias 19 e 23 de agosto, dia da grande final na Accor Arena.</div>
+  <div class="pg-note">Reconstrução fiel do texto da página — a captura de tela foi bloqueada pela rede deste ambiente.</div>
+</div></div><div id="whiteov"></div>
+  <div class="stage"><div id="world">
+<div class="pg">
+  <div class="pg-top"><span class="pg-site">techtudo.com.br</span><span class="pg-sec">Notícias · Jogos</span></div>
+  <div class="pg-kick">ESPORTS WORLD CUP 2026 · PARIS</div>
+  <div class="pg-h">CS2 na EWC 2026: FURIA é destaque na última semana do torneio</div>
+  <div class="pg-meta">agosto de 2026 · techtudo.com.br/noticias/2026/08/</div>
+  <div class="pg-p">A FURIA enfrenta a Aurora Gaming nesta quarta-feira (19), às 13h55 (horário de Brasília).</div>
+  <div id="pgline" class="pg-p pg-hl">Os playoffs ocorrem entre os dias 19 e 23 de agosto, dia da grande final na Accor Arena.</div>
+  <div class="pg-note">Reconstrução fiel do texto da página — a captura de tela foi bloqueada pela rede deste ambiente.</div>
+</div>
+  </div></div>
+
+</div>
+<script>
+(function () {
+  const { K, camFor, setBlur, money, place, Scene } = window.HF;
+  const $ = (id) => document.getElementById(id);
+  const A = [540, 960], id0 = [540, 960, 1];
+
+  const D = 7.2667;
+  const W = document.getElementById("world"); const fr = document.createElement("div"); fr.id = "frame";
+  W.parentNode.parentNode.insertBefore(fr, W.parentNode); fr.appendChild(W.parentNode);
+  const A2 = [516, 520]; A[0] = A2[0]; A[1] = A2[1];
+  const c0 = [516, 520, 1], cH = camFor([516, 330], [516, 420], 1.18, A2), cL = camFor([516, 780], [516, 600], 1.18, A2);
+  const cam = K([[0, c0], [0.35, c0], [1.95, cH, "power2.inOut"], [3.0, cH], [4.4, cL, "power2.inOut"], [5.5, cL], [Math.min(D, 7.0), c0, "power2.inOut"]]);
+  function update(t) {}
+
+  const tl = Scene({ id: "g24", t0: 94.3000, duration: 7.2667, anchor: A, cam: cam, update: update });
+  window.__timelines["g24"] = tl;
+})();
+</script>
+</body></html>

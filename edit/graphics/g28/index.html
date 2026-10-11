@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<title>g28</title><script src="gsap.min.js"></script><script src="scene.js"></script>
+<style>
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Bold.ttf") format("truetype"); font-weight: 700; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #4C9EFF; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Poppins", sans-serif; color: #1D1D1F; }
+#bgfx { position: absolute; inset: 0; }
+.stage { position: absolute; inset: 0; }
+#world { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.glass { position: absolute; background: rgba(255,255,255,0.85); -webkit-backdrop-filter: blur(24px) saturate(1.6); backdrop-filter: blur(24px) saturate(1.6);
+  border: 1.5px solid rgba(255,255,255,0.95); overflow: hidden;
+  box-shadow: 0 60px 120px rgba(0,30,80,0.16), 0 24px 48px rgba(0,30,80,0.10), 0 4px 10px rgba(0,30,80,0.06), inset 0 1px 0 rgba(255,255,255,1); }
+.t-title { font-size: 96px; font-weight: 700; line-height: 1.02; letter-spacing: -0.02em; }
+.t-sub { font-size: 52px; font-weight: 700; line-height: 1.12; letter-spacing: -0.01em; }
+.t-body { font-size: 30px; font-weight: 400; line-height: 1.3; }
+.t-white { color: #FFFFFF; text-shadow: 0 2px 12px rgba(0,30,80,0.25); }
+.abs { position: absolute; }
+.row { display: flex; align-items: center; }
+.chip { position: absolute; display: flex; align-items: center; gap: 14px; padding: 10px 22px; border-radius: 40px; background: rgba(0,229,255,0.16); color: #1D1D1F; font-size: 30px; font-weight: 600; }
+.cyanbar { background: #00E5FF; border-radius: 12px; }
+
+</style></head>
+<body>
+<div id="root" data-composition-id="g28" data-start="0" data-width="1080" data-height="1920" data-duration="3.9500" data-fps="240">
+  <svg width="0" height="0" style="position:absolute"><filter id="mb" filterUnits="userSpaceOnUse" x="-4000" y="-4000" width="10000" height="10000" color-interpolation-filters="sRGB"><feGaussianBlur id="mbg" stdDeviation="0 0" /></filter></svg>
+  <div id="bgfx"></div>
+
+  <div class="stage"><div id="world">
+<div id="bal" class="glass" style="left:140px;top:150px;width:800px;height:700px;border-radius:40px;">
+  <div id="q1" class="abs row" style="left:56px;top:60px;width:688px;justify-content:space-between"><div class="t-body" style="font-weight:600">Renda</div><div class="t-sub" style="color:#2F7CFF">+3.142,00 €</div></div>
+  <div id="q2" class="abs row" style="left:56px;top:170px;width:688px;justify-content:space-between"><div class="t-body" style="font-weight:600">Despesas</div><div class="t-sub" style="color:#FF3B30">−1.718,03 €</div></div>
+  <div class="abs" style="left:56px;top:280px;width:688px;height:4px;border-radius:2px;background:rgba(29,29,31,.15)"></div>
+  <div class="abs t-body" style="left:56px;top:320px;font-weight:600">Balanço de agosto</div>
+  <div id="bv" class="abs t-title" style="left:56px;top:380px">+0,00 €</div>
+  <div id="bok" class="abs" style="left:660px;top:390px"><svg viewBox="0 0 100 100" width="84" height="84" ><circle cx="50" cy="50" r="46" fill="#34C759"/><path d="M28 52l15 15 30-32" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+  </div></div>
+
+</div>
+<script>
+(function () {
+  const { K, camFor, setBlur, money, place, Scene } = window.HF;
+  const $ = (id) => document.getElementById(id);
+  const A = [540, 960], id0 = [540, 960, 1];
+
+  const D = 3.9500, tg = 1.063, ts = 2.583;
+  const cam = K([[0, id0], [ts - 0.6, id0], [ts + 0.8, camFor([540, 560], [540, 520], 1.06, A), "power2.inOut"]]);
+  const f = (t0) => K([[0, 0], [t0, 0], [t0 + 0.35, 1, "power3.out"]]); const a1 = f(Math.max(0.05, tg - 0.6)), a2 = f(Math.max(0.15, tg - 0.3));
+  const cnt = K([[0, 0], [ts, 0], [ts + 0.8, 1423.97, "power2.out"]]), ok = K([[0, 0], [ts + 0.8, 0], [ts + 1.1, 1, "back.out(1.8)"]]);
+  const Q1 = $("q1"), Q2 = $("q2"), BV = $("bv"), BO = $("bok");
+  function update(t) { place(Q1, { y: 20 * (1 - a1(t)), o: a1(t) }); place(Q2, { y: 20 * (1 - a2(t)), o: a2(t) }); BV.textContent = money(cnt(t), true); place(BO, { s: ok(t), o: Math.min(1, ok(t)) }); }
+
+  const tl = Scene({ id: "g28", t0: 115.1500, duration: 3.9500, anchor: A, cam: cam, update: update });
+  window.__timelines["g28"] = tl;
+})();
+</script>
+</body></html>

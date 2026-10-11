@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<title>g33</title><script src="gsap.min.js"></script><script src="scene.js"></script>
+<style>
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Bold.ttf") format("truetype"); font-weight: 700; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #4C9EFF; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Poppins", sans-serif; color: #1D1D1F; }
+#bgfx { position: absolute; inset: 0; }
+.stage { position: absolute; inset: 0; }
+#world { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.glass { position: absolute; background: rgba(255,255,255,0.85); -webkit-backdrop-filter: blur(24px) saturate(1.6); backdrop-filter: blur(24px) saturate(1.6);
+  border: 1.5px solid rgba(255,255,255,0.95); overflow: hidden;
+  box-shadow: 0 60px 120px rgba(0,30,80,0.16), 0 24px 48px rgba(0,30,80,0.10), 0 4px 10px rgba(0,30,80,0.06), inset 0 1px 0 rgba(255,255,255,1); }
+.t-title { font-size: 96px; font-weight: 700; line-height: 1.02; letter-spacing: -0.02em; }
+.t-sub { font-size: 52px; font-weight: 700; line-height: 1.12; letter-spacing: -0.01em; }
+.t-body { font-size: 30px; font-weight: 400; line-height: 1.3; }
+.t-white { color: #FFFFFF; text-shadow: 0 2px 12px rgba(0,30,80,0.25); }
+.abs { position: absolute; }
+.row { display: flex; align-items: center; }
+.chip { position: absolute; display: flex; align-items: center; gap: 14px; padding: 10px 22px; border-radius: 40px; background: rgba(0,229,255,0.16); color: #1D1D1F; font-size: 30px; font-weight: 600; }
+.cyanbar { background: #00E5FF; border-radius: 12px; }
+
+</style></head>
+<body>
+<div id="root" data-composition-id="g33" data-start="0" data-width="1080" data-height="1920" data-duration="4.2000" data-fps="240">
+  <svg width="0" height="0" style="position:absolute"><filter id="mb" filterUnits="userSpaceOnUse" x="-4000" y="-4000" width="10000" height="10000" color-interpolation-filters="sRGB"><feGaussianBlur id="mbg" stdDeviation="0 0" /></filter></svg>
+  <div id="bgfx"></div>
+
+  <div class="stage"><div id="world">
+<div id="jar" class="glass" style="left:190px;top:375px;width:700px;height:840px;border-radius:72px;">
+  <div id="chipv" class="abs chip" style="left:120px;top:56px;font-size:52px;font-weight:700;padding:14px 30px">+1.423,97 € / mês</div>
+  <svg class="abs" style="left:170px;top:200px" width="360" height="560" viewBox="0 0 360 560">
+    <defs><clipPath id="jc"><path d="M60 80h240v40c30 20 40 50 40 90v270c0 30-20 60-60 60H80c-40 0-60-30-60-60V210c0-40 10-70 40-90z"/></clipPath></defs>
+    <g clip-path="url(#jc)"><rect id="liq" x="0" y="560" width="360" height="560" fill="rgba(0,229,255,.55)"/></g>
+    <path d="M60 80h240v40c30 20 40 50 40 90v270c0 30-20 60-60 60H80c-40 0-60-30-60-60V210c0-40 10-70 40-90z" fill="none" stroke="#2F7CFF" stroke-width="8"/>
+    <rect x="50" y="50" width="260" height="34" rx="12" fill="#2F7CFF"/></svg><div id="j0" class="abs" style="left:250px;top:-120px"><svg viewBox="0 0 100 100" width="80" height="80" ><circle cx="50" cy="50" r="44" fill="#FFD60A" stroke="#F2B705" stroke-width="6"/><text x="50" y="66" font-family="Poppins" font-weight="700" font-size="46" text-anchor="middle" fill="#B98400">€</text></svg></div><div id="j1" class="abs" style="left:310px;top:-120px"><svg viewBox="0 0 100 100" width="80" height="80" ><circle cx="50" cy="50" r="44" fill="#FFD60A" stroke="#F2B705" stroke-width="6"/><text x="50" y="66" font-family="Poppins" font-weight="700" font-size="46" text-anchor="middle" fill="#B98400">€</text></svg></div><div id="j2" class="abs" style="left:370px;top:-120px"><svg viewBox="0 0 100 100" width="80" height="80" ><circle cx="50" cy="50" r="44" fill="#FFD60A" stroke="#F2B705" stroke-width="6"/><text x="50" y="66" font-family="Poppins" font-weight="700" font-size="46" text-anchor="middle" fill="#B98400">€</text></svg></div><div id="j3" class="abs" style="left:250px;top:-120px"><svg viewBox="0 0 100 100" width="80" height="80" ><circle cx="50" cy="50" r="44" fill="#FFD60A" stroke="#F2B705" stroke-width="6"/><text x="50" y="66" font-family="Poppins" font-weight="700" font-size="46" text-anchor="middle" fill="#B98400">€</text></svg></div><div id="j4" class="abs" style="left:310px;top:-120px"><svg viewBox="0 0 100 100" width="80" height="80" ><circle cx="50" cy="50" r="44" fill="#FFD60A" stroke="#F2B705" stroke-width="6"/><text x="50" y="66" font-family="Poppins" font-weight="700" font-size="46" text-anchor="middle" fill="#B98400">€</text></svg></div><div id="j5" class="abs" style="left:370px;top:-120px"><svg viewBox="0 0 100 100" width="80" height="80" ><circle cx="50" cy="50" r="44" fill="#FFD60A" stroke="#F2B705" stroke-width="6"/><text x="50" y="66" font-family="Poppins" font-weight="700" font-size="46" text-anchor="middle" fill="#B98400">€</text></svg></div></div>
+  </div></div>
+
+</div>
+<script>
+(function () {
+  const { K, camFor, setBlur, money, place, Scene } = window.HF;
+  const $ = (id) => document.getElementById(id);
+  const A = [540, 960], id0 = [540, 960, 1];
+
+  const D = 4.2000, tv = 0.477, tg = 1.277, to = 2.557;
+  const cam = K([[0, id0], [D, camFor([540, 795], [540, 795], 1.03, A), "sine.inOut"]]);
+  const cv = K([[0, 0], [Math.max(0.05, tv - 0.1), 0], [tv + 0.3, 1, "back.out(1.6)"]]);
+  const lv = K([[0, 560], [to, 560], [Math.min(D - 0.1, to + 1.4), 300, "power2.inOut"]]);
+  const CV = $("chipv"), LQ = $("liq"), jc = []; for (let i = 0; i < 6; i++) jc.push($("j" + i));
+  function update(t) { place(CV, { s: 0.7 + 0.3 * cv(t), o: Math.min(1, cv(t)) }); LQ.setAttribute("y", lv(t).toFixed(1));
+    for (let i = 0; i < 6; i++) { const t0 = tg + i * 0.16, p = Math.max(0, Math.min(1, (t - t0) / 0.45)); place(jc[i], { y: 620 * p * p, o: p > 0 && p < 1 ? 1 : 0 }); } }
+
+  const tl = Scene({ id: "g33", t0: 138.9500, duration: 4.2000, anchor: A, cam: cam, update: update });
+  window.__timelines["g33"] = tl;
+})();
+</script>
+</body></html>

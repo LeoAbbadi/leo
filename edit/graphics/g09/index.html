@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<title>g09</title><script src="gsap.min.js"></script><script src="scene.js"></script>
+<style>
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Bold.ttf") format("truetype"); font-weight: 700; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #4C9EFF; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Poppins", sans-serif; color: #1D1D1F; }
+#bgfx { position: absolute; inset: 0; }
+.stage { position: absolute; inset: 0; }
+#world { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.glass { position: absolute; background: rgba(255,255,255,0.85); -webkit-backdrop-filter: blur(24px) saturate(1.6); backdrop-filter: blur(24px) saturate(1.6);
+  border: 1.5px solid rgba(255,255,255,0.95); overflow: hidden;
+  box-shadow: 0 60px 120px rgba(0,30,80,0.16), 0 24px 48px rgba(0,30,80,0.10), 0 4px 10px rgba(0,30,80,0.06), inset 0 1px 0 rgba(255,255,255,1); }
+.t-title { font-size: 96px; font-weight: 700; line-height: 1.02; letter-spacing: -0.02em; }
+.t-sub { font-size: 52px; font-weight: 700; line-height: 1.12; letter-spacing: -0.01em; }
+.t-body { font-size: 30px; font-weight: 400; line-height: 1.3; }
+.t-white { color: #FFFFFF; text-shadow: 0 2px 12px rgba(0,30,80,0.25); }
+.abs { position: absolute; }
+.row { display: flex; align-items: center; }
+.chip { position: absolute; display: flex; align-items: center; gap: 14px; padding: 10px 22px; border-radius: 40px; background: rgba(0,229,255,0.16); color: #1D1D1F; font-size: 30px; font-weight: 600; }
+.cyanbar { background: #00E5FF; border-radius: 12px; }
+
+</style></head>
+<body>
+<div id="root" data-composition-id="g09" data-start="0" data-width="1080" data-height="1920" data-duration="3.3667" data-fps="240">
+  <svg width="0" height="0" style="position:absolute"><filter id="mb" filterUnits="userSpaceOnUse" x="-4000" y="-4000" width="10000" height="10000" color-interpolation-filters="sRGB"><feGaussianBlur id="mbg" stdDeviation="0 0" /></filter></svg>
+  <div id="bgfx"></div>
+
+  <div class="stage"><div id="world">
+<div id="shelf" class="glass" style="left:110px;top:455px;width:860px;height:760px;border-radius:72px;">
+  <div class="abs" style="left:60px;top:560px;width:740px;height:22px;border-radius:11px;background:rgba(47,124,255,.35)"></div>
+  <div id="k1" class="abs" style="left:110px;top:250px"><svg viewBox="0 0 150 260" width="170" height="300"><defs><linearGradient id="cgMON" x1="0" x2="1"><stop offset="0" stop-color="#1E2A22"/><stop offset=".45" stop-color="#ffffff" stop-opacity=".35"/><stop offset=".55" stop-color="#1E2A22"/><stop offset="1" stop-color="#1E2A22"/></linearGradient></defs><rect x="10" y="18" width="130" height="226" rx="22" fill="#1E2A22"/><rect x="10" y="18" width="130" height="226" rx="22" fill="url(#cgMON)" opacity=".55"/><rect x="22" y="6" width="106" height="20" rx="8" fill="#C7CED6"/><rect x="22" y="236" width="106" height="16" rx="7" fill="#C7CED6"/><path d="M10 120c40-30 90 30 130 0v40c-40 30-90-30-130 0z" fill="#7CFF4F" opacity=".9"/><text x="75" y="104" font-family="Poppins" font-weight="700" font-size="22" text-anchor="middle" fill="#7CFF4F" transform="rotate(-90 75 130)">MONSTER</text></svg></div>
+  <div id="k2" class="abs" style="left:345px;top:250px"><svg viewBox="0 0 150 260" width="170" height="300"><defs><linearGradient id="cgENE" x1="0" x2="1"><stop offset="0" stop-color="#2F7CFF"/><stop offset=".45" stop-color="#ffffff" stop-opacity=".35"/><stop offset=".55" stop-color="#2F7CFF"/><stop offset="1" stop-color="#2F7CFF"/></linearGradient></defs><rect x="10" y="18" width="130" height="226" rx="22" fill="#2F7CFF"/><rect x="10" y="18" width="130" height="226" rx="22" fill="url(#cgENE)" opacity=".55"/><rect x="22" y="6" width="106" height="20" rx="8" fill="#C7CED6"/><rect x="22" y="236" width="106" height="16" rx="7" fill="#C7CED6"/><path d="M10 120c40-30 90 30 130 0v40c-40 30-90-30-130 0z" fill="#00E5FF" opacity=".9"/><text x="75" y="104" font-family="Poppins" font-weight="700" font-size="22" text-anchor="middle" fill="#fff" transform="rotate(-90 75 130)">ENERGÉTICO</text></svg></div>
+  <div id="k3" class="abs" style="left:580px;top:250px"><svg viewBox="0 0 150 260" width="170" height="300"><defs><linearGradient id="cgCOC" x1="0" x2="1"><stop offset="0" stop-color="#E21B1B"/><stop offset=".45" stop-color="#ffffff" stop-opacity=".35"/><stop offset=".55" stop-color="#E21B1B"/><stop offset="1" stop-color="#E21B1B"/></linearGradient></defs><rect x="10" y="18" width="130" height="226" rx="22" fill="#E21B1B"/><rect x="10" y="18" width="130" height="226" rx="22" fill="url(#cgCOC)" opacity=".55"/><rect x="22" y="6" width="106" height="20" rx="8" fill="#C7CED6"/><rect x="22" y="236" width="106" height="16" rx="7" fill="#C7CED6"/><path d="M10 120c40-30 90 30 130 0v40c-40 30-90-30-130 0z" fill="#fff" opacity=".9"/><text x="75" y="104" font-family="Poppins" font-weight="700" font-size="22" text-anchor="middle" fill="#fff" transform="rotate(-90 75 130)">COCA-COLA</text></svg></div></div>
+  </div></div>
+
+</div>
+<script>
+(function () {
+  const { K, camFor, setBlur, money, place, Scene } = window.HF;
+  const $ = (id) => document.getElementById(id);
+  const A = [540, 960], id0 = [540, 960, 1];
+
+  const D = 3.3667;
+  const cam = K([[0, id0], [D, camFor([540, 835], [540, 835], 1.04, A), "sine.inOut"]]);
+  const slide = (t0) => K([[0, 900], [t0, 900], [t0 + 0.38, 0, "power3.out"]]);
+  const s1 = slide(0.07), s2 = slide(1.03), s3 = slide(2.603);
+  const K1 = $("k1"), K2 = $("k2"), K3 = $("k3");
+  function update(t) { place(K1, { x: s1(t) }); place(K2, { x: s2(t) }); place(K3, { x: s3(t) }); }
+
+  const tl = Scene({ id: "g09", t0: 30.3667, duration: 3.3667, anchor: A, cam: cam, update: update });
+  window.__timelines["g09"] = tl;
+})();
+</script>
+</body></html>

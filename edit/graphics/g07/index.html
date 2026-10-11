@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<title>g07</title><script src="gsap.min.js"></script><script src="scene.js"></script>
+<style>
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Bold.ttf") format("truetype"); font-weight: 700; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #4C9EFF; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Poppins", sans-serif; color: #1D1D1F; }
+#bgfx { position: absolute; inset: 0; }
+.stage { position: absolute; inset: 0; }
+#world { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.glass { position: absolute; background: rgba(255,255,255,0.85); -webkit-backdrop-filter: blur(24px) saturate(1.6); backdrop-filter: blur(24px) saturate(1.6);
+  border: 1.5px solid rgba(255,255,255,0.95); overflow: hidden;
+  box-shadow: 0 60px 120px rgba(0,30,80,0.16), 0 24px 48px rgba(0,30,80,0.10), 0 4px 10px rgba(0,30,80,0.06), inset 0 1px 0 rgba(255,255,255,1); }
+.t-title { font-size: 96px; font-weight: 700; line-height: 1.02; letter-spacing: -0.02em; }
+.t-sub { font-size: 52px; font-weight: 700; line-height: 1.12; letter-spacing: -0.01em; }
+.t-body { font-size: 30px; font-weight: 400; line-height: 1.3; }
+.t-white { color: #FFFFFF; text-shadow: 0 2px 12px rgba(0,30,80,0.25); }
+.abs { position: absolute; }
+.row { display: flex; align-items: center; }
+.chip { position: absolute; display: flex; align-items: center; gap: 14px; padding: 10px 22px; border-radius: 40px; background: rgba(0,229,255,0.16); color: #1D1D1F; font-size: 30px; font-weight: 600; }
+.cyanbar { background: #00E5FF; border-radius: 12px; }
+
+</style></head>
+<body>
+<div id="root" data-composition-id="g07" data-start="0" data-width="1080" data-height="1920" data-duration="3.6667" data-fps="240">
+  <svg width="0" height="0" style="position:absolute"><filter id="mb" filterUnits="userSpaceOnUse" x="-4000" y="-4000" width="10000" height="10000" color-interpolation-filters="sRGB"><feGaussianBlur id="mbg" stdDeviation="0 0" /></filter></svg>
+  <div id="bgfx"></div>
+
+  <div class="stage"><div id="world">
+<div id="tray" class="glass" style="left:140px;top:455px;width:800px;height:760px;border-radius:72px;">
+  <div class="abs" style="left:56px;top:56px"><svg viewBox="0 0 100 100" width="120" height="120" ><path d="M14 24h30c4 0 6 3 6 6v54c0-3-2-6-6-6H14z" fill="#00E5FF"/><path d="M86 24H56c-4 0-6 3-6 6v54c0-3 2-6 6-6h30z" fill="#2F7CFF"/></svg></div>
+  <div class="abs" style="left:110px;top:300px;width:580px;height:330px;border-radius:40px;background:rgba(0,229,255,.18);border:3px solid rgba(47,124,255,.25)"></div>
+  <div id="b1" class="abs" style="left:150px;top:350px"><svg viewBox="0 0 100 100" width="170" height="170" ><rect x="12" y="30" width="76" height="52" rx="10" fill="#6B3E26"/><rect x="12" y="30" width="76" height="20" rx="10" fill="#8A5634"/><path d="M18 44c8 6 12-4 20 2s12-6 20 0 12-4 22 2" fill="none" stroke="#C99369" stroke-width="4" stroke-linecap="round"/><circle cx="30" cy="64" r="3" fill="#C99369"/><circle cx="58" cy="70" r="3" fill="#C99369"/><circle cx="72" cy="60" r="3" fill="#C99369"/></svg></div>
+  <div id="b2" class="abs" style="left:315px;top:350px"><svg viewBox="0 0 100 100" width="170" height="170" ><rect x="12" y="30" width="76" height="52" rx="10" fill="#6B3E26"/><rect x="12" y="30" width="76" height="20" rx="10" fill="#8A5634"/><path d="M18 44c8 6 12-4 20 2s12-6 20 0 12-4 22 2" fill="none" stroke="#C99369" stroke-width="4" stroke-linecap="round"/><circle cx="30" cy="64" r="3" fill="#C99369"/><circle cx="58" cy="70" r="3" fill="#C99369"/><circle cx="72" cy="60" r="3" fill="#C99369"/></svg></div>
+  <div id="b3" class="abs" style="left:480px;top:350px"><svg viewBox="0 0 100 100" width="170" height="170" ><rect x="12" y="30" width="76" height="52" rx="10" fill="#6B3E26"/><rect x="12" y="30" width="76" height="20" rx="10" fill="#8A5634"/><path d="M18 44c8 6 12-4 20 2s12-6 20 0 12-4 22 2" fill="none" stroke="#C99369" stroke-width="4" stroke-linecap="round"/><circle cx="30" cy="64" r="3" fill="#C99369"/><circle cx="58" cy="70" r="3" fill="#C99369"/><circle cx="72" cy="60" r="3" fill="#C99369"/></svg></div></div>
+  </div></div>
+
+</div>
+<script>
+(function () {
+  const { K, camFor, setBlur, money, place, Scene } = window.HF;
+  const $ = (id) => document.getElementById(id);
+  const A = [540, 960], id0 = [540, 960, 1];
+
+  const D = 3.6667, t2 = 2.137, t3 = 2.377;
+  const cam = K([[0, id0], [0.3, id0], [1.9, camFor([540, 920], [540, 900], 1.25, A), "power2.inOut"]]);
+  const drop = (t0) => K([[0, -800], [t0, -800], [t0 + 0.3, 0, "power2.in"], [t0 + 0.4, -12, "sine.out"], [t0 + 0.52, 0, "sine.inOut"]]);
+  const d1 = drop(t2), d2 = drop(t2 + 0.1), d3 = drop(t3);
+  const B1 = $("b1"), B2 = $("b2"), B3 = $("b3");
+  function update(t) { place(B1, { y: d1(t) }); place(B2, { y: d2(t) }); place(B3, { y: d3(t) }); }
+
+  const tl = Scene({ id: "g07", t0: 25.0000, duration: 3.6667, anchor: A, cam: cam, update: update });
+  window.__timelines["g07"] = tl;
+})();
+</script>
+</body></html>

@@ -1,0 +1,56 @@
+{
+ "voice_peak_dbfs": 3.719584160100503,
+ "sfx": [
+  {
+   "t": 1.75,
+   "desc": "passagem (ruído filtrado, variação A) — pico no meio do movimento rápido",
+   "peak_dbfs": -5.28
+  },
+  {
+   "t": 2.3,
+   "desc": "impacto abafado — chegada de cartão",
+   "peak_dbfs": -6.28
+  },
+  {
+   "t": 5.387,
+   "desc": "sequência leve de tiques do zíper (5.387–5.967 s)",
+   "peak_dbfs": -12.28
+  },
+  {
+   "t": 6.007,
+   "desc": "impacto abafado — chegada de cartão",
+   "peak_dbfs": -6.28
+  },
+  {
+   "t": 19.617,
+   "desc": "impacto abafado — chegada de cartão",
+   "peak_dbfs": -6.28
+  },
+  {
+   "t": 21.077,
+   "desc": "passagem (ruído filtrado, variação B) — pico no meio do movimento rápido",
+   "peak_dbfs": -5.28
+  },
+  {
+   "t": 22.84,
+   "desc": "sinal de duas notas (Dó6→Sol6) — confirmação",
+   "peak_dbfs": -6.28
+  }
+ ],
+ "riser": {
+  "start": 2.6667,
+  "end": 5.2667,
+  "peak_dbfs": -10.28
+ },
+ "music": {
+  "bpm": 110,
+  "first_beat_s": 0.016666666666666666
+ },
+ "master": {
+  "trim_db": -0.06,
+  "limited": true,
+  "max_gr_db": 5.85,
+  "pct_samples_limited": 13.49,
+  "pct_samples_gr_over_1db": 2.82
+ }
+}

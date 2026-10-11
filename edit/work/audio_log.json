@@ -1,56 +1,182 @@
 {
- "voice_peak_dbfs": 3.719584160100503,
+ "voice_peak_dbfs": 1.56,
  "sfx": [
   {
-   "t": 1.75,
-   "desc": "passagem (ruído filtrado, variação A) — pico no meio do movimento rápido",
-   "peak_dbfs": -5.28
+   "t": 10.327,
+   "desc": "sinal agudo de duas notas (Lá6→Mi7) — confirmação",
+   "peak_dbfs": -8.44,
+   "comp": "g03"
   },
   {
-   "t": 2.3,
-   "desc": "impacto abafado — chegada de cartão",
-   "peak_dbfs": -6.28
+   "t": 11.84,
+   "desc": "sequência leve de pequenos sons (dados/contagem) 11.840–13.240 s",
+   "peak_dbfs": -14.44,
+   "comp": "g03"
   },
   {
-   "t": 5.387,
-   "desc": "sequência leve de tiques do zíper (5.387–5.967 s)",
-   "peak_dbfs": -12.28
+   "t": 17.973,
+   "desc": "passagem sutil (ruído filtrado) — pico no meio do movimento rápido",
+   "peak_dbfs": -7.44,
+   "comp": "g05"
   },
   {
-   "t": 6.007,
-   "desc": "impacto abafado — chegada de cartão",
-   "peak_dbfs": -6.28
+   "t": 18.723,
+   "desc": "impacto macio e abafado — chegada de cartão/objeto",
+   "peak_dbfs": -8.44,
+   "comp": "g05"
   },
   {
-   "t": 19.617,
-   "desc": "impacto abafado — chegada de cartão",
-   "peak_dbfs": -6.28
+   "t": 20.003,
+   "desc": "sequência leve de pequenos sons (dados/contagem) 20.003–20.733 s",
+   "peak_dbfs": -14.44,
+   "comp": "g05"
   },
   {
-   "t": 21.077,
-   "desc": "passagem (ruído filtrado, variação B) — pico no meio do movimento rápido",
-   "peak_dbfs": -5.28
+   "t": 27.437,
+   "desc": "impacto macio e abafado — chegada de cartão/objeto",
+   "peak_dbfs": -8.44,
+   "comp": "g07"
   },
   {
-   "t": 22.84,
-   "desc": "sinal de duas notas (Dó6→Sol6) — confirmação",
-   "peak_dbfs": -6.28
+   "t": 30.003,
+   "desc": "impacto macio e abafado — chegada de cartão/objeto",
+   "peak_dbfs": -8.44,
+   "comp": "g08"
+  },
+  {
+   "t": 30.737,
+   "desc": "impacto macio e abafado — chegada de cartão/objeto",
+   "peak_dbfs": -8.44,
+   "comp": "g09"
+  },
+  {
+   "t": 33.27,
+   "desc": "impacto macio e abafado — chegada de cartão/objeto",
+   "peak_dbfs": -8.44,
+   "comp": "g09"
+  },
+  {
+   "t": 41.513,
+   "desc": "impacto macio e abafado — chegada de cartão/objeto",
+   "peak_dbfs": -8.44,
+   "comp": "g11"
+  },
+  {
+   "t": 46.11,
+   "desc": "sequência leve de pequenos sons (dados/contagem) 46.110–47.110 s",
+   "peak_dbfs": -14.44,
+   "comp": "g13"
+  },
+  {
+   "t": 50.167,
+   "desc": "sequência leve de pequenos sons (dados/contagem) 50.167–51.117 s",
+   "peak_dbfs": -14.44,
+   "comp": "g14"
+  },
+  {
+   "t": 51.117,
+   "desc": "sinal agudo de duas notas (Lá6→Mi7) — confirmação",
+   "peak_dbfs": -8.44,
+   "comp": "g14"
+  },
+  {
+   "t": 60.01,
+   "desc": "sequência leve de pequenos sons (dados/contagem) 60.010–60.650 s",
+   "peak_dbfs": -14.44,
+   "comp": "g16"
+  },
+  {
+   "t": 61.27,
+   "desc": "impacto macio e abafado — chegada de cartão/objeto",
+   "peak_dbfs": -8.44,
+   "comp": "g16"
+  },
+  {
+   "t": 65.173,
+   "desc": "passagem sutil (ruído filtrado) — pico no meio do movimento rápido",
+   "peak_dbfs": -7.44,
+   "comp": "g17"
+  },
+  {
+   "t": 68.023,
+   "desc": "impacto macio e abafado — chegada de cartão/objeto",
+   "peak_dbfs": -8.44,
+   "comp": "g17"
+  },
+  {
+   "t": 75.88,
+   "desc": "impacto macio e abafado — chegada de cartão/objeto",
+   "peak_dbfs": -8.44,
+   "comp": "g19"
+  },
+  {
+   "t": 85.153,
+   "desc": "sinal agudo de duas notas (Lá6→Mi7) — confirmação",
+   "peak_dbfs": -8.44,
+   "comp": "g20"
+  },
+  {
+   "t": 91.95,
+   "desc": "impacto macio e abafado — chegada de cartão/objeto",
+   "peak_dbfs": -8.44,
+   "comp": "g22"
+  },
+  {
+   "t": 103.237,
+   "desc": "sequência leve de pequenos sons (dados/contagem) 103.237–104.037 s",
+   "peak_dbfs": -14.44,
+   "comp": "g25"
+  },
+  {
+   "t": 118.533,
+   "desc": "sinal agudo de duas notas (Lá6→Mi7) — confirmação",
+   "peak_dbfs": -8.44,
+   "comp": "g28"
+  },
+  {
+   "t": 129.103,
+   "desc": "impacto macio e abafado — chegada de cartão/objeto",
+   "peak_dbfs": -8.44,
+   "comp": "g30"
+  },
+  {
+   "t": 131.18,
+   "desc": "impacto macio e abafado — chegada de cartão/objeto",
+   "peak_dbfs": -8.44,
+   "comp": "g31"
+  },
+  {
+   "t": 134.35,
+   "desc": "impacto macio e abafado — chegada de cartão/objeto",
+   "peak_dbfs": -8.44,
+   "comp": "g31"
+  },
+  {
+   "t": 140.227,
+   "desc": "sequência leve de pequenos sons (dados/contagem) 140.227–141.477 s",
+   "peak_dbfs": -14.44,
+   "comp": "g33"
   }
  ],
  "riser": {
-  "start": 2.6667,
-  "end": 5.2667,
-  "peak_dbfs": -10.28
+  "start": 1.2667,
+  "end": 3.8667,
+  "peak_dbfs": -12.44
  },
  "music": {
-  "bpm": 110,
-  "first_beat_s": 0.016666666666666666
+  "bpm": 105,
+  "first_beat_s": 0.016666666666666666,
+  "key": "Ré maior (Dmaj7–Bm7–Gmaj7–Asus4)"
  },
  "master": {
-  "trim_db": -0.06,
-  "limited": true,
-  "max_gr_db": 5.85,
-  "pct_samples_limited": 13.49,
-  "pct_samples_gr_over_1db": 2.82
+  "trim_db": -0.42,
+  "max_gr_db": 3.17,
+  "pct_samples_gr_over_1db": 0.55
+ },
+ "voice_leveller": {
+  "thr_dbfs_rms3ms": -10.0,
+  "ratio": 2.5,
+  "max_gr_db": 3.24,
+  "pct_samples_gr_over_1db": 12.42
  }
 }

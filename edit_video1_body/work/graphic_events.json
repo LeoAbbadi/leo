@@ -1,0 +1,50 @@
+[
+ {
+  "comp": "g1",
+  "kind": "whoosh",
+  "t_rel": 1.75,
+  "t": 1.75
+ },
+ {
+  "comp": "g1",
+  "kind": "impact",
+  "t_rel": 2.3,
+  "t": 2.3
+ },
+ {
+  "comp": "g2",
+  "kind": "ticks",
+  "t_rel": 0.12,
+  "t": 5.3867
+ },
+ {
+  "comp": "g2",
+  "kind": "ticks",
+  "t_rel": 0.7,
+  "t": 5.9667
+ },
+ {
+  "comp": "g2",
+  "kind": "impact",
+  "t_rel": 0.74,
+  "t": 6.0067
+ },
+ {
+  "comp": "g7",
+  "kind": "impact",
+  "t_rel": 1.3,
+  "t": 19.6167
+ },
+ {
+  "comp": "g8",
+  "kind": "whoosh",
+  "t_rel": 0.894,
+  "t": 21.0773
+ },
+ {
+  "comp": "g8",
+  "kind": "chime",
+  "t_rel": 2.657,
+  "t": 22.8403
+ }
+]

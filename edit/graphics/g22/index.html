@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<title>g22</title><script src="gsap.min.js"></script><script src="scene.js"></script>
+<style>
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Bold.ttf") format("truetype"); font-weight: 700; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #4C9EFF; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Poppins", sans-serif; color: #1D1D1F; }
+#bgfx { position: absolute; inset: 0; }
+.stage { position: absolute; inset: 0; }
+#world { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.glass { position: absolute; background: rgba(255,255,255,0.85); -webkit-backdrop-filter: blur(24px) saturate(1.6); backdrop-filter: blur(24px) saturate(1.6);
+  border: 1.5px solid rgba(255,255,255,0.95); overflow: hidden;
+  box-shadow: 0 60px 120px rgba(0,30,80,0.16), 0 24px 48px rgba(0,30,80,0.10), 0 4px 10px rgba(0,30,80,0.06), inset 0 1px 0 rgba(255,255,255,1); }
+.t-title { font-size: 96px; font-weight: 700; line-height: 1.02; letter-spacing: -0.02em; }
+.t-sub { font-size: 52px; font-weight: 700; line-height: 1.12; letter-spacing: -0.01em; }
+.t-body { font-size: 30px; font-weight: 400; line-height: 1.3; }
+.t-white { color: #FFFFFF; text-shadow: 0 2px 12px rgba(0,30,80,0.25); }
+.abs { position: absolute; }
+.row { display: flex; align-items: center; }
+.chip { position: absolute; display: flex; align-items: center; gap: 14px; padding: 10px 22px; border-radius: 40px; background: rgba(0,229,255,0.16); color: #1D1D1F; font-size: 30px; font-weight: 600; }
+.cyanbar { background: #00E5FF; border-radius: 12px; }
+#st3 { position:absolute; left:560px; top:250px; width:220px; height:220px; border-radius:50%; border:10px solid #FF3B30; color:#FF3B30; font-size:96px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+</style></head>
+<body>
+<div id="root" data-composition-id="g22" data-start="0" data-width="1080" data-height="1920" data-duration="2.2833" data-fps="240">
+  <svg width="0" height="0" style="position:absolute"><filter id="mb" filterUnits="userSpaceOnUse" x="-4000" y="-4000" width="10000" height="10000" color-interpolation-filters="sRGB"><feGaussianBlur id="mbg" stdDeviation="0 0" /></filter></svg>
+  <div id="bgfx"></div>
+
+  <div class="stage"><div id="world">
+<div id="tk" class="glass" style="left:110px;top:555px;width:860px;height:660px;border-radius:32px;">
+  <div  class="abs" style="left:56px;top:56px;"><div class="t-title">DUB → CDG</div></div>
+  <div class="abs t-body" style="left:56px;top:190px;opacity:.6">passagem de último minuto</div>
+  <div class="abs t-body" style="left:56px;top:300px;font-weight:600">preço normal</div>
+  <div class="abs" style="left:56px;top:350px;width:220px;height:40px;border-radius:20px;background:#00E5FF"></div>
+  <div class="abs t-body" style="left:56px;top:430px;font-weight:600">o que ele pagou</div>
+  <div class="abs" style="left:56px;top:480px;width:660px;height:40px;border-radius:20px;background:rgba(255,59,48,.12)"><div id="pb" class="abs" style="left:0;top:0;width:660px;height:40px;border-radius:20px;background:#FF3B30"></div></div>
+  <div id="st3">3×</div></div>
+  </div></div>
+
+</div>
+<script>
+(function () {
+  const { K, camFor, setBlur, money, place, Scene } = window.HF;
+  const $ = (id) => document.getElementById(id);
+  const A = [540, 960], id0 = [540, 960, 1];
+
+  const D = 2.2833, t3 = 0.95;
+  const cam = K([[0, id0], [D, camFor([540, 885], [540, 885], 1.03, A), "sine.inOut"]]);
+  const g = K([[0, 1 / 3], [t3, 1 / 3], [t3 + 0.45, 1, "power2.inOut"]]), s = K([[0, 0], [t3 + 0.12, 0], [t3 + 0.3, 1, "power4.in"]]);
+  const PB = $("pb"), S = $("st3");
+  function update(t) { PB.style.transform = "scaleX(" + g(t).toFixed(4) + ")"; PB.style.transformOrigin = "0 50%"; const q = s(t); S.style.opacity = q > 0 ? 1 : 0; S.style.transform = "rotate(-14deg) scale(" + (2 - q).toFixed(3) + ")"; }
+
+  const tl = Scene({ id: "g22", t0: 90.7000, duration: 2.2833, anchor: A, cam: cam, update: update });
+  window.__timelines["g22"] = tl;
+})();
+</script>
+</body></html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<title>g08</title><script src="gsap.min.js"></script><script src="scene.js"></script>
+<style>
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Bold.ttf") format("truetype"); font-weight: 700; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #4C9EFF; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Poppins", sans-serif; color: #1D1D1F; }
+#bgfx { position: absolute; inset: 0; }
+.stage { position: absolute; inset: 0; }
+#world { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.glass { position: absolute; background: rgba(255,255,255,0.85); -webkit-backdrop-filter: blur(24px) saturate(1.6); backdrop-filter: blur(24px) saturate(1.6);
+  border: 1.5px solid rgba(255,255,255,0.95); overflow: hidden;
+  box-shadow: 0 60px 120px rgba(0,30,80,0.16), 0 24px 48px rgba(0,30,80,0.10), 0 4px 10px rgba(0,30,80,0.06), inset 0 1px 0 rgba(255,255,255,1); }
+.t-title { font-size: 96px; font-weight: 700; line-height: 1.02; letter-spacing: -0.02em; }
+.t-sub { font-size: 52px; font-weight: 700; line-height: 1.12; letter-spacing: -0.01em; }
+.t-body { font-size: 30px; font-weight: 400; line-height: 1.3; }
+.t-white { color: #FFFFFF; text-shadow: 0 2px 12px rgba(0,30,80,0.25); }
+.abs { position: absolute; }
+.row { display: flex; align-items: center; }
+.chip { position: absolute; display: flex; align-items: center; gap: 14px; padding: 10px 22px; border-radius: 40px; background: rgba(0,229,255,0.16); color: #1D1D1F; font-size: 30px; font-weight: 600; }
+.cyanbar { background: #00E5FF; border-radius: 12px; }
+
+</style></head>
+<body>
+<div id="root" data-composition-id="g08" data-start="0" data-width="1080" data-height="1920" data-duration="1.7000" data-fps="240">
+  <svg width="0" height="0" style="position:absolute"><filter id="mb" filterUnits="userSpaceOnUse" x="-4000" y="-4000" width="10000" height="10000" color-interpolation-filters="sRGB"><feGaussianBlur id="mbg" stdDeviation="0 0" /></filter></svg>
+  <div id="bgfx"></div>
+
+  <div class="stage"><div id="world">
+<div id="st" class="glass" style="left:190px;top:180px;width:700px;height:560px;border-radius:32px;"><div class="abs" style="left:150px;top:60px"><svg viewBox="0 0 100 100" width="400" height="400" ><rect x="18" y="44" width="64" height="42" rx="4" fill="#fff" stroke="#2F7CFF" stroke-width="5"/><path d="M12 26h76l-4 18H16z" fill="#00E5FF"/><path d="M24 26l-3 18M37 26l-1 18M50 26v18M63 26l1 18M76 26l3 18" stroke="#fff" stroke-width="6"/><rect x="28" y="56" width="18" height="30" rx="2" fill="#2F7CFF"/><rect x="54" y="56" width="20" height="14" rx="2" fill="rgba(0,229,255,.35)"/></svg></div></div><div id="cf" class="glass" style="left:640px;top:420px;width:320px;height:380px;border-radius:40px;"><div id="cfi" class="abs" style="left:30px;top:30px"><svg viewBox="0 0 100 100" width="260" height="260" ><path d="M22 44h48v18c0 14-10 24-24 24S22 76 22 62z" fill="#fff" stroke="#2F7CFF" stroke-width="5"/><path d="M70 50h6c6 0 8 4 8 8s-2 8-8 8h-7" fill="none" stroke="#2F7CFF" stroke-width="5"/><ellipse cx="46" cy="90" rx="34" ry="5" fill="#00E5FF" opacity=".6"/><g id="STEAM"><path d="M36 36c-6-8 6-12 0-22M50 36c-6-8 6-12 0-22M64 36c-6-8 6-12 0-22" fill="none" stroke="#9CC9FF" stroke-width="4" stroke-linecap="round"/></g></svg></div></div>
+  </div></div>
+
+</div>
+<script>
+(function () {
+  const { K, camFor, setBlur, money, place, Scene } = window.HF;
+  const $ = (id) => document.getElementById(id);
+  const A = [540, 960], id0 = [540, 960, 1];
+
+  const D = 1.7000, tc = 1.156;
+  const cam = K([[0, id0], [D, camFor([540, 470], [540, 470], 1.03, A), "sine.inOut"]]);
+  const pop = K([[0, 0], [tc, 0], [tc + 0.35, 1, "back.out(1.7)"]]);
+  const CF = $("cf"), ST = document.querySelector("#cfi #STEAM");
+  function update(t) { const p = pop(t); place(CF, { s: 0.6 + 0.4 * p, o: Math.min(1, p * 1.4) }); if (ST) ST.setAttribute("transform", "translate(0 " + (-4 * Math.sin(t * 6)).toFixed(2) + ")"); }
+
+  const tl = Scene({ id: "g08", t0: 28.6667, duration: 1.7000, anchor: A, cam: cam, update: update });
+  window.__timelines["g08"] = tl;
+})();
+</script>
+</body></html>

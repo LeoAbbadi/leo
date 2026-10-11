@@ -1,0 +1,1125 @@
+{
+ "END": 29.166666666666668,
+ "frames": 1750,
+ "pieces": [
+  {
+   "k": 0,
+   "s": 0.0,
+   "e": 1.38,
+   "w0": 0,
+   "w1": 0,
+   "O": 0.0,
+   "A": 0.0,
+   "V": 0.0,
+   "gap_out_before": null,
+   "tail_floor": 1.41,
+   "fade": 0.09666666666666668,
+   "src_end": 1.5066666666666666,
+   "src_start": 0.0
+  },
+  {
+   "k": 1,
+   "s": 1.91,
+   "e": 6.77,
+   "w0": 0,
+   "w1": 0,
+   "V": 1.5166666666666666,
+   "A": 1.4666666666666666,
+   "O": 1.5066666666666666,
+   "gap_out_before": 0.1266666666666667,
+   "tail_floor": 6.863333333333333,
+   "fade": 0.03000000000000025,
+   "src_end": 6.8933333333333335,
+   "src_start": 1.8699999999999999
+  },
+  {
+   "k": 2,
+   "s": 7.58,
+   "e": 14.79,
+   "w0": 0,
+   "w1": 0,
+   "V": 6.5,
+   "A": 6.45,
+   "O": 6.49,
+   "gap_out_before": 0.12333333333333485,
+   "tail_floor": 14.81,
+   "fade": 0.10333333333333172,
+   "src_end": 14.913333333333332,
+   "src_start": 7.54
+  },
+  {
+   "k": 3,
+   "s": 15.38,
+   "e": 19.74,
+   "w0": 0,
+   "w1": 0,
+   "V": 13.833333333333334,
+   "A": 13.783333333333333,
+   "O": 13.823333333333332,
+   "gap_out_before": 0.1233333333333313,
+   "tail_floor": 19.82,
+   "fade": 0.043333333333333,
+   "src_end": 19.863333333333333,
+   "src_start": 15.340000000000002
+  },
+  {
+   "k": 4,
+   "s": 20.35,
+   "e": 24.76,
+   "w0": 0,
+   "w1": 0,
+   "V": 18.316666666666666,
+   "A": 18.266666666666666,
+   "O": 18.306666666666665,
+   "gap_out_before": 0.12333333333333485,
+   "tail_floor": 24.78,
+   "fade": 0.10333333333333528,
+   "src_end": 24.883333333333336,
+   "src_start": 20.310000000000002
+  },
+  {
+   "k": 5,
+   "s": 25.02,
+   "e": 25.95,
+   "w0": 0,
+   "w1": 0,
+   "V": 22.85,
+   "A": 22.8,
+   "O": 22.84,
+   "gap_out_before": 0.1233333333333384,
+   "tail_floor": 25.97,
+   "fade": 0.09999999999999787,
+   "src_end": 26.069999999999997,
+   "src_start": 24.98
+  },
+  {
+   "k": 6,
+   "s": 26.25,
+   "e": 31.24,
+   "w0": 0,
+   "w1": 0,
+   "V": 23.9,
+   "A": 23.849999999999998,
+   "O": 23.889999999999997,
+   "gap_out_before": 0.11999999999999744,
+   "tail_floor": 31.35,
+   "fade": 0.17,
+   "src_end": 31.520000000000003,
+   "src_start": 26.21
+  }
+ ],
+ "words": [
+  {
+   "text": "Olha",
+   "src0": 0.0,
+   "src1": 0.24,
+   "t0": 0.0,
+   "t1": 0.24,
+   "piece": 0
+  },
+  {
+   "text": "o",
+   "src0": 0.24,
+   "src1": 0.32,
+   "t0": 0.24,
+   "t1": 0.32,
+   "piece": 0
+  },
+  {
+   "text": "tamanhinho",
+   "src0": 0.32,
+   "src1": 0.72,
+   "t0": 0.32,
+   "t1": 0.72,
+   "piece": 0
+  },
+  {
+   "text": "disso",
+   "src0": 0.72,
+   "src1": 1.04,
+   "t0": 0.72,
+   "t1": 1.04,
+   "piece": 0
+  },
+  {
+   "text": "daqui.",
+   "src0": 1.04,
+   "src1": 1.38,
+   "t0": 1.04,
+   "t1": 1.38,
+   "piece": 0
+  },
+  {
+   "text": "Chegou",
+   "src0": 1.91,
+   "src1": 2.55,
+   "t0": 1.507,
+   "t1": 2.147,
+   "piece": 1
+  },
+  {
+   "text": "pra",
+   "src0": 2.55,
+   "src1": 2.71,
+   "t0": 2.147,
+   "t1": 2.307,
+   "piece": 1
+  },
+  {
+   "text": "mim",
+   "src0": 2.71,
+   "src1": 2.87,
+   "t0": 2.307,
+   "t1": 2.467,
+   "piece": 1
+  },
+  {
+   "text": "aqui",
+   "src0": 2.87,
+   "src1": 3.03,
+   "t0": 2.467,
+   "t1": 2.627,
+   "piece": 1
+  },
+  {
+   "text": "em",
+   "src0": 3.03,
+   "src1": 3.11,
+   "t0": 2.627,
+   "t1": 2.707,
+   "piece": 1
+  },
+  {
+   "text": "casa",
+   "src0": 3.11,
+   "src1": 3.51,
+   "t0": 2.707,
+   "t1": 3.107,
+   "piece": 1
+  },
+  {
+   "text": "esse",
+   "src0": 3.51,
+   "src1": 3.75,
+   "t0": 3.107,
+   "t1": 3.347,
+   "piece": 1
+  },
+  {
+   "text": "body",
+   "src0": 3.75,
+   "src1": 4.23,
+   "t0": 3.347,
+   "t1": 3.827,
+   "piece": 1
+  },
+  {
+   "text": "e",
+   "src0": 4.23,
+   "src1": 4.31,
+   "t0": 3.827,
+   "t1": 3.907,
+   "piece": 1
+  },
+  {
+   "text": "eu",
+   "src0": 4.31,
+   "src1": 4.47,
+   "t0": 3.907,
+   "t1": 4.067,
+   "piece": 1
+  },
+  {
+   "text": "tava",
+   "src0": 4.47,
+   "src1": 4.79,
+   "t0": 4.067,
+   "t1": 4.387,
+   "piece": 1
+  },
+  {
+   "text": "muito",
+   "src0": 4.79,
+   "src1": 5.03,
+   "t0": 4.387,
+   "t1": 4.627,
+   "piece": 1
+  },
+  {
+   "text": "ansiosa.",
+   "src0": 5.03,
+   "src1": 5.59,
+   "t0": 4.627,
+   "t1": 5.187,
+   "piece": 1
+  },
+  {
+   "text": "Eu",
+   "src0": 5.59,
+   "src1": 5.67,
+   "t0": 5.187,
+   "t1": 5.267,
+   "piece": 1
+  },
+  {
+   "text": "vou",
+   "src0": 5.67,
+   "src1": 5.83,
+   "t0": 5.267,
+   "t1": 5.427,
+   "piece": 1
+  },
+  {
+   "text": "abrir",
+   "src0": 5.83,
+   "src1": 6.15,
+   "t0": 5.427,
+   "t1": 5.747,
+   "piece": 1
+  },
+  {
+   "text": "junto",
+   "src0": 6.15,
+   "src1": 6.39,
+   "t0": 5.747,
+   "t1": 5.987,
+   "piece": 1
+  },
+  {
+   "text": "com",
+   "src0": 6.39,
+   "src1": 6.47,
+   "t0": 5.987,
+   "t1": 6.067,
+   "piece": 1
+  },
+  {
+   "text": "vocês.",
+   "src0": 6.47,
+   "src1": 6.77,
+   "t0": 6.067,
+   "t1": 6.367,
+   "piece": 1
+  },
+  {
+   "text": "Ele",
+   "src0": 7.58,
+   "src1": 7.82,
+   "t0": 6.49,
+   "t1": 6.73,
+   "piece": 2
+  },
+  {
+   "text": "é",
+   "src0": 7.82,
+   "src1": 7.9,
+   "t0": 6.73,
+   "t1": 6.81,
+   "piece": 2
+  },
+  {
+   "text": "um",
+   "src0": 7.9,
+   "src1": 8.06,
+   "t0": 6.81,
+   "t1": 6.97,
+   "piece": 2
+  },
+  {
+   "text": "daqueles",
+   "src0": 8.06,
+   "src1": 8.46,
+   "t0": 6.97,
+   "t1": 7.37,
+   "piece": 2
+  },
+  {
+   "text": "body",
+   "src0": 8.46,
+   "src1": 8.94,
+   "t0": 7.37,
+   "t1": 7.85,
+   "piece": 2
+  },
+  {
+   "text": "de",
+   "src0": 8.94,
+   "src1": 9.1,
+   "t0": 7.85,
+   "t1": 8.01,
+   "piece": 2
+  },
+  {
+   "text": "compressão,",
+   "src0": 9.1,
+   "src1": 9.66,
+   "t0": 8.01,
+   "t1": 8.57,
+   "piece": 2
+  },
+  {
+   "text": "sabe?",
+   "src0": 9.66,
+   "src1": 9.9,
+   "t0": 8.57,
+   "t1": 8.81,
+   "piece": 2
+  },
+  {
+   "text": "Que",
+   "src0": 9.9,
+   "src1": 10.06,
+   "t0": 8.81,
+   "t1": 8.97,
+   "piece": 2
+  },
+  {
+   "text": "servem",
+   "src0": 10.06,
+   "src1": 10.38,
+   "t0": 8.97,
+   "t1": 9.29,
+   "piece": 2
+  },
+  {
+   "text": "pra",
+   "src0": 10.38,
+   "src1": 10.54,
+   "t0": 9.29,
+   "t1": 9.45,
+   "piece": 2
+  },
+  {
+   "text": "ficar",
+   "src0": 10.54,
+   "src1": 10.78,
+   "t0": 9.45,
+   "t1": 9.69,
+   "piece": 2
+  },
+  {
+   "text": "realmente",
+   "src0": 10.78,
+   "src1": 11.1,
+   "t0": 9.69,
+   "t1": 10.01,
+   "piece": 2
+  },
+  {
+   "text": "bem",
+   "src0": 11.1,
+   "src1": 11.34,
+   "t0": 10.01,
+   "t1": 10.25,
+   "piece": 2
+  },
+  {
+   "text": "justinhos",
+   "src0": 11.34,
+   "src1": 11.9,
+   "t0": 10.25,
+   "t1": 10.81,
+   "piece": 2
+  },
+  {
+   "text": "no",
+   "src0": 11.9,
+   "src1": 11.98,
+   "t0": 10.81,
+   "t1": 10.89,
+   "piece": 2
+  },
+  {
+   "text": "corpo.",
+   "src0": 11.98,
+   "src1": 12.3,
+   "t0": 10.89,
+   "t1": 11.21,
+   "piece": 2
+  },
+  {
+   "text": "Eu",
+   "src0": 12.3,
+   "src1": 12.38,
+   "t0": 11.21,
+   "t1": 11.29,
+   "piece": 2
+  },
+  {
+   "text": "peguei",
+   "src0": 12.38,
+   "src1": 12.7,
+   "t0": 11.29,
+   "t1": 11.61,
+   "piece": 2
+  },
+  {
+   "text": "o",
+   "src0": 12.7,
+   "src1": 12.78,
+   "t0": 11.61,
+   "t1": 11.69,
+   "piece": 2
+  },
+  {
+   "text": "menor",
+   "src0": 12.78,
+   "src1": 13.02,
+   "t0": 11.69,
+   "t1": 11.93,
+   "piece": 2
+  },
+  {
+   "text": "tamanho",
+   "src0": 13.02,
+   "src1": 13.34,
+   "t0": 11.93,
+   "t1": 12.25,
+   "piece": 2
+  },
+  {
+   "text": "e",
+   "src0": 13.34,
+   "src1": 13.5,
+   "t0": 12.25,
+   "t1": 12.41,
+   "piece": 2
+  },
+  {
+   "text": "vou",
+   "src0": 13.5,
+   "src1": 13.58,
+   "t0": 12.41,
+   "t1": 12.49,
+   "piece": 2
+  },
+  {
+   "text": "experimentar",
+   "src0": 13.58,
+   "src1": 14.22,
+   "t0": 12.49,
+   "t1": 13.13,
+   "piece": 2
+  },
+  {
+   "text": "ele",
+   "src0": 14.22,
+   "src1": 14.38,
+   "t0": 13.13,
+   "t1": 13.29,
+   "piece": 2
+  },
+  {
+   "text": "com",
+   "src0": 14.38,
+   "src1": 14.54,
+   "t0": 13.29,
+   "t1": 13.45,
+   "piece": 2
+  },
+  {
+   "text": "vocês.",
+   "src0": 14.54,
+   "src1": 14.79,
+   "t0": 13.45,
+   "t1": 13.7,
+   "piece": 2
+  },
+  {
+   "text": "E",
+   "src0": 15.38,
+   "src1": 15.54,
+   "t0": 13.823,
+   "t1": 13.983,
+   "piece": 3
+  },
+  {
+   "text": "no",
+   "src0": 15.54,
+   "src1": 15.7,
+   "t0": 13.983,
+   "t1": 14.143,
+   "piece": 3
+  },
+  {
+   "text": "corpo",
+   "src0": 15.7,
+   "src1": 16.1,
+   "t0": 14.143,
+   "t1": 14.543,
+   "piece": 3
+  },
+  {
+   "text": "ele",
+   "src0": 16.1,
+   "src1": 16.26,
+   "t0": 14.543,
+   "t1": 14.703,
+   "piece": 3
+  },
+  {
+   "text": "ficou",
+   "src0": 16.26,
+   "src1": 16.58,
+   "t0": 14.703,
+   "t1": 15.023,
+   "piece": 3
+  },
+  {
+   "text": "assim,",
+   "src0": 16.58,
+   "src1": 16.98,
+   "t0": 15.023,
+   "t1": 15.423,
+   "piece": 3
+  },
+  {
+   "text": "olha,",
+   "src0": 16.98,
+   "src1": 17.22,
+   "t0": 15.423,
+   "t1": 15.663,
+   "piece": 3
+  },
+  {
+   "text": "gente.",
+   "src0": 17.22,
+   "src1": 17.54,
+   "t0": 15.663,
+   "t1": 15.983,
+   "piece": 3
+  },
+  {
+   "text": "Ele",
+   "src0": 17.54,
+   "src1": 17.78,
+   "t0": 15.983,
+   "t1": 16.223,
+   "piece": 3
+  },
+  {
+   "text": "realmente",
+   "src0": 17.78,
+   "src1": 18.1,
+   "t0": 16.223,
+   "t1": 16.543,
+   "piece": 3
+  },
+  {
+   "text": "comprime",
+   "src0": 18.1,
+   "src1": 18.74,
+   "t0": 16.543,
+   "t1": 17.183,
+   "piece": 3
+  },
+  {
+   "text": "bastante,",
+   "src0": 18.74,
+   "src1": 19.06,
+   "t0": 17.183,
+   "t1": 17.503,
+   "piece": 3
+  },
+  {
+   "text": "viu?",
+   "src0": 19.06,
+   "src1": 19.38,
+   "t0": 17.503,
+   "t1": 17.823,
+   "piece": 3
+  },
+  {
+   "text": "Olha",
+   "src0": 19.38,
+   "src1": 19.62,
+   "t0": 17.823,
+   "t1": 18.063,
+   "piece": 3
+  },
+  {
+   "text": "aqui.",
+   "src0": 19.62,
+   "src1": 19.74,
+   "t0": 18.063,
+   "t1": 18.183,
+   "piece": 3
+  },
+  {
+   "text": "Eu",
+   "src0": 20.35,
+   "src1": 20.51,
+   "t0": 18.307,
+   "t1": 18.467,
+   "piece": 4
+  },
+  {
+   "text": "visto",
+   "src0": 20.51,
+   "src1": 20.91,
+   "t0": 18.467,
+   "t1": 18.867,
+   "piece": 4
+  },
+  {
+   "text": "36",
+   "src0": 20.91,
+   "src1": 21.39,
+   "t0": 18.867,
+   "t1": 19.347,
+   "piece": 4
+  },
+  {
+   "text": "e",
+   "src0": 21.39,
+   "src1": 21.47,
+   "t0": 19.347,
+   "t1": 19.427,
+   "piece": 4
+  },
+  {
+   "text": "peguei",
+   "src0": 21.47,
+   "src1": 21.79,
+   "t0": 19.427,
+   "t1": 19.747,
+   "piece": 4
+  },
+  {
+   "text": "logo",
+   "src0": 21.79,
+   "src1": 22.11,
+   "t0": 19.747,
+   "t1": 20.067,
+   "piece": 4
+  },
+  {
+   "text": "o",
+   "src0": 22.11,
+   "src1": 22.19,
+   "t0": 20.067,
+   "t1": 20.147,
+   "piece": 4
+  },
+  {
+   "text": "menor",
+   "src0": 22.19,
+   "src1": 22.43,
+   "t0": 20.147,
+   "t1": 20.387,
+   "piece": 4
+  },
+  {
+   "text": "tamanho,",
+   "src0": 22.43,
+   "src1": 22.83,
+   "t0": 20.387,
+   "t1": 20.787,
+   "piece": 4
+  },
+  {
+   "text": "e",
+   "src0": 22.83,
+   "src1": 23.07,
+   "t0": 20.787,
+   "t1": 21.027,
+   "piece": 4
+  },
+  {
+   "text": "ele",
+   "src0": 23.07,
+   "src1": 23.23,
+   "t0": 21.027,
+   "t1": 21.187,
+   "piece": 4
+  },
+  {
+   "text": "tem",
+   "src0": 23.23,
+   "src1": 23.39,
+   "t0": 21.187,
+   "t1": 21.347,
+   "piece": 4
+  },
+  {
+   "text": "a",
+   "src0": 23.39,
+   "src1": 23.47,
+   "t0": 21.347,
+   "t1": 21.427,
+   "piece": 4
+  },
+  {
+   "text": "alcinha",
+   "src0": 23.47,
+   "src1": 23.95,
+   "t0": 21.427,
+   "t1": 21.907,
+   "piece": 4
+  },
+  {
+   "text": "regulável,",
+   "src0": 23.95,
+   "src1": 24.43,
+   "t0": 21.907,
+   "t1": 22.387,
+   "piece": 4
+  },
+  {
+   "text": "então",
+   "src0": 24.43,
+   "src1": 24.59,
+   "t0": 22.387,
+   "t1": 22.547,
+   "piece": 4
+  },
+  {
+   "text": "não",
+   "src0": 24.59,
+   "src1": 24.76,
+   "t0": 22.547,
+   "t1": 22.717,
+   "piece": 4
+  },
+  {
+   "text": "fica",
+   "src0": 25.02,
+   "src1": 25.18,
+   "t0": 22.84,
+   "t1": 23.0,
+   "piece": 5
+  },
+  {
+   "text": "apertando",
+   "src0": 25.18,
+   "src1": 25.58,
+   "t0": 23.0,
+   "t1": 23.4,
+   "piece": 5
+  },
+  {
+   "text": "nada,",
+   "src0": 25.58,
+   "src1": 25.82,
+   "t0": 23.4,
+   "t1": 23.64,
+   "piece": 5
+  },
+  {
+   "text": "tá?",
+   "src0": 25.82,
+   "src1": 25.95,
+   "t0": 23.64,
+   "t1": 23.77,
+   "piece": 5
+  },
+  {
+   "text": "Eu",
+   "src0": 26.25,
+   "src1": 26.31,
+   "t0": 23.89,
+   "t1": 23.95,
+   "piece": 6
+  },
+  {
+   "text": "vou",
+   "src0": 26.31,
+   "src1": 26.41,
+   "t0": 23.95,
+   "t1": 24.05,
+   "piece": 6
+  },
+  {
+   "text": "deixar",
+   "src0": 26.41,
+   "src1": 26.57,
+   "t0": 24.05,
+   "t1": 24.21,
+   "piece": 6
+  },
+  {
+   "text": "o",
+   "src0": 26.57,
+   "src1": 26.65,
+   "t0": 24.21,
+   "t1": 24.29,
+   "piece": 6
+  },
+  {
+   "text": "link",
+   "src0": 26.65,
+   "src1": 26.81,
+   "t0": 24.29,
+   "t1": 24.45,
+   "piece": 6
+  },
+  {
+   "text": "de",
+   "src0": 26.81,
+   "src1": 26.89,
+   "t0": 24.45,
+   "t1": 24.53,
+   "piece": 6
+  },
+  {
+   "text": "onde",
+   "src0": 26.89,
+   "src1": 27.13,
+   "t0": 24.53,
+   "t1": 24.77,
+   "piece": 6
+  },
+  {
+   "text": "eu",
+   "src0": 27.13,
+   "src1": 27.21,
+   "t0": 24.77,
+   "t1": 24.85,
+   "piece": 6
+  },
+  {
+   "text": "comprei",
+   "src0": 27.21,
+   "src1": 27.53,
+   "t0": 24.85,
+   "t1": 25.17,
+   "piece": 6
+  },
+  {
+   "text": "aqui",
+   "src0": 27.53,
+   "src1": 27.69,
+   "t0": 25.17,
+   "t1": 25.33,
+   "piece": 6
+  },
+  {
+   "text": "no",
+   "src0": 27.69,
+   "src1": 27.77,
+   "t0": 25.33,
+   "t1": 25.41,
+   "piece": 6
+  },
+  {
+   "text": "carrinho",
+   "src0": 27.77,
+   "src1": 28.09,
+   "t0": 25.41,
+   "t1": 25.73,
+   "piece": 6
+  },
+  {
+   "text": "laranja",
+   "src0": 28.09,
+   "src1": 28.57,
+   "t0": 25.73,
+   "t1": 26.21,
+   "piece": 6
+  },
+  {
+   "text": "pra",
+   "src0": 28.57,
+   "src1": 28.65,
+   "t0": 26.21,
+   "t1": 26.29,
+   "piece": 6
+  },
+  {
+   "text": "te",
+   "src0": 28.65,
+   "src1": 28.73,
+   "t0": 26.29,
+   "t1": 26.37,
+   "piece": 6
+  },
+  {
+   "text": "conseguir",
+   "src0": 28.73,
+   "src1": 29.05,
+   "t0": 26.37,
+   "t1": 26.69,
+   "piece": 6
+  },
+  {
+   "text": "comprar",
+   "src0": 29.05,
+   "src1": 29.37,
+   "t0": 26.69,
+   "t1": 27.01,
+   "piece": 6
+  },
+  {
+   "text": "o",
+   "src0": 29.37,
+   "src1": 29.45,
+   "t0": 27.01,
+   "t1": 27.09,
+   "piece": 6
+  },
+  {
+   "text": "teu",
+   "src0": 29.45,
+   "src1": 29.61,
+   "t0": 27.09,
+   "t1": 27.25,
+   "piece": 6
+  },
+  {
+   "text": "também,",
+   "src0": 29.61,
+   "src1": 29.85,
+   "t0": 27.25,
+   "t1": 27.49,
+   "piece": 6
+  },
+  {
+   "text": "porque",
+   "src0": 29.85,
+   "src1": 30.01,
+   "t0": 27.49,
+   "t1": 27.65,
+   "piece": 6
+  },
+  {
+   "text": "ele",
+   "src0": 30.01,
+   "src1": 30.09,
+   "t0": 27.65,
+   "t1": 27.73,
+   "piece": 6
+  },
+  {
+   "text": "atende",
+   "src0": 30.09,
+   "src1": 30.41,
+   "t0": 27.73,
+   "t1": 28.05,
+   "piece": 6
+  },
+  {
+   "text": "a",
+   "src0": 30.41,
+   "src1": 30.49,
+   "t0": 28.05,
+   "t1": 28.13,
+   "piece": 6
+  },
+  {
+   "text": "várias",
+   "src0": 30.49,
+   "src1": 30.73,
+   "t0": 28.13,
+   "t1": 28.37,
+   "piece": 6
+  },
+  {
+   "text": "numerações.",
+   "src0": 30.73,
+   "src1": 31.24,
+   "t0": 28.37,
+   "t1": 28.88,
+   "piece": 6
+  }
+ ],
+ "segments": [
+  {
+   "n": 1,
+   "layout": "B",
+   "f0": 0,
+   "f1": 316,
+   "t0": 0.0,
+   "t1": 5.266666666666667,
+   "content": "Gancho: 'Olha o tamanhinho disso daqui. Chegou pra mim aqui em casa esse body e eu tava muito ansiosa.' — cartão de câmera + cabeça recortada; acima, cartão minúsculo do body com etiqueta XS/S (aproximação) → passagem rápida → foto real da embalagem SHEYAS cai com impacto → aproximação no logo"
+  },
+  {
+   "n": 2,
+   "layout": "C",
+   "f0": 316,
+   "f1": 390,
+   "t0": 5.266666666666667,
+   "t1": 6.5,
+   "content": "'Eu vou abrir junto com vocês.' — foto real da embalagem: o puxador do zíper desliza e o body (ilustração) sobe de dentro"
+  },
+  {
+   "n": 3,
+   "layout": "A",
+   "f0": 390,
+   "f1": 532,
+   "t0": 6.5,
+   "t1": 8.866666666666667,
+   "content": "'Ele é um daqueles body de compressão, sabe?' — câmera em tela cheia (fala direta)"
+  },
+  {
+   "n": 4,
+   "layout": "C",
+   "f0": 532,
+   "f1": 699,
+   "t0": 8.866666666666667,
+   "t1": 11.65,
+   "content": "'Que servem pra ficar realmente bem justinhos no corpo. Eu peguei' — silhueta: o body se ajusta ao corpo (compressão animada); câmera escondida (revira os olhos 12,1–12,55 s na fonte)"
+  },
+  {
+   "n": 5,
+   "layout": "B",
+   "f0": 699,
+   "f1": 830,
+   "t0": 11.65,
+   "t1": 13.833333333333334,
+   "content": "'o menor tamanho e vou experimentar ele com vocês.' — ilustração do body com a etiqueta XS/S (reconstrução vetorial); aproximação na etiqueta"
+  },
+  {
+   "n": 6,
+   "layout": "A",
+   "f0": 830,
+   "f1": 1099,
+   "t0": 13.833333333333334,
+   "t1": 18.316666666666666,
+   "content": "'E no corpo ele ficou assim, olha, gente. Ele realmente comprime bastante, viu? Olha aqui.' — câmera em tela cheia (resultado vestido, opinião)"
+  },
+  {
+   "n": 7,
+   "layout": "B",
+   "f0": 1099,
+   "f1": 1211,
+   "t0": 18.316666666666666,
+   "t1": 20.183333333333334,
+   "content": "'Eu visto 36 e peguei logo o' — documento '36 ≈ PP · XS' (numeração BR) e a etiqueta XS/S (reconstrução) chegando ao lado"
+  },
+  {
+   "n": 8,
+   "layout": "C",
+   "f0": 1211,
+   "f1": 1434,
+   "t0": 20.183333333333334,
+   "t1": 23.9,
+   "content": "'menor tamanho, e ele tem a alcinha regulável, então não fica apertando nada, tá?' — etiqueta XS/S → passagem rápida para o bloco da alça: janela amplia 1,25×, regulador desliza, selo verde de confirmação; foto real da alça como apoio"
+  },
+  {
+   "n": 9,
+   "layout": "A",
+   "f0": 1434,
+   "f1": 1750,
+   "t0": 23.9,
+   "t1": 29.166666666666668,
+   "content": "CTA: 'Eu vou deixar o link de onde eu comprei aqui no carrinho laranja pra te conseguir comprar o teu também, porque ele atende a várias numerações.' — câmera em tela cheia + cartão de comentário digitando"
+  }
+ ],
+ "geometry": {
+  "scale": 2.1006944444444446,
+  "x": -65,
+  "card": {
+   "x": -65,
+   "y": 1200,
+   "w": 1210,
+   "h": 864,
+   "r": 200
+  },
+  "Y_by_shot": {
+   "A": 862.4131944444445,
+   "B": 1125.0,
+   "C": 910.7291666666666,
+   "D": 610.3298611111111
+  }
+ }
+}

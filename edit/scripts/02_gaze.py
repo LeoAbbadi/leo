@@ -31,7 +31,7 @@ while True:
         row["face"] = 0
     rows.append(row); i += 1
 json.dump(rows, open(f"{W}/gaze.json", "w"))
-for r in rows:
+for r in []:
     if r["f"] % 3 == 0:
         if r["face"]:
             print("%5.2f yaw%6.1f pit%6.1f dn%.2f up%.2f hor%5.2f bl%.2f" % (r["t"], r["yaw"], r["pitch"], r["down"], r["up"], r["hor"], r["blink"]))

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<title>g17</title><script src="gsap.min.js"></script><script src="scene.js"></script>
+<style>
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Bold.ttf") format("truetype"); font-weight: 700; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #4C9EFF; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Poppins", sans-serif; color: #1D1D1F; }
+#bgfx { position: absolute; inset: 0; }
+.stage { position: absolute; inset: 0; }
+#world { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.glass { position: absolute; background: rgba(255,255,255,0.85); -webkit-backdrop-filter: blur(24px) saturate(1.6); backdrop-filter: blur(24px) saturate(1.6);
+  border: 1.5px solid rgba(255,255,255,0.95); overflow: hidden;
+  box-shadow: 0 60px 120px rgba(0,30,80,0.16), 0 24px 48px rgba(0,30,80,0.10), 0 4px 10px rgba(0,30,80,0.06), inset 0 1px 0 rgba(255,255,255,1); }
+.t-title { font-size: 96px; font-weight: 700; line-height: 1.02; letter-spacing: -0.02em; }
+.t-sub { font-size: 52px; font-weight: 700; line-height: 1.12; letter-spacing: -0.01em; }
+.t-body { font-size: 30px; font-weight: 400; line-height: 1.3; }
+.t-white { color: #FFFFFF; text-shadow: 0 2px 12px rgba(0,30,80,0.25); }
+.abs { position: absolute; }
+.row { display: flex; align-items: center; }
+.chip { position: absolute; display: flex; align-items: center; gap: 14px; padding: 10px 22px; border-radius: 40px; background: rgba(0,229,255,0.16); color: #1D1D1F; font-size: 30px; font-weight: 600; }
+.cyanbar { background: #00E5FF; border-radius: 12px; }
+
+</style></head>
+<body>
+<div id="root" data-composition-id="g17" data-start="0" data-width="1080" data-height="1920" data-duration="6.4500" data-fps="240">
+  <svg width="0" height="0" style="position:absolute"><filter id="mb" filterUnits="userSpaceOnUse" x="-4000" y="-4000" width="10000" height="10000" color-interpolation-filters="sRGB"><feGaussianBlur id="mbg" stdDeviation="0 0" /></filter></svg>
+  <div id="bgfx"></div>
+
+  <div class="stage"><div id="world">
+<div id="bg1" class="glass" style="left:300px;top:210px;width:480px;height:520px;border-radius:32px;"><div id="bgi" class="abs" style="left:60px;top:60px"><svg viewBox="0 0 100 100" width="360" height="360" ><path d="M14 46c0-20 72-20 72 0z" fill="#F2A33A"/><rect x="12" y="50" width="76" height="8" rx="4" fill="#34C759"/><rect x="12" y="58" width="76" height="12" rx="6" fill="#7A3E1D"/><path d="M14 58l10 8 10-8 10 8 10-8 10 8 10-8 10 8" fill="#FFD60A"/><path d="M14 72h72c0 10-8 14-14 14H28c-6 0-14-4-14-14z" fill="#F2A33A"/><circle cx="36" cy="34" r="2" fill="#fff"/><circle cx="52" cy="30" r="2" fill="#fff"/><circle cx="64" cy="36" r="2" fill="#fff"/></svg></div></div><div id="cans" class="glass" style="left:1240px;top:210px;width:800px;height:600px;border-radius:40px;"><div class="abs row" style="left:56px;top:50px;gap:16px"><div class="chip" style="position:relative"><svg viewBox="0 0 100 100" width="40" height="40" ><rect x="12" y="18" width="76" height="70" rx="12" fill="#fff" stroke="#2F7CFF" stroke-width="5"/><rect x="12" y="18" width="76" height="20" rx="10" fill="#2F7CFF"/><path d="M32 10v16M68 10v16" stroke="#1D1D1F" stroke-width="6" stroke-linecap="round"/></svg>1 semana</div></div><div id="cn0" class="abs" style="left:90px;top:300px"><svg viewBox="0 0 150 260" width="96" height="170"><defs><linearGradient id="cgMON" x1="0" x2="1"><stop offset="0" stop-color="#1E2A22"/><stop offset=".45" stop-color="#ffffff" stop-opacity=".35"/><stop offset=".55" stop-color="#1E2A22"/><stop offset="1" stop-color="#1E2A22"/></linearGradient></defs><rect x="10" y="18" width="130" height="226" rx="22" fill="#1E2A22"/><rect x="10" y="18" width="130" height="226" rx="22" fill="url(#cgMON)" opacity=".55"/><rect x="22" y="6" width="106" height="20" rx="8" fill="#C7CED6"/><rect x="22" y="236" width="106" height="16" rx="7" fill="#C7CED6"/><path d="M10 120c40-30 90 30 130 0v40c-40 30-90-30-130 0z" fill="#7CFF4F" opacity=".9"/><text x="75" y="104" font-family="Poppins" font-weight="700" font-size="22" text-anchor="middle" fill="#7CFF4F" transform="rotate(-90 75 130)">MONSTER</text></svg></div><div id="cn1" class="abs" style="left:210px;top:300px"><svg viewBox="0 0 150 260" width="96" height="170"><defs><linearGradient id="cgMON" x1="0" x2="1"><stop offset="0" stop-color="#1E2A22"/><stop offset=".45" stop-color="#ffffff" stop-opacity=".35"/><stop offset=".55" stop-color="#1E2A22"/><stop offset="1" stop-color="#1E2A22"/></linearGradient></defs><rect x="10" y="18" width="130" height="226" rx="22" fill="#1E2A22"/><rect x="10" y="18" width="130" height="226" rx="22" fill="url(#cgMON)" opacity=".55"/><rect x="22" y="6" width="106" height="20" rx="8" fill="#C7CED6"/><rect x="22" y="236" width="106" height="16" rx="7" fill="#C7CED6"/><path d="M10 120c40-30 90 30 130 0v40c-40 30-90-30-130 0z" fill="#7CFF4F" opacity=".9"/><text x="75" y="104" font-family="Poppins" font-weight="700" font-size="22" text-anchor="middle" fill="#7CFF4F" transform="rotate(-90 75 130)">MONSTER</text></svg></div><div id="cn2" class="abs" style="left:330px;top:300px"><svg viewBox="0 0 150 260" width="96" height="170"><defs><linearGradient id="cgMON" x1="0" x2="1"><stop offset="0" stop-color="#1E2A22"/><stop offset=".45" stop-color="#ffffff" stop-opacity=".35"/><stop offset=".55" stop-color="#1E2A22"/><stop offset="1" stop-color="#1E2A22"/></linearGradient></defs><rect x="10" y="18" width="130" height="226" rx="22" fill="#1E2A22"/><rect x="10" y="18" width="130" height="226" rx="22" fill="url(#cgMON)" opacity=".55"/><rect x="22" y="6" width="106" height="20" rx="8" fill="#C7CED6"/><rect x="22" y="236" width="106" height="16" rx="7" fill="#C7CED6"/><path d="M10 120c40-30 90 30 130 0v40c-40 30-90-30-130 0z" fill="#7CFF4F" opacity=".9"/><text x="75" y="104" font-family="Poppins" font-weight="700" font-size="22" text-anchor="middle" fill="#7CFF4F" transform="rotate(-90 75 130)">MONSTER</text></svg></div><div id="cn3" class="abs" style="left:450px;top:300px"><svg viewBox="0 0 150 260" width="96" height="170"><defs><linearGradient id="cgMON" x1="0" x2="1"><stop offset="0" stop-color="#1E2A22"/><stop offset=".45" stop-color="#ffffff" stop-opacity=".35"/><stop offset=".55" stop-color="#1E2A22"/><stop offset="1" stop-color="#1E2A22"/></linearGradient></defs><rect x="10" y="18" width="130" height="226" rx="22" fill="#1E2A22"/><rect x="10" y="18" width="130" height="226" rx="22" fill="url(#cgMON)" opacity=".55"/><rect x="22" y="6" width="106" height="20" rx="8" fill="#C7CED6"/><rect x="22" y="236" width="106" height="16" rx="7" fill="#C7CED6"/><path d="M10 120c40-30 90 30 130 0v40c-40 30-90-30-130 0z" fill="#7CFF4F" opacity=".9"/><text x="75" y="104" font-family="Poppins" font-weight="700" font-size="22" text-anchor="middle" fill="#7CFF4F" transform="rotate(-90 75 130)">MONSTER</text></svg></div><div id="cn4" class="abs" style="left:570px;top:300px"><svg viewBox="0 0 150 260" width="96" height="170"><defs><linearGradient id="cgMON" x1="0" x2="1"><stop offset="0" stop-color="#1E2A22"/><stop offset=".45" stop-color="#ffffff" stop-opacity=".35"/><stop offset=".55" stop-color="#1E2A22"/><stop offset="1" stop-color="#1E2A22"/></linearGradient></defs><rect x="10" y="18" width="130" height="226" rx="22" fill="#1E2A22"/><rect x="10" y="18" width="130" height="226" rx="22" fill="url(#cgMON)" opacity=".55"/><rect x="22" y="6" width="106" height="20" rx="8" fill="#C7CED6"/><rect x="22" y="236" width="106" height="16" rx="7" fill="#C7CED6"/><path d="M10 120c40-30 90 30 130 0v40c-40 30-90-30-130 0z" fill="#7CFF4F" opacity=".9"/><text x="75" y="104" font-family="Poppins" font-weight="700" font-size="22" text-anchor="middle" fill="#7CFF4F" transform="rotate(-90 75 130)">MONSTER</text></svg></div></div><svg id="arrow" class="abs" style="left:490px;top:770px" width="100" height="100" viewBox="0 0 100 100"><path d="M20 30l30 30 30-30" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div></div>
+
+</div>
+<script>
+(function () {
+  const { K, camFor, setBlur, money, place, Scene } = window.HF;
+  const $ = (id) => document.getElementById(id);
+  const A = [540, 960], id0 = [540, 960, 1];
+
+  const D = 6.4500, thb = 1.603, tol = 2.206, tla = 4.776, tse = 5.816;
+  const cC = camFor([1640, 510], [540, 470], 1.0, A);
+  const cam = K([[0, id0], [tol - 0.25, id0], [tol + 0.25, cC, "power3.inOut"]]);
+  const bp = K([[0, 1], [thb, 1], [thb + 0.18, 1.12, "power2.out"], [thb + 0.5, 1, "power2.inOut"]]);
+  const ar = K([[0, 0], [tol, 0], [tol + 0.25, 1], [tla - 0.4, 1], [tla - 0.1, 0]]);
+  const BG = $("bg1"), AR = $("arrow"), cn = []; for (let i = 0; i < 5; i++) cn.push($("cn" + i));
+  const bb = K([[0, 0], [tol - 0.25, 0], [tol + 0.25, 9, "power2.inOut"]]);
+  function update(t) {
+    place(BG, { s: bp(t), o: 1 }); setBlur(BG, bb(t));
+    place(AR, { y: 14 * Math.sin(t * 7), o: ar(t) });
+    for (let i = 0; i < 5; i++) { const t0 = tla + (tse - tla) * i / 4, q = Math.max(0, Math.min(1, (t - t0) / 0.28)); place(cn[i], { y: -400 * (1 - q * q), o: q > 0 ? 1 : 0 }); }
+  }
+
+  const tl = Scene({ id: "g17", t0: 62.9667, duration: 6.4500, anchor: A, cam: cam, update: update });
+  window.__timelines["g17"] = tl;
+})();
+</script>
+</body></html>

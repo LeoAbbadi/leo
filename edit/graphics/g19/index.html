@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<title>g19</title><script src="gsap.min.js"></script><script src="scene.js"></script>
+<style>
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Bold.ttf") format("truetype"); font-weight: 700; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #4C9EFF; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Poppins", sans-serif; color: #1D1D1F; }
+#bgfx { position: absolute; inset: 0; }
+.stage { position: absolute; inset: 0; }
+#world { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.glass { position: absolute; background: rgba(255,255,255,0.85); -webkit-backdrop-filter: blur(24px) saturate(1.6); backdrop-filter: blur(24px) saturate(1.6);
+  border: 1.5px solid rgba(255,255,255,0.95); overflow: hidden;
+  box-shadow: 0 60px 120px rgba(0,30,80,0.16), 0 24px 48px rgba(0,30,80,0.10), 0 4px 10px rgba(0,30,80,0.06), inset 0 1px 0 rgba(255,255,255,1); }
+.t-title { font-size: 96px; font-weight: 700; line-height: 1.02; letter-spacing: -0.02em; }
+.t-sub { font-size: 52px; font-weight: 700; line-height: 1.12; letter-spacing: -0.01em; }
+.t-body { font-size: 30px; font-weight: 400; line-height: 1.3; }
+.t-white { color: #FFFFFF; text-shadow: 0 2px 12px rgba(0,30,80,0.25); }
+.abs { position: absolute; }
+.row { display: flex; align-items: center; }
+.chip { position: absolute; display: flex; align-items: center; gap: 14px; padding: 10px 22px; border-radius: 40px; background: rgba(0,229,255,0.16); color: #1D1D1F; font-size: 30px; font-weight: 600; }
+.cyanbar { background: #00E5FF; border-radius: 12px; }
+#stamp { position:absolute; left:250px; top:360px; padding:14px 34px; border:8px solid #FF3B30; border-radius:24px; color:#FF3B30; font-size:52px; font-weight:700; letter-spacing:.04em; transform-origin:50% 50%; }
+</style></head>
+<body>
+<div id="root" data-composition-id="g19" data-start="0" data-width="1080" data-height="1920" data-duration="7.1333" data-fps="240">
+  <svg width="0" height="0" style="position:absolute"><filter id="mb" filterUnits="userSpaceOnUse" x="-4000" y="-4000" width="10000" height="10000" color-interpolation-filters="sRGB"><feGaussianBlur id="mbg" stdDeviation="0 0" /></filter></svg>
+  <div id="bgfx"></div>
+
+  <div class="stage"><div id="world">
+<div id="lst" class="glass" style="left:140px;top:330px;width:800px;height:885px;border-radius:40px;"><div class="abs t-sub" style="left:56px;top:56px">Compras do mês</div><div id="e0" class="abs row" style="left:56px;top:170px;gap:20px"><svg viewBox="0 0 100 100" width="56" height="56" ><rect x="12" y="34" width="76" height="50" rx="12" fill="#fff" stroke="#2F7CFF" stroke-width="5"/><rect x="8" y="26" width="84" height="12" rx="6" fill="#00E5FF"/><g id="FOOD"><ellipse cx="34" cy="58" rx="14" ry="10" fill="#F2F2F2" stroke="#D9D9D9"/><path d="M52 64c4-16 18-18 24-12-4 10-14 16-24 12z" fill="#34C759"/><rect x="40" y="66" width="22" height="8" rx="4" fill="#FF9F0A"/></g></svg><div class="t-body" style="font-weight:600">Arroz</div><div class="abs" style="left:560px;top:4px"><svg viewBox="0 0 100 100" width="48" height="48" ><circle cx="50" cy="50" r="46" fill="#34C759"/><path d="M28 52l15 15 30-32" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div><div id="e1" class="abs row" style="left:56px;top:262px;gap:20px"><svg viewBox="0 0 100 100" width="56" height="56" ><path d="M22 44h48v18c0 14-10 24-24 24S22 76 22 62z" fill="#fff" stroke="#2F7CFF" stroke-width="5"/><path d="M70 50h6c6 0 8 4 8 8s-2 8-8 8h-7" fill="none" stroke="#2F7CFF" stroke-width="5"/><ellipse cx="46" cy="90" rx="34" ry="5" fill="#00E5FF" opacity=".6"/><g id="STEAM"><path d="M36 36c-6-8 6-12 0-22M50 36c-6-8 6-12 0-22M64 36c-6-8 6-12 0-22" fill="none" stroke="#9CC9FF" stroke-width="4" stroke-linecap="round"/></g></svg><div class="t-body" style="font-weight:600">Leite</div><div class="abs" style="left:560px;top:4px"><svg viewBox="0 0 100 100" width="48" height="48" ><circle cx="50" cy="50" r="46" fill="#34C759"/><path d="M28 52l15 15 30-32" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div><div id="e2" class="abs row" style="left:56px;top:354px;gap:20px"><svg viewBox="0 0 100 100" width="56" height="56" ><path d="M30 12v28c0 6 4 10 8 10v38M22 12v22M38 12v22" fill="none" stroke="#2F7CFF" stroke-width="6" stroke-linecap="round"/><path d="M66 12c-10 6-12 24-12 36h12v40" fill="none" stroke="#00E5FF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="t-body" style="font-weight:600">Pão</div><div class="abs" style="left:560px;top:4px"><svg viewBox="0 0 100 100" width="48" height="48" ><circle cx="50" cy="50" r="46" fill="#34C759"/><path d="M28 52l15 15 30-32" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div><div id="x0" class="abs row" style="left:56px;top:470px;gap:20px;width:680px;padding:6px 0;border-radius:20px;background:rgba(0,229,255,.16)"><svg viewBox="0 0 100 100" width="56" height="56" ><path d="M30 20l40 0-8 66H38z" fill="#F4D7A0"/><path d="M34 32h32M33 44h34M35 56h30M36 68h28" stroke="#C0784A" stroke-width="7" stroke-linecap="round"/><path d="M36 28c6 6 22 6 28 0M36 50c6 6 22 6 28 0" stroke="#34C759" stroke-width="4" fill="none"/><rect x="47" y="8" width="6" height="88" rx="3" fill="#8E8E93"/></svg><div class="t-body" style="font-weight:600">Kebab</div></div><div id="x1" class="abs row" style="left:56px;top:562px;gap:20px;width:680px;padding:6px 0;border-radius:20px;background:rgba(0,229,255,.16)"><svg viewBox="0 0 100 100" width="56" height="56" ><path d="M28 14h44l-4 10 6 62H26l6-62z" fill="#FF9F0A"/><path d="M30 44c10-8 30-8 40 0v18c-10 8-30 8-40 0z" fill="#FFD60A"/><path d="M28 14l4 10h36l4-10" fill="none" stroke="#fff" stroke-width="3" opacity=".7"/></svg><div class="t-body" style="font-weight:600">Monster</div></div><div id="x2" class="abs row" style="left:56px;top:654px;gap:20px;width:680px;padding:6px 0;border-radius:20px;background:rgba(0,229,255,.16)"><svg viewBox="0 0 100 100" width="56" height="56" ><rect x="12" y="30" width="76" height="52" rx="10" fill="#6B3E26"/><rect x="12" y="30" width="76" height="20" rx="10" fill="#8A5634"/><path d="M18 44c8 6 12-4 20 2s12-6 20 0 12-4 22 2" fill="none" stroke="#C99369" stroke-width="4" stroke-linecap="round"/><circle cx="30" cy="64" r="3" fill="#C99369"/><circle cx="58" cy="70" r="3" fill="#C99369"/><circle cx="72" cy="60" r="3" fill="#C99369"/></svg><div class="t-body" style="font-weight:600">Brownie</div></div><div id="x3" class="abs row" style="left:56px;top:746px;gap:20px;width:680px;padding:6px 0;border-radius:20px;background:rgba(0,229,255,.16)"><svg viewBox="0 0 100 100" width="56" height="56" ><path d="M50 8c4 0 6 6 6 12v20l32 18v9l-32-9v19l9 7v7l-15-4-15 4v-7l9-7V58l-32 9v-9l32-18V20c0-6 2-12 6-12z" fill="#2F7CFF"/></svg><div class="t-body" style="font-weight:600">Paris</div></div><div id="stamp">SEM CONTROLE</div></div>
+  </div></div>
+
+</div>
+<script>
+(function () {
+  const { K, camFor, setBlur, money, place, Scene } = window.HF;
+  const $ = (id) => document.getElementById(id);
+  const A = [540, 960], id0 = [540, 960, 1];
+
+  const D = 7.1333, tcn = 1.517, tno = 2.157, tes = 3.037, tga = 5.024;
+  const cX = camFor([540, 1000], [540, 900], 1.22, A);
+  const cam = K([[0, id0], [tno - 0.2, id0], [tno + 1.4, cX, "power2.inOut"], [tga - 0.1, cX], [Math.min(D, tga + 1.5), id0, "power2.inOut"]]);
+  const st = K([[0, 0], [tcn - 0.05, 0], [tcn + 0.18, 1, "power4.in"]]);
+  const e = [], x = []; for (let i = 0; i < 3; i++) e.push($("e" + i)); for (let i = 0; i < 4; i++) x.push($("x" + i));
+  const S = $("stamp");
+  function update(t) {
+    for (let i = 0; i < 3; i++) { const q = Math.max(0, Math.min(1, (t - 0.1 - i * 0.2) / 0.3)); place(e[i], { x: -30 * (1 - q), o: q }); }
+    for (let i = 0; i < 4; i++) { const q = Math.max(0, Math.min(1, (t - tno - i * (tes - tno + 0.3) / 4) / 0.3)); place(x[i], { x: 60 * (1 - q), o: q }); }
+    const s = st(t); S.style.opacity = s > 0 ? 1 : 0; S.style.transform = "rotate(-10deg) scale(" + (2.2 - 1.2 * s).toFixed(3) + ")";
+  }
+
+  const tl = Scene({ id: "g19", t0: 74.1833, duration: 7.1333, anchor: A, cam: cam, update: update });
+  window.__timelines["g19"] = tl;
+})();
+</script>
+</body></html>

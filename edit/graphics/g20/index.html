@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<title>g20</title><script src="gsap.min.js"></script><script src="scene.js"></script>
+<style>
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; }
+@font-face { font-family: "Poppins"; src: url("fonts/Poppins-Bold.ttf") format("truetype"); font-weight: 700; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #4C9EFF; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Poppins", sans-serif; color: #1D1D1F; }
+#bgfx { position: absolute; inset: 0; }
+.stage { position: absolute; inset: 0; }
+#world { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.glass { position: absolute; background: rgba(255,255,255,0.85); -webkit-backdrop-filter: blur(24px) saturate(1.6); backdrop-filter: blur(24px) saturate(1.6);
+  border: 1.5px solid rgba(255,255,255,0.95); overflow: hidden;
+  box-shadow: 0 60px 120px rgba(0,30,80,0.16), 0 24px 48px rgba(0,30,80,0.10), 0 4px 10px rgba(0,30,80,0.06), inset 0 1px 0 rgba(255,255,255,1); }
+.t-title { font-size: 96px; font-weight: 700; line-height: 1.02; letter-spacing: -0.02em; }
+.t-sub { font-size: 52px; font-weight: 700; line-height: 1.12; letter-spacing: -0.01em; }
+.t-body { font-size: 30px; font-weight: 400; line-height: 1.3; }
+.t-white { color: #FFFFFF; text-shadow: 0 2px 12px rgba(0,30,80,0.25); }
+.abs { position: absolute; }
+.row { display: flex; align-items: center; }
+.chip { position: absolute; display: flex; align-items: center; gap: 14px; padding: 10px 22px; border-radius: 40px; background: rgba(0,229,255,0.16); color: #1D1D1F; font-size: 30px; font-weight: 600; }
+.cyanbar { background: #00E5FF; border-radius: 12px; }
+
+</style></head>
+<body>
+<div id="root" data-composition-id="g20" data-start="0" data-width="1080" data-height="1920" data-duration="4.3833" data-fps="240">
+  <svg width="0" height="0" style="position:absolute"><filter id="mb" filterUnits="userSpaceOnUse" x="-4000" y="-4000" width="10000" height="10000" color-interpolation-filters="sRGB"><feGaussianBlur id="mbg" stdDeviation="0 0" /></filter></svg>
+  <div id="bgfx"></div>
+
+  <div class="stage"><div id="world">
+<div id="rent" class="glass" style="left:140px;top:170px;width:800px;height:640px;border-radius:40px;">
+  <div class="abs row" style="left:56px;top:50px;gap:22px"><svg viewBox="0 0 100 100" width="90" height="90" ><path d="M14 48L50 18l36 30" fill="none" stroke="#2F7CFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 44v40h52V44" fill="#fff" stroke="#2F7CFF" stroke-width="6"/><rect x="42" y="60" width="16" height="24" rx="2" fill="#00E5FF"/></svg><div class="t-sub">Contas da casa</div></div>
+  <div id="r1" class="abs row" style="left:56px;top:200px;width:688px;justify-content:space-between"><div class="t-body" style="font-weight:600">Aluguel</div><div id="v1" class="t-sub">650 e pouco</div></div>
+  <div id="r2" class="abs row" style="left:56px;top:300px;width:688px;justify-content:space-between"><div class="row" style="gap:12px"><svg viewBox="0 0 100 100" width="52" height="52" ><path d="M66 10L44 54" stroke="#8E8E93" stroke-width="6" stroke-linecap="round"/><path d="M38 50l18 10-8 30c-10 0-26-8-30-16z" fill="#00E5FF"/><path d="M30 78l12-12M36 84l12-14M24 72l12-10" stroke="#fff" stroke-width="3"/></svg><div class="t-body" style="font-weight:600">Faxineira</div></div><div class="t-sub">+ taxa</div></div>
+  <div class="abs" style="left:56px;top:400px;width:688px;height:4px;border-radius:2px;background:rgba(29,29,31,.15)"></div>
+  <div id="r3" class="abs row" style="left:56px;top:440px;width:688px;justify-content:space-between"><div class="t-body" style="font-weight:600">Total no app</div><div class="t-sub" id="tot">677,00 €</div></div></div>
+  </div></div>
+
+</div>
+<script>
+(function () {
+  const { K, camFor, setBlur, money, place, Scene } = window.HF;
+  const $ = (id) => document.getElementById(id);
+  const A = [540, 960], id0 = [540, 960, 1];
+
+  const D = 4.3833, t650 = 0.31, tfx = 3.586;
+  const cam = K([[0, id0], [D, camFor([540, 490], [540, 490], 1.03, A), "sine.inOut"]]);
+  const f = (t0) => K([[0, 0], [t0, 0], [t0 + 0.35, 1, "power3.out"]]);
+  const a1 = f(t650), a2 = f(tfx - 0.1), a3 = f(Math.min(D - 0.45, tfx + 0.25));
+  const R1 = $("r1"), R2 = $("r2"), R3 = $("r3");
+  function update(t) { place(R1, { y: 24 * (1 - a1(t)), o: a1(t) }); place(R2, { y: 24 * (1 - a2(t)), o: a2(t) }); place(R3, { y: 24 * (1 - a3(t)), o: a3(t) }); }
+
+  const tl = Scene({ id: "g20", t0: 81.3167, duration: 4.3833, anchor: A, cam: cam, update: update });
+  window.__timelines["g20"] = tl;
+})();
+</script>
+</body></html>

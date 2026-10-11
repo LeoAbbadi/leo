@@ -1,50 +1,233 @@
 [
  {
-  "comp": "g1",
-  "kind": "whoosh",
-  "t_rel": 1.75,
-  "t": 1.75
- },
- {
-  "comp": "g1",
-  "kind": "impact",
-  "t_rel": 2.3,
-  "t": 2.3
- },
- {
-  "comp": "g2",
-  "kind": "ticks",
-  "t_rel": 0.12,
-  "t": 5.3867
- },
- {
-  "comp": "g2",
-  "kind": "ticks",
-  "t_rel": 0.7,
-  "t": 5.9667
- },
- {
-  "comp": "g2",
-  "kind": "impact",
-  "t_rel": 0.74,
-  "t": 6.0067
- },
- {
-  "comp": "g7",
-  "kind": "impact",
-  "t_rel": 1.3,
-  "t": 19.6167
- },
- {
-  "comp": "g8",
-  "kind": "whoosh",
-  "t_rel": 0.894,
-  "t": 21.0773
- },
- {
-  "comp": "g8",
+  "seg": 3,
+  "comp": "g03",
   "kind": "chime",
-  "t_rel": 2.657,
-  "t": 22.8403
+  "t_rel": 1.16,
+  "t": 10.3267
+ },
+ {
+  "seg": 3,
+  "comp": "g03",
+  "kind": "ticks",
+  "t_rel": 2.673,
+  "t": 11.8397
+ },
+ {
+  "seg": 3,
+  "comp": "g03",
+  "kind": "ticks",
+  "t_rel": 4.073,
+  "t": 13.2397
+ },
+ {
+  "seg": 5,
+  "comp": "g05",
+  "kind": "whoosh",
+  "t_rel": 3.406,
+  "t": 17.9727
+ },
+ {
+  "seg": 5,
+  "comp": "g05",
+  "kind": "impact",
+  "t_rel": 4.156,
+  "t": 18.7227
+ },
+ {
+  "seg": 5,
+  "comp": "g05",
+  "kind": "ticks",
+  "t_rel": 5.436,
+  "t": 20.0027
+ },
+ {
+  "seg": 5,
+  "comp": "g05",
+  "kind": "ticks",
+  "t_rel": 6.166,
+  "t": 20.7327
+ },
+ {
+  "seg": 7,
+  "comp": "g07",
+  "kind": "impact",
+  "t_rel": 2.437,
+  "t": 27.437
+ },
+ {
+  "seg": 8,
+  "comp": "g08",
+  "kind": "impact",
+  "t_rel": 1.336,
+  "t": 30.0027
+ },
+ {
+  "seg": 9,
+  "comp": "g09",
+  "kind": "impact",
+  "t_rel": 0.37,
+  "t": 30.7367
+ },
+ {
+  "seg": 9,
+  "comp": "g09",
+  "kind": "impact",
+  "t_rel": 2.903,
+  "t": 33.2697
+ },
+ {
+  "seg": 11,
+  "comp": "g11",
+  "kind": "impact",
+  "t_rel": 6.096,
+  "t": 41.5127
+ },
+ {
+  "seg": 13,
+  "comp": "g13",
+  "kind": "ticks",
+  "t_rel": 0.31,
+  "t": 46.11
+ },
+ {
+  "seg": 13,
+  "comp": "g13",
+  "kind": "ticks",
+  "t_rel": 1.31,
+  "t": 47.11
+ },
+ {
+  "seg": 14,
+  "comp": "g14",
+  "kind": "ticks",
+  "t_rel": 1.067,
+  "t": 50.167
+ },
+ {
+  "seg": 14,
+  "comp": "g14",
+  "kind": "ticks",
+  "t_rel": 2.017,
+  "t": 51.117
+ },
+ {
+  "seg": 14,
+  "comp": "g14",
+  "kind": "chime",
+  "t_rel": 2.017,
+  "t": 51.117
+ },
+ {
+  "seg": 16,
+  "comp": "g16",
+  "kind": "ticks",
+  "t_rel": 0.71,
+  "t": 60.01
+ },
+ {
+  "seg": 16,
+  "comp": "g16",
+  "kind": "ticks",
+  "t_rel": 1.35,
+  "t": 60.65
+ },
+ {
+  "seg": 16,
+  "comp": "g16",
+  "kind": "impact",
+  "t_rel": 1.97,
+  "t": 61.27
+ },
+ {
+  "seg": 17,
+  "comp": "g17",
+  "kind": "whoosh",
+  "t_rel": 2.206,
+  "t": 65.1727
+ },
+ {
+  "seg": 17,
+  "comp": "g17",
+  "kind": "impact",
+  "t_rel": 5.056,
+  "t": 68.0227
+ },
+ {
+  "seg": 19,
+  "comp": "g19",
+  "kind": "impact",
+  "t_rel": 1.697,
+  "t": 75.8803
+ },
+ {
+  "seg": 20,
+  "comp": "g20",
+  "kind": "chime",
+  "t_rel": 3.836,
+  "t": 85.1527
+ },
+ {
+  "seg": 22,
+  "comp": "g22",
+  "kind": "impact",
+  "t_rel": 1.25,
+  "t": 91.95
+ },
+ {
+  "seg": 25,
+  "comp": "g25",
+  "kind": "ticks",
+  "t_rel": 1.67,
+  "t": 103.2367
+ },
+ {
+  "seg": 25,
+  "comp": "g25",
+  "kind": "ticks",
+  "t_rel": 2.47,
+  "t": 104.0367
+ },
+ {
+  "seg": 28,
+  "comp": "g28",
+  "kind": "chime",
+  "t_rel": 3.383,
+  "t": 118.533
+ },
+ {
+  "seg": 30,
+  "comp": "g30",
+  "kind": "impact",
+  "t_rel": 2.67,
+  "t": 129.1033
+ },
+ {
+  "seg": 31,
+  "comp": "g31",
+  "kind": "impact",
+  "t_rel": 0.38,
+  "t": 131.18
+ },
+ {
+  "seg": 31,
+  "comp": "g31",
+  "kind": "impact",
+  "t_rel": 3.55,
+  "t": 134.35
+ },
+ {
+  "seg": 33,
+  "comp": "g33",
+  "kind": "ticks",
+  "t_rel": 1.277,
+  "t": 140.227
+ },
+ {
+  "seg": 33,
+  "comp": "g33",
+  "kind": "ticks",
+  "t_rel": 2.527,
+  "t": 141.477
  }
 ]
