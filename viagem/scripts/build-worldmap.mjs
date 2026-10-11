@@ -1,43 +1,38 @@
-// Gera src/content/worldDots.json: pontinhos do mapa (Américas, Atlântico, Europa e África).
-// Rode com `npm run worldmap` só se quiser mudar o recorte ou a densidade.
+// Gera src/content/worldLand.json: o contorno dos continentes como um caminho SVG
+// (projeção de Miller, sem a Antártida). Rode com `npm run worldmap`.
 import { readFileSync, writeFileSync } from "node:fs";
 import { feature } from "topojson-client";
 
 const topo = JSON.parse(readFileSync("node_modules/world-atlas/land-110m.json", "utf8"));
 const land = feature(topo, topo.objects.land);
 
-// Recorte em graus e passo da grade
-const BOUNDS = { west: -88, east: 34, south: -40, north: 63 };
-const STEP = 1.3;
+const W = 1000;
+const NORTH = 83;
+const SOUTH = -57;
+const miller = (lat) => 1.25 * Math.log(Math.tan(Math.PI / 4 + (0.4 * lat * Math.PI) / 180));
+const scale = W / (2 * Math.PI);
+const yTop = miller(NORTH);
+const H = Math.round((yTop - miller(SOUTH)) * scale);
 
-const polygons = land.features.flatMap((f) =>
-  f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates,
-);
+const project = ([lon, lat]) => [((lon + 180) * Math.PI) / 180 * scale, (yTop - miller(Math.max(SOUTH - 5, Math.min(NORTH + 2, lat)))) * scale];
 
-function inRing(lon, lat, ring) {
-  let inside = false;
-  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
-    const [xi, yi] = ring[i];
-    const [xj, yj] = ring[j];
-    // arestas que cruzam o antimeridiano (ex.: Fiji) estragariam a linha inteira
-    if (Math.abs(xj - xi) > 180) continue;
-    if (yi > lat !== yj > lat && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) inside = !inside;
-  }
-  return inside;
-}
-
-function onLand(lon, lat) {
-  return polygons.some(([outer, ...holes]) => inRing(lon, lat, outer) && !holes.some((h) => inRing(lon, lat, h)));
-}
-
-const dots = [];
-for (let lat = BOUNDS.north; lat >= BOUNDS.south; lat -= STEP) {
-  // compensa o achatamento perto dos polos
-  const stepLon = STEP / Math.max(Math.cos((lat * Math.PI) / 180), 0.45);
-  for (let lon = BOUNDS.west; lon <= BOUNDS.east; lon += stepLon) {
-    if (onLand(lon, lat)) dots.push([+lon.toFixed(2), +lat.toFixed(2)]);
+const polygons = land.features.flatMap((f) => (f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates));
+let d = "";
+for (const poly of polygons) {
+  for (const ring of poly) {
+    // Antártida fica de fora do recorte
+    if (ring.every(([, lat]) => lat < SOUTH)) continue;
+    let prev = null;
+    ring.forEach((pt, i) => {
+      const [x, y] = project(pt);
+      // aresta que atravessa o antimeridiano: pula em vez de riscar o mapa inteiro
+      const jump = prev && Math.abs(pt[0] - prev[0]) > 180;
+      d += `${i === 0 || jump ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)}`;
+      prev = pt;
+    });
+    d += "Z";
   }
 }
 
-writeFileSync("src/content/worldDots.json", JSON.stringify({ bounds: BOUNDS, dots }));
-console.log(`${dots.length} pontos gravados em src/content/worldDots.json`);
+writeFileSync("src/content/worldLand.json", JSON.stringify({ width: W, height: H, north: NORTH, south: SOUTH, d }));
+console.log(`mapa ${W}×${H}, ${(d.length / 1024).toFixed(0)} KB`);

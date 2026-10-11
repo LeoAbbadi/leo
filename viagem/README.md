@@ -17,12 +17,16 @@ como se mudar para a Irlanda (Pix e cartão, confirmação automática do pagame
   nas bordas (mapa de deslocamento em SVG gerado para cada elemento); nos outros navegadores
   vira vidro fosco com reflexo. Reflexo que segue o ponteiro, botões que "achatam" ao toque,
   indicador do menu que escorre como gota.
-- Céu ao fundo que muda com a rolagem (manhã → pôr do sol; no tema escuro, noite estrelada).
-- Janela de avião no topo com a marca animada em cena: os sóis nascem no mar, o reflexo
-  tremula e o avião decola.
-- Mapa de pontinhos com as rotas Brasil → Dublin → Paris e aviões voando.
-- Cartões-postais do diário (fotos do Google Drive ou ilustrações enquanto não há foto).
-- Cursos em forma de cartão de embarque. Tema claro e escuro. Celular com barra de abas flutuante.
+- Estrutura inspirada no Ponto Azul: topo em cartão com cena grande e menu em pílulas de vidro
+  (que se juntam numa barra só ao rolar), título com a segunda linha trocando.
+- Cena do topo animada: pôr do sol nos penhascos da Irlanda com os dois sóis da marca se pondo
+  no mar, pássaros, nuvens e avião, em camadas que se movem com a rolagem e o ponteiro.
+  Troca sozinha por uma foto do Drive quando houver.
+- Seção escura "Oi, prazer!" com três fotos redondas e adesivos de viagem que dá para arrastar,
+  mais uma lente de vidro líquido que entorta as fotos por baixo.
+- Mapa-múndi com os lugares visitados, rotas Brasil → Dublin → Paris e aviões voando.
+- Seção de vídeos com celular de vidro, cursos em forma de cartão de embarque, rodapé em cartão.
+- Páginas "Sobre nós" (linha do tempo) e "Termos de uso" (rascunho). Tema claro e escuro.
 
 **Venda de cursos**
 - Página de cada curso com módulos, aulas abertas e garantia de 7 dias.
@@ -50,17 +54,18 @@ Outros comandos:
 ```bash
 npm run brand        # gera de novo os SVGs da marca
 npm run logo:video   # grava os vídeos de abertura (precisa do FFmpeg e do Chromium do Playwright)
-npm run worldmap     # recalcula os pontinhos do mapa
+npm run worldmap     # recalcula o contorno do mapa-múndi
 ```
 
 ## Onde mexer
 
 | Quer mudar | Arquivo |
 |---|---|
-| Textos, nomes, redes sociais | `src/content/site.ts` |
+| Textos, nomes, redes sociais, foto do topo | `src/content/site.ts` |
+| Vídeos em destaque | `src/content/videos.ts` |
 | Cursos, preços, módulos e aulas | `src/content/courses.ts` (e o preço oficial na tabela `courses`) |
 | Lugares do mapa e rotas | `src/content/places.ts` |
-| Fotos do diário (Google Drive) | `src/content/photos.ts` · [guia](docs/fotos-google-drive.md) |
+| Fotos (círculos, diário) do Google Drive | `src/content/photos.ts` · [guia](docs/fotos-google-drive.md) |
 | Cores, fontes e espaçamentos | começo de `src/styles/global.css` |
 
 ## Estrutura
@@ -68,8 +73,8 @@ npm run worldmap     # recalcula os pontinhos do mapa
 ```
 src/
   content/        textos, cursos, lugares, fotos e pontos do mapa
-  components/     Glass (vidro líquido), Logo, HeroWindow, Sky, WorldMap, Postcard, CourseTicket
-  pages/          Início, Cursos, Curso, Checkout, Pedido, Aluno e admin/
+  components/     Glass (vidro líquido), Logo, HeroScene, Stickers, Sky, WorldMap, Postcard, CourseTicket
+  pages/          Início, Sobre, Termos, Cursos, Curso, Checkout, Pedido, Aluno e admin/
   lib/payments/   pagamentos: demonstração (navegador) e real (Supabase + Mercado Pago)
   lib/session.tsx login do aluno e dos donos
 supabase/

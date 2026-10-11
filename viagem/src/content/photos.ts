@@ -22,6 +22,13 @@ export const diary: Photo[] = [
   { driveId: "", alt: "Farol de Howth", place: "Howth", scene: "howth", caption: "Bate-volta de trem saindo de Dublin" },
 ];
 
+/** As três fotos redondas da seção "Oi, prazer!" (a do meio é a principal). */
+export const introPhotos: Photo[] = [
+  { driveId: "", alt: "Dublin ao entardecer", place: "Dublin", scene: "dublin", caption: "" },
+  { driveId: "", alt: "Leo e Helena", place: "Nós", scene: "voo", caption: "" },
+  { driveId: "", alt: "Paris", place: "Paris", scene: "paris", caption: "" },
+];
+
 /**
  * Endereço da imagem servida pelo próprio Google.
  * `width` pede uma versão reduzida para a página carregar rápido.

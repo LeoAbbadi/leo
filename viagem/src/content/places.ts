@@ -10,6 +10,8 @@ export interface Place {
   /** Data da viagem ou da mudança (AAAA-MM-DD). */
   date?: string;
   note: string;
+  /** Link do vídeo ou da série sobre o lugar (opcional). */
+  video?: string;
 }
 
 export const places: Place[] = [

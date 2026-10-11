@@ -41,7 +41,7 @@ export function ButtonLink({
   children,
 }: {
   to: string;
-  variant?: "primary" | "ghost" | "glass";
+  variant?: "primary" | "ghost" | "glass" | "blue";
   size?: "md" | "lg";
   className?: string;
   children: ReactNode;

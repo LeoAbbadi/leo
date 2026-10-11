@@ -65,7 +65,7 @@ export function Postcard({ photo, index }: { photo: Photo; index: number }) {
 }
 
 /** Ilustrações simples dos lugares, só com formas geométricas. */
-function Scene({ name, label }: { name: Photo["scene"]; label: string }) {
+export function Scene({ name, label }: { name: Photo["scene"]; label: string }) {
   return (
     <svg className={`scene scene-${name}`} viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label={label}>
       <defs>

@@ -3,6 +3,7 @@ import { HashRouter, Route, Routes } from "react-router";
 import { Layout } from "./components/Layout";
 import { ToastProvider } from "./components/ui";
 import { SessionProvider } from "./lib/session";
+import { About } from "./pages/About";
 import { Admin } from "./pages/admin/Admin";
 import { Checkout } from "./pages/Checkout";
 import { CourseDetail } from "./pages/CourseDetail";
@@ -10,6 +11,7 @@ import { Courses } from "./pages/Courses";
 import { Home } from "./pages/Home";
 import { Order } from "./pages/Order";
 import { Player, Student } from "./pages/Student";
+import { Terms } from "./pages/Terms";
 
 export function App() {
   return (
@@ -20,6 +22,8 @@ export function App() {
             <Routes>
               <Route element={<Layout />}>
                 <Route index element={<Home />} />
+                <Route path="sobre" element={<About />} />
+                <Route path="termos" element={<Terms />} />
                 <Route path="cursos" element={<Courses />} />
                 <Route path="cursos/:slug" element={<CourseDetail />} />
                 <Route path="checkout/:slug" element={<Checkout />} />
