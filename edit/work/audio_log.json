@@ -169,8 +169,8 @@
   "key": "Ré maior (Dmaj7–Bm7–Gmaj7–Asus4)"
  },
  "master": {
-  "trim_db": -0.42,
-  "max_gr_db": 3.17,
+  "trim_db": -0.43,
+  "max_gr_db": 3.16,
   "pct_samples_gr_over_1db": 0.55
  },
  "voice_leveller": {

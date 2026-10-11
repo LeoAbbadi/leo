@@ -128,7 +128,7 @@ for s in alog["sfx"]: A(f"| {s['t']:.3f} | {s['desc']} | {s['peak_dbfs']:.2f} | 
 r = alog["riser"]
 A(f"| {r['start']:.3f}–{r['end']:.3f} | riser grave e sutil (40→150 Hz + ar filtrado), 2,6 s, terminando exatamente na junção do gancho (3,867 s) | {r['peak_dbfs']:.2f} | {r['peak_dbfs']-vp:+.1f} dB | — |")
 nwh = sum(1 for s in alog["sfx"] if "passagem" in s["desc"])
-A(f"\nHá {nwh} passagens (whoosh), só nos dois movimentos rápidos de câmera (trechos 5 e 17), uma por trecho, com pico no meio exato do movimento. Não há efeito em trocas de layout, derivas, aproximações, recuos ou zooms. O CTA não tem efeito.\n")
+A(f"\nHá {nwh} passagens (whoosh), só nos dois movimentos rápidos de câmera (trechos 5 e 17), uma por trecho, com pico no meio exato do movimento. Não há efeito em trocas de layout, derivas, aproximações, recuos ou zooms. Também não há cliques: nenhuma composição mostra um botão de verdade sendo pressionado, e o clique de publicar do CTA fica sem som pela regra do CTA (só passagem ou nada).\n")
 mu = alog["music"]
 A(f"**Música:** original e sintetizada, lo-fi synth / corporate ambient a {mu['bpm']} BPM, {mu['key']}. Tem piano elétrico, pad, bumbo macio, estalo, chimbal e baixo; os dois primeiros compassos são só teclas e pad. A primeira batida cai no quadro 1 ({mu['first_beat_s']*1000:.1f} ms), com entrada de 5 ms, saída de 800 ms e nível constante em −24 LUFS (sem ducking nem automação).\n")
 

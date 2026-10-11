@@ -85,7 +85,7 @@ for e in sorted(ev, key=lambda e: e["t"]):
 for comp, (t0, t1) in ((c, sorted(v)) for c, v in ticks.items()):
     tt = t0; i = 0
     while tt <= t1 + 1e-6:
-        b = bubble(1700 + 260 * ((i * 7) % 5)); place(sfx, st(norm_peak(b, VPEAK - 16 - 2.5 * rng.random()), 0.15 * np.sin(i)), tt)
+        b = bubble(1700 + 260 * ((i * 7) % 5)); place(sfx, norm_peak(st(b, 0.15 * np.sin(i)), VPEAK - 16 - 2.5 * rng.random()), tt)   # peak per channel after panning
         tt += 0.055 + 0.012 * rng.random(); i += 1
     log.append((t0, f"sequência leve de pequenos sons (dados/contagem) {t0:.3f}–{t1:.3f} s", VPEAK - 16, comp))
 
