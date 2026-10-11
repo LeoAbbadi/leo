@@ -58,7 +58,7 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #4C9EF
   const D = 4.1333, taq = 0.39, tvc = 2.07;
   const cam = K([[0, id0], [D, id0]]);
   const z = K([[0, 1], [taq, 1], [taq + 0.6, 1.15, "power2.inOut"]]);
-  const sc = K([[0, 0], [tvc, 0], [tvc + 1.2, -280, "power2.inOut"]]);
+  const sc = K([[0, 0], [tvc, 0], [tvc + 1.2, -320, "power2.inOut"]]);
   const PH = $("ph"), L = $("lst");
   function update(t) { place(PH, { s: z(t) }); L.style.transform = "translateY(" + sc(t).toFixed(2) + "px)"; }
 
