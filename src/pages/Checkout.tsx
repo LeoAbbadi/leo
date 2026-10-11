@@ -30,7 +30,7 @@ export function Checkout() {
     return (
       <section className="section page-top narrow">
         <h1 className="page-title">Curso não encontrado</h1>
-        <Link to="/cursos">Ver todos os cursos</Link>
+        <Link to="/aprender">Voltar</Link>
       </section>
     );
   }

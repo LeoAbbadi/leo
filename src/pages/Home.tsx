@@ -2,35 +2,25 @@ import { AnimatePresence, animate, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import selfie from "../assets/leo-e-helena.webp";
-import { CourseTicket } from "../components/CourseTicket";
+import { PostCard as BlogCard, PostCover } from "../components/BlogCard";
 import { Coverflow } from "../components/Coverflow";
 import { Glass } from "../components/Glass";
 import { HeroScene } from "../components/HeroScene";
 import { LogoMark } from "../components/Logo";
 import { Scene } from "../components/Postcard";
-import { Planner } from "../components/Planner";
+import { NowCard } from "../components/NowCard";
 import { GlassLens, Sticker, stickerArt } from "../components/Stickers";
 import { ButtonLink, Reveal } from "../components/ui";
 import { WorldMap } from "../components/WorldMap";
-import { courses } from "../content/courses";
+import { countries } from "../content/countries";
 import { diary, driveImage, introPhotos } from "../content/photos";
 import { places } from "../content/places";
+import { posts, sortedPosts } from "../content/posts";
 import { site } from "../content/site";
 import { videos } from "../content/videos";
-import { daysSince } from "../lib/format";
+import { daysSince, fmtMonth } from "../lib/format";
 
 const ease = [0.16, 1, 0.3, 1] as const;
-
-function useDublinClock() {
-  const fmt = () =>
-    new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Dublin" }).format(new Date());
-  const [now, setNow] = useState(fmt);
-  useEffect(() => {
-    const t = window.setInterval(() => setNow(fmt()), 15_000);
-    return () => window.clearInterval(t);
-  }, []);
-  return now;
-}
 
 function CountUp({ value }: { value: number }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -120,18 +110,10 @@ function VideoCover({ cover }: { cover: (typeof videos)[number]["cover"] }) {
   );
 }
 
-// garantias da compra (ícones de traço simples)
-const perks: [string, string][] = [
-  ["Garantia de 7 dias", "M12 2.8 4.5 5.6v6c0 4.6 3.2 8.4 7.5 9.6 4.3-1.2 7.5-5 7.5-9.6v-6L12 2.8Zm-1.3 12.9-3.4-3.4 1.4-1.4 2 2 4.6-4.6 1.4 1.4-6 6Z"],
-  ["Pix ou até 12x", "M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5v-11Zm2 1.5v2h12V8H6Zm0 6v2h5v-2H6Z"],
-  ["Acesso na hora", "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm1 4.5v4.1l3.2 1.9-1 1.7L11 12.7V7.5h2Z"],
-  ["Pagamento seguro", "M7 10V8a5 5 0 0 1 10 0v2h1.5A1.5 1.5 0 0 1 20 11.5v8a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19.5v-8A1.5 1.5 0 0 1 5.5 10H7Zm2 0h6V8a3 3 0 0 0-6 0v2Z"],
-];
-
 export function Home() {
   const destRef = useRef<HTMLDivElement>(null);
-  const clock = useDublinClock();
   const days = daysSince(site.homeBase.since);
+  const visited = countries.filter((c) => c.status === "base" || c.status === "visitado").length;
   const featured = videos[0];
   const instagram = site.social.instagram || site.social.youtube || site.social.tiktok;
 
@@ -158,8 +140,8 @@ export function Home() {
               {site.hero.subtitle}
             </motion.p>
             <motion.div className="hero-actions" initial={{ y: 14, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, delay: 0.65, ease }}>
-              <ButtonLink to="/cursos" variant="sun" size="lg">
-                Ver os cursos <span aria-hidden="true">→</span>
+              <ButtonLink to="/diario" variant="sun" size="lg">
+                Ler o diário <span aria-hidden="true">→</span>
               </ButtonLink>
               <Link to="/#videos" className="watch">
                 <span className="watch-play" aria-hidden="true">
@@ -175,60 +157,55 @@ export function Home() {
             </motion.div>
           </div>
           <motion.div className="hero-planner" initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.9, delay: 0.5, ease }}>
-            <Planner />
+            <NowCard />
           </motion.div>
         </div>
 
-        <div className="hero-bottom">
+        <div className="hero-bottom hero-bottom-posts">
           <div className="dest">
             <div className="dest-head">
-              <strong>Lugares do diário</strong>
-              <Link to="/#mapa">Ver no mapa</Link>
+              <strong>Últimas do diário</strong>
+              <Link to="/diario">Ver todas</Link>
             </div>
             <div className="dest-wrap">
-              <button type="button" className="dest-arrow dest-prev" aria-label="Lugares anteriores" onClick={() => destRef.current?.scrollBy({ left: -260, behavior: "smooth" })}>
+              <button type="button" className="dest-arrow dest-prev" aria-label="Posts anteriores" onClick={() => destRef.current?.scrollBy({ left: -300, behavior: "smooth" })}>
                 ←
               </button>
               <div className="dest-row" ref={destRef}>
+                {sortedPosts.map((p, i) => (
+                  <motion.div key={p.slug} initial={{ y: 24, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.7, delay: 0.8 + i * 0.08, ease }}>
+                    <Link to={`/diario/${p.slug}`} className="dest-card">
+                      <PostCover post={p} size={600} />
+                      <span className="dest-cap">
+                        <span className="dest-meta">{p.category}</span>
+                        <strong>{p.title}</strong>
+                        <span className="dest-date mono">{fmtMonth(p.date)}</span>
+                      </span>
+                    </Link>
+                  </motion.div>
+                ))}
                 {diary.map((p, i) => (
                   <motion.figure
                     key={p.place}
                     className="dest-card"
                     initial={{ y: 24, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.7, delay: 0.8 + i * 0.08, ease }}
-                    whileHover={{ y: -6 }}
+                    transition={{ duration: 0.7, delay: 0.8 + (sortedPosts.length + i) * 0.08, ease }}
                   >
-                    {p.driveId ? (
-                      <img src={driveImage(p.driveId, 600)} alt={p.alt} loading="lazy" referrerPolicy="no-referrer" />
-                    ) : (
-                      <Scene name={p.scene} label={p.alt} />
-                    )}
-                    <figcaption>
-                      <span>
-                        <strong>{p.place}</strong>
-                        <span>{p.region}</span>
-                      </span>
+                    {p.driveId ? <img src={driveImage(p.driveId, 600)} alt={p.alt} loading="lazy" referrerPolicy="no-referrer" /> : <Scene name={p.scene} label={p.alt} />}
+                    <figcaption className="dest-cap">
                       <span className="dest-meta">{p.meta}</span>
+                      <strong>{p.place}</strong>
+                      <span className="dest-date">{p.region}</span>
                     </figcaption>
                   </motion.figure>
                 ))}
               </div>
-              <button type="button" className="dest-arrow dest-next" aria-label="Próximos lugares" onClick={() => destRef.current?.scrollBy({ left: 260, behavior: "smooth" })}>
+              <button type="button" className="dest-arrow dest-next" aria-label="Próximos posts" onClick={() => destRef.current?.scrollBy({ left: 300, behavior: "smooth" })}>
                 →
               </button>
             </div>
           </div>
-          <Glass className="perks" radius={24} bezel={18} strength={26} blur={3}>
-            {perks.map(([label, d]) => (
-              <div key={label} className="perk">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d={d} />
-                </svg>
-                <span>{label}</span>
-              </div>
-            ))}
-          </Glass>
         </div>
       </section>
 
@@ -238,19 +215,42 @@ export function Home() {
           <strong>
             <CountUp value={days} />
           </strong>
-          <span>Dias na Irlanda</span>
+          <span>Dias fora do Brasil</span>
+        </div>
+        <div>
+          <strong>{visited}</strong>
+          <span>Países visitados</span>
         </div>
         <div>
           <strong>{places.length}</strong>
           <span>Cidades no mapa</span>
         </div>
         <div>
-          <strong>{courses.length}</strong>
-          <span>Cursos</span>
+          <strong>{posts.length}</strong>
+          <span>Histórias no diário</span>
         </div>
-        <div>
-          <strong className="mono">{clock}</strong>
-          <span>Agora em Dublin</span>
+      </section>
+
+      {/* ---------- diário ---------- */}
+      <section className="section" id="diario">
+        <Reveal className="section-head">
+          <span className="eyebrow">Diário</span>
+          <h2>
+            As últimas <em>histórias</em>
+          </h2>
+          <p>Viagens, a vida em Dublin e as contas de verdade de cada mês.</p>
+        </Reveal>
+        <div className="post-grid">
+          {sortedPosts.slice(0, 4).map((p, i) => (
+            <Reveal key={p.slug} delay={i * 0.06} className={i === 0 ? "post-grid-first" : ""}>
+              <BlogCard post={p} variant={i === 0 ? "featured" : "default"} />
+            </Reveal>
+          ))}
+        </div>
+        <div className="section-more">
+          <ButtonLink to="/diario" variant="ghost">
+            Ver o diário completo
+          </ButtonLink>
         </div>
       </section>
 
@@ -332,6 +332,18 @@ export function Home() {
         </Reveal>
       </section>
 
+      {/* ---------- países ---------- */}
+      <section className="countries on-dark" id="paises">
+        <Reveal className="section-head center">
+          <span className="eyebrow">Países</span>
+          <h2>
+            Cada país, <em>um álbum</em>
+          </h2>
+          <p>Arraste para os lados e toque no país para ver as fotos de lá.</p>
+        </Reveal>
+        <Coverflow />
+      </section>
+
       {/* ---------- mapa ---------- */}
       <section className="section world" id="mapa">
         <LogoMark className="world-watermark" compact />
@@ -355,18 +367,6 @@ export function Home() {
         <Reveal>
           <WorldMap />
         </Reveal>
-      </section>
-
-      {/* ---------- países ---------- */}
-      <section className="countries on-dark" id="paises">
-        <Reveal className="section-head center">
-          <span className="eyebrow">Países</span>
-          <h2>
-            Cada país, <em>um álbum</em>
-          </h2>
-          <p>Arraste para os lados e toque no país para ver as fotos de lá.</p>
-        </Reveal>
-        <Coverflow />
       </section>
 
       {/* ---------- vídeos ---------- */}
@@ -433,66 +433,6 @@ export function Home() {
         )}
       </section>
 
-      {/* ---------- cursos ---------- */}
-      <section className="section" id="cursos">
-        <Reveal className="section-head">
-          <span className="eyebrow">Cursos</span>
-          <h2>
-            Quer ir também? <em>A gente mostra o caminho.</em>
-          </h2>
-          <p>O que aprendemos indo morar na Irlanda, organizado em cursos curtos e diretos. Você compra uma vez e assiste quando quiser.</p>
-        </Reveal>
-        <div className="tickets">
-          {courses.map((c, i) => (
-            <Reveal key={c.slug} delay={i * 0.08}>
-              <CourseTicket course={c} />
-            </Reveal>
-          ))}
-        </div>
-        <Reveal>
-          <ol className="steps">
-            {[
-              ["Escolha o curso", "Veja os módulos e assista às aulas abertas antes de decidir."],
-              ["Pague com Pix ou cartão", "Pix na hora ou cartão em até 12x, pelo checkout seguro do Mercado Pago."],
-              ["Confirmação automática", "O Mercado Pago avisa o site assim que o pagamento cai. Nós conferimos a assinatura e o valor."],
-              ["Acesso liberado", "Você entra na Área do aluno com o e-mail da compra e começa a assistir."],
-            ].map(([t, d], i) => (
-              <Glass as="li" key={t} className="step" radius={26} bezel={18} strength={26}>
-                <span className="step-n mono">{String(i + 1).padStart(2, "0")}</span>
-                <strong>{t}</strong>
-                <span>{d}</span>
-              </Glass>
-            ))}
-          </ol>
-          <p className="guarantee">
-            <strong>Garantia de 7 dias.</strong> Não gostou? Peça o reembolso em até 7 dias após a compra e devolvemos 100% do valor.
-          </p>
-        </Reveal>
-      </section>
-
-      {/* ---------- perguntas ---------- */}
-      <section className="section faq" id="perguntas">
-        <Reveal className="section-head">
-          <span className="eyebrow">Perguntas frequentes</span>
-          <h2>Antes de comprar</h2>
-        </Reveal>
-        <Reveal className="faq-list">
-          {[
-            ["Como recebo o acesso?", "Assim que o pagamento é confirmado, o curso aparece na Área do aluno. Você entra com o e-mail usado na compra e recebe um link de acesso, sem precisar criar senha."],
-            ["Quanto tempo leva para o Pix ser confirmado?", "Normalmente segundos. O código Pix vale por 30 minutos; se vencer, é só gerar outro."],
-            ["Posso parcelar?", "Sim, no cartão de crédito em até 12x no curso completo, direto no checkout do Mercado Pago."],
-            ["E se eu não gostar?", "Você tem 7 dias para pedir o reembolso, como garante o Código de Defesa do Consumidor. O acesso é removido quando o valor é devolvido."],
-            ["O conteúdo serve para outros países?", "O curso é focado na Irlanda, onde moramos. Planejamento financeiro, escolha de escola e busca de casa e emprego valem para quase qualquer destino."],
-          ].map(([q, a]) => (
-            <Glass as="div" key={q} className="faq-item" radius={22} bezel={14} strength={20}>
-              <details>
-                <summary>{q}</summary>
-                <p>{a}</p>
-              </details>
-            </Glass>
-          ))}
-        </Reveal>
-      </section>
     </>
   );
 }

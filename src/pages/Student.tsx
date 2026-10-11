@@ -120,7 +120,7 @@ export function Student() {
             Se você acabou de pagar com Pix, espere alguns segundos e atualize. Comprou com outro e-mail? Saia e entre com
             ele.
           </p>
-          <ButtonLink to="/cursos">Ver cursos</ButtonLink>
+          <ButtonLink to="/aprender">Quero aprender</ButtonLink>
         </Glass>
       )}
 

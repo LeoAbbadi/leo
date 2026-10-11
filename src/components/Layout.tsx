@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router";
 import { site } from "../content/site";
 import { isLive } from "../lib/env";
-import { useSession } from "../lib/session";
+import { useStops } from "../lib/now";
 import { Glass } from "./Glass";
 import { LogoMark, Wordmark } from "./Logo";
 import { Sky } from "./Sky";
@@ -14,24 +14,34 @@ interface NavEntry {
   short?: string;
   end?: boolean;
   hash?: string;
+  live?: boolean;
 }
 
 const links: NavEntry[] = [
   { to: "/", label: "Início", end: true },
-  { to: "/sobre", label: "Sobre nós", short: "Sobre" },
+  { to: "/diario", label: "Diário" },
   { to: "/#paises", label: "Países", hash: "paises" },
-  { to: "/#mapa", label: "Mapa", hash: "mapa" },
-  { to: "/cursos", label: "Cursos" },
-  { to: "/#videos", label: "Vídeos", hash: "videos" },
+  { to: "/agora", label: "Aonde estamos agora?", short: "Agora", live: true },
+  { to: "/sobre", label: "Sobre nós", short: "Sobre" },
 ];
 
 function NavItem({ entry, active, short = false }: { entry: NavEntry; active: boolean; short?: boolean }) {
   return (
     <NavLink to={entry.to} end={entry.end} className={`nav-link ${active ? "is-active" : ""}`}>
-      {active && (
-        <motion.span layoutId="nav-drop" className="nav-drop" transition={{ type: "spring", stiffness: 420, damping: 30, mass: 0.8 }} />
-      )}
-      <span className="nav-label">{short && entry.short ? entry.short : entry.label}</span>
+      {active && <motion.span layoutId="nav-drop" className="nav-drop" transition={{ type: "spring", stiffness: 420, damping: 30, mass: 0.8 }} />}
+      <span className="nav-label">
+        {entry.live && <i className="nav-live" aria-hidden="true" />}
+        {short && entry.short ? (
+          entry.short
+        ) : entry.short ? (
+          <>
+            <span className="nav-full">{entry.label}</span>
+            <span className="nav-short">{entry.short}</span>
+          </>
+        ) : (
+          entry.label
+        )}
+      </span>
     </NavLink>
   );
 }
@@ -45,9 +55,12 @@ const icons: Record<string, string> = {
     "M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-1.8-2.5V9.7a5.7 5.7 0 1 0 4.9 5.7V9.1a7.4 7.4 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.2-1.6Z",
 };
 
+// páginas ligadas à compra: só nelas aparece o aviso do modo demonstração
+const salesPaths = /^\/(aprender|cursos|checkout|pedido|aluno|admin)/;
+
 export function Layout() {
   const { pathname, hash } = useLocation();
-  const { email } = useSession();
+  const stops = useStops();
   const [scrolled, setScrolled] = useState(false);
   const [pastHero, setPastHero] = useState(false);
 
@@ -61,22 +74,20 @@ export function Layout() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // rola até a âncora (#mapa, #videos) ou volta ao topo ao trocar de página
+  // rola até a âncora (#paises, #mapa) ou volta ao topo ao trocar de página
   useEffect(() => {
     const anchor = hash.replace("#", "");
-    if (anchor) {
-      // a página pode ter acabado de abrir: espera um quadro para a seção existir
-      requestAnimationFrame(() => document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth", block: "start" }));
-    }
+    if (anchor) requestAnimationFrame(() => document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth", block: "start" }));
     else window.scrollTo({ top: 0 });
   }, [pathname, hash]);
 
   const activeFor = (l: NavEntry) =>
     l.hash ? pathname === "/" && hash === `#${l.hash}` : l.end ? pathname === "/" && !hash : pathname.startsWith(l.to);
 
-  // Na página inicial, por cima da foto do topo, cada link é uma pílula de vidro
-  // separada; depois de rolar, as pílulas se juntam numa barra só.
-  const split = pathname === "/" && !pastHero;
+  // por cima da foto do topo o menu fica sem fundo; depois de rolar vira barra de vidro
+  const overHero = /^\/($|paises\/|diario\/[^/]+|agora)/.test(pathname);
+  const split = overHero && !pastHero;
+  const tab = (to: string, label: string): NavEntry => ({ to, label });
 
   return (
     <div className="app">
@@ -91,29 +102,27 @@ export function Layout() {
             </span>
           </Link>
           <LayoutGroup id="nav">
-            <motion.div className="nav-links" layout transition={{ type: "spring", stiffness: 300, damping: 30 }}>
+            <div className="nav-links">
               {links.map((l) => (
-                <motion.span key={l.label} layout className="nav-pill">
-                  <NavItem entry={l} active={activeFor(l)} />
-                </motion.span>
+                <NavItem key={l.label} entry={l} active={activeFor(l)} />
               ))}
-            </motion.div>
+            </div>
           </LayoutGroup>
-          <Link to="/aluno" className="nav-cta">
-            {email ? "Meus cursos" : "Área do aluno"}
+          <Link to="/aprender" className="nav-cta">
+            Quero aprender
           </Link>
         </Glass>
       </header>
 
       <Glass as="nav" className="tabbar" radius={999} bezel={16} strength={24} blur={7} aria-label="Navegação rápida">
         <LayoutGroup id="tabbar">
-          {[links[0], links[2], links[4], links[1], { to: "/aluno", label: "Aluno" }].map((l) => (
+          {[links[0], links[1], links[2], links[3], tab("/aprender", "Aprender")].map((l) => (
             <NavItem key={l.label} entry={l} short active={activeFor(l)} />
           ))}
         </LayoutGroup>
       </Glass>
 
-      {!isLive && (
+      {!isLive && salesPaths.test(pathname) && (
         <div className="demo-ribbon" role="note">
           Modo demonstração: pagamentos simulados, nada é cobrado.
         </div>
@@ -123,12 +132,12 @@ export function Layout() {
         <Outlet />
       </main>
 
-      <Footer />
+      <Footer city={stops[0]?.city} />
     </div>
   );
 }
 
-function Footer() {
+function Footer({ city }: { city?: string }) {
   const social = (["youtube", "instagram", "tiktok"] as const).filter((k) => site.social[k]);
   return (
     <footer className="footer">
@@ -139,31 +148,30 @@ function Footer() {
             <div>
               <Wordmark />
               <p className="footer-tag">{site.tagline}</p>
-              <p className="footer-blurb">Viagens pela Europa e o caminho para morar na Irlanda, contado por quem está fazendo.</p>
+              <p className="footer-blurb">
+                O diário de viagem do Leo e da Helena.{city ? ` Agora em ${city}.` : ""}
+              </p>
             </div>
           </div>
           <nav className="footer-col" aria-label="Links úteis">
-            <strong>Links úteis</strong>
-            <Link to="/">Início</Link>
-            <Link to="/sobre">Sobre nós</Link>
+            <strong>Explore</strong>
+            <Link to="/diario">Diário</Link>
             <Link to="/#paises">Países</Link>
+            <Link to="/agora">Aonde estamos agora?</Link>
             <Link to="/#mapa">Mapa</Link>
-            <Link to="/cursos">Cursos</Link>
-            <Link to="/#videos">Vídeos</Link>
-            <Link to="/aluno">Área do aluno</Link>
+            <Link to="/sobre">Sobre nós</Link>
           </nav>
           <nav className="footer-col" aria-label="Informações">
             <strong>Informações</strong>
+            <Link to="/aprender">Quero aprender a sair do país</Link>
             <Link to="/termos">Termos de uso</Link>
             <Link to="/termos#privacidade">Política de privacidade</Link>
-            <Link to="/#perguntas">Perguntas frequentes</Link>
-            <Link to="/admin">Área dos donos</Link>
             {site.social.email && <span className="footer-email">{site.social.email}</span>}
           </nav>
         </div>
         <div className="footer-bottom">
           <p>
-            © {new Date().getFullYear()} {site.name}. Todos os direitos reservados. Pagamentos processados pelo Mercado Pago.
+            © {new Date().getFullYear()} {site.name}. Todos os direitos reservados.
           </p>
           {social.length > 0 && (
             <div className="footer-social">

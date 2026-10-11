@@ -11,7 +11,14 @@ export function installmentsLabel(cents: number, max: number) {
 const dateFmt = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short", year: "numeric" });
 const timeFmt = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
 
-export const fmtDate = (iso: string) => dateFmt.format(new Date(iso)).replace(/\./g, "");
+export const fmtDate = (iso: string) => dateFmt.format(new Date(`${iso.slice(0, 10)}T12:00:00`)).replace(/\./g, "");
+
+/** "10 jul 2026" (curto, para caber em cartões) */
+export const fmtShort = (iso: string) => fmtDate(iso).replace(/ de /g, " ");
+
+const monthFmt = new Intl.DateTimeFormat("pt-BR", { month: "short", year: "numeric" });
+/** "ago de 2026" → "ago 2026" */
+export const fmtMonth = (iso: string) => monthFmt.format(new Date(`${iso.slice(0, 10)}T12:00:00`)).replace(/\./g, "").replace(" de ", " ");
 export const fmtDateTime = (iso: string) => timeFmt.format(new Date(iso));
 
 /** Dias completos desde uma data (AAAA-MM-DD). */

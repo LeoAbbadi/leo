@@ -12,9 +12,9 @@ export const site = {
     eyebrow: "DUB · desde 10 jul 2026",
     /** Primeira linha fixa; a segunda vai trocando. */
     lead: "Morando na Irlanda",
-    rotating: ["e viajando a Europa", "e mostrando o caminho", "e contando tudo"],
+    rotating: ["e viajando a Europa", "e contando tudo", "e mostrando o caminho"],
     subtitle:
-      "Somos o Leo e a Helena. Aqui a gente mostra as viagens pela Europa e ensina, passo a passo, como sair do Brasil e começar a vida na Irlanda.",
+      "Somos o Leo e a Helena. Aqui a gente conta a vida em Dublin, as viagens pela Europa e tudo o que aprendeu saindo do Brasil.",
     /** Texto do botão de vídeo do topo (leva para a seção de vídeos). */
     video: { title: "Assistir ao vídeo", sub: "Nosso 1º mês em Dublin" },
     /** ID de uma foto ou vídeo do Google Drive para o topo. Vazio = ilustração animada. */

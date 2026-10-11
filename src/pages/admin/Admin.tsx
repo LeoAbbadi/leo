@@ -9,6 +9,7 @@ import { brl, fmtDateTime } from "../../lib/format";
 import { gateway, type Order, type OrderStatus } from "../../lib/payments";
 import { resetDemo } from "../../lib/payments/demo";
 import { DEMO_ADMIN, useSession } from "../../lib/session";
+import { NowEditor } from "./NowEditor";
 
 function AdminSignIn() {
   const { adminSignIn, signIn } = useSession();
@@ -70,6 +71,7 @@ export function Admin() {
   const toast = useToast();
   const [orders, setOrders] = useState<Order[] | null>(null);
   const [filter, setFilter] = useState<Filter>("all");
+  const [view, setView] = useState<"agora" | "pedidos">("agora");
   const [error, setError] = useState<string>();
 
   const load = useCallback(async () => {
@@ -116,7 +118,7 @@ export function Admin() {
       <div className="section-head row">
         <div>
           <span className="eyebrow">Área dos donos</span>
-          <h1 className="page-title">Pedidos e pagamentos</h1>
+          <h1 className="page-title">{view === "agora" ? "Aonde estamos agora?" : "Pedidos do curso"}</h1>
           <p className="muted">Conectado como {email}</p>
         </div>
         <div className="row-actions">
@@ -131,123 +133,175 @@ export function Admin() {
         </div>
       </div>
 
-      <div className="stats">
-        {[
-          ["Receita confirmada", brl(stats.revenue)],
-          ["Vendas pagas", String(stats.paid)],
-          ["Aguardando pagamento", String(stats.pending)],
-          ["Ticket médio", brl(stats.average)],
-        ].map(([k, v]) => (
-          <Glass key={k} className="stat" radius={24} bezel={16} strength={22}>
-            <span className="eyebrow">{k}</span>
-            <strong>{v}</strong>
-          </Glass>
-        ))}
-      </div>
-
-      <LayoutGroup id="filters">
-        <div className="segmented small-seg" role="tablist" aria-label="Filtrar pedidos">
-          {filters.map(([f, label]) => (
-            <button key={f} type="button" role="tab" aria-selected={filter === f} className={`segment ${filter === f ? "is-on" : ""}`} onClick={() => setFilter(f)}>
-              {filter === f && <motion.span layoutId="filter-drop" className="segment-drop" transition={{ type: "spring", stiffness: 420, damping: 30 }} />}
+      <LayoutGroup id="admin-view">
+        <div className="segmented small-seg" role="tablist" aria-label="Seções">
+          {(
+            [
+              ["agora", "Onde estamos"],
+              ["pedidos", "Pedidos do curso"],
+            ] as const
+          ).map(([v, label]) => (
+            <button
+              key={v}
+              type="button"
+              role="tab"
+              aria-selected={view === v}
+              className={`segment ${view === v ? "is-on" : ""}`}
+              onClick={() => setView(v)}
+            >
+              {view === v && (
+                <motion.span
+                  layoutId="admin-view-drop"
+                  className="segment-drop"
+                  transition={{ type: "spring", stiffness: 420, damping: 30 }}
+                />
+              )}
               <span className="segment-label">{label}</span>
             </button>
           ))}
         </div>
       </LayoutGroup>
 
-      {error && <p className="error-text">{error}</p>}
+      {view === "agora" ? (
+        <NowEditor />
+      ) : (
+        <>
+          <div className="stats">
+            {[
+              ["Receita confirmada", brl(stats.revenue)],
+              ["Vendas pagas", String(stats.paid)],
+              ["Aguardando pagamento", String(stats.pending)],
+              ["Ticket médio", brl(stats.average)],
+            ].map(([k, v]) => (
+              <Glass key={k} className="stat" radius={24} bezel={16} strength={22}>
+                <span className="eyebrow">{k}</span>
+                <strong>{v}</strong>
+              </Glass>
+            ))}
+          </div>
 
-      <Glass className="table-wrap" radius={28} bezel={20} strength={24}>
-        {orders === null ? (
-          <p className="muted pad">Carregando pedidos…</p>
-        ) : shown.length === 0 ? (
-          <div className="pad">
-            <strong>Nenhum pedido aqui.</strong>
-            <p className="muted">
-              {isLive
-                ? "Os pedidos aparecem assim que alguém gera um Pix ou vai para o checkout."
-                : "Faça uma compra de teste em Cursos → Comprar agora para ver o pedido chegar aqui."}
-            </p>
-          </div>
-        ) : (
-          <div className="table-scroll">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Pedido</th>
-                  <th>Cliente</th>
-                  <th>Curso</th>
-                  <th>Forma</th>
-                  <th className="num">Valor</th>
-                  <th>Situação</th>
-                  <th>Verificação</th>
-                  <th aria-label="Ações" />
-                </tr>
-              </thead>
-              <tbody>
-                {shown.map((o) => {
-                  const v = o.verification;
-                  return (
-                    <tr key={o.id}>
-                      <td>
-                        <span className="mono">{o.id.slice(0, 8).toUpperCase()}</span>
-                        <span className="sub">{fmtDateTime(o.createdAt)}</span>
-                      </td>
-                      <td>
-                        {o.name}
-                        <span className="sub">{o.email}</span>
-                      </td>
-                      <td>{courseBySlug(o.courseSlug)?.title ?? o.courseSlug}</td>
-                      <td>{o.method === "pix" ? "Pix" : "Cartão"}</td>
-                      <td className="num mono">{brl(o.amountCents)}</td>
-                      <td>
-                        <StatusPill status={o.status} />
-                      </td>
-                      <td>
-                        {v ? (
-                          <span className="verify-mini" title="Assinatura · consulta no Mercado Pago · valor">
-                            <i className={v.signatureValid ? "ok" : "na"}>A</i>
-                            <i className={v.confirmedWithProvider ? "ok" : "na"}>C</i>
-                            <i className={v.amountMatches ? "ok" : "na"}>V</i>
-                            {v.source === "manual" && <span className="sub">à mão</span>}
-                          </span>
-                        ) : (
-                          <span className="sub">—</span>
-                        )}
-                      </td>
-                      <td className="actions">
-                        {o.status === "pending" && (
-                          <Button
-                            variant="glass"
-                            onClick={async () => {
-                              await gateway.markPaid(o.id);
-                              toast("Pedido confirmado e curso liberado.");
-                              load();
-                            }}
-                          >
-                            Confirmar à mão
-                          </Button>
-                        )}
-                        {o.status === "paid" && gateway.simulate && (
-                          <Button variant="ghost" onClick={() => gateway.simulate!(o.id, "refunded").then(() => toast("Reembolso simulado. Acesso removido.", "info"))}>
-                            Simular reembolso
-                          </Button>
-                        )}
-                      </td>
+          <LayoutGroup id="filters">
+            <div className="segmented small-seg" role="tablist" aria-label="Filtrar pedidos">
+              {filters.map(([f, label]) => (
+                <button
+                  key={f}
+                  type="button"
+                  role="tab"
+                  aria-selected={filter === f}
+                  className={`segment ${filter === f ? "is-on" : ""}`}
+                  onClick={() => setFilter(f)}
+                >
+                  {filter === f && (
+                    <motion.span
+                      layoutId="filter-drop"
+                      className="segment-drop"
+                      transition={{ type: "spring", stiffness: 420, damping: 30 }}
+                    />
+                  )}
+                  <span className="segment-label">{label}</span>
+                </button>
+              ))}
+            </div>
+          </LayoutGroup>
+
+          {error && <p className="error-text">{error}</p>}
+
+          <Glass className="table-wrap" radius={28} bezel={20} strength={24}>
+            {orders === null ? (
+              <p className="muted pad">Carregando pedidos…</p>
+            ) : shown.length === 0 ? (
+              <div className="pad">
+                <strong>Nenhum pedido aqui.</strong>
+                <p className="muted">
+                  {isLive
+                    ? "Os pedidos aparecem assim que alguém gera um Pix ou vai para o checkout."
+                    : "Faça uma compra de teste em Cursos → Comprar agora para ver o pedido chegar aqui."}
+                </p>
+              </div>
+            ) : (
+              <div className="table-scroll">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Pedido</th>
+                      <th>Cliente</th>
+                      <th>Curso</th>
+                      <th>Forma</th>
+                      <th className="num">Valor</th>
+                      <th>Situação</th>
+                      <th>Verificação</th>
+                      <th aria-label="Ações" />
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </Glass>
-      <p className="muted small legend">
-        Verificação: <b>A</b> assinatura do aviso conferida · <b>C</b> pagamento consultado no Mercado Pago · <b>V</b> valor
-        igual ao preço. Reembolsos de verdade são feitos no painel do Mercado Pago; o site recebe o aviso e remove o acesso
-        sozinho.
-      </p>
+                  </thead>
+                  <tbody>
+                    {shown.map((o) => {
+                      const v = o.verification;
+                      return (
+                        <tr key={o.id}>
+                          <td>
+                            <span className="mono">{o.id.slice(0, 8).toUpperCase()}</span>
+                            <span className="sub">{fmtDateTime(o.createdAt)}</span>
+                          </td>
+                          <td>
+                            {o.name}
+                            <span className="sub">{o.email}</span>
+                          </td>
+                          <td>{courseBySlug(o.courseSlug)?.title ?? o.courseSlug}</td>
+                          <td>{o.method === "pix" ? "Pix" : "Cartão"}</td>
+                          <td className="num mono">{brl(o.amountCents)}</td>
+                          <td>
+                            <StatusPill status={o.status} />
+                          </td>
+                          <td>
+                            {v ? (
+                              <span className="verify-mini" title="Assinatura · consulta no Mercado Pago · valor">
+                                <i className={v.signatureValid ? "ok" : "na"}>A</i>
+                                <i className={v.confirmedWithProvider ? "ok" : "na"}>C</i>
+                                <i className={v.amountMatches ? "ok" : "na"}>V</i>
+                                {v.source === "manual" && <span className="sub">à mão</span>}
+                              </span>
+                            ) : (
+                              <span className="sub">—</span>
+                            )}
+                          </td>
+                          <td className="actions">
+                            {o.status === "pending" && (
+                              <Button
+                                variant="glass"
+                                onClick={async () => {
+                                  await gateway.markPaid(o.id);
+                                  toast("Pedido confirmado e curso liberado.");
+                                  load();
+                                }}
+                              >
+                                Confirmar à mão
+                              </Button>
+                            )}
+                            {o.status === "paid" && gateway.simulate && (
+                              <Button
+                                variant="ghost"
+                                onClick={() =>
+                                  gateway.simulate!(o.id, "refunded").then(() => toast("Reembolso simulado. Acesso removido.", "info"))
+                                }
+                              >
+                                Simular reembolso
+                              </Button>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </Glass>
+          <p className="muted small legend">
+            Verificação: <b>A</b> assinatura do aviso conferida · <b>C</b> pagamento consultado no Mercado Pago · <b>V</b> valor igual ao
+            preço. Reembolsos de verdade são feitos no painel do Mercado Pago; o site recebe o aviso e remove o acesso sozinho.
+          </p>
+        </>
+      )}
     </section>
   );
 }

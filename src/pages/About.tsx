@@ -71,8 +71,8 @@ export function About() {
               Dois sóis nascendo juntos no horizonte: a Helena em laranja, encostada no Leo em azul. Onde os dois se
               encontram fica a cor do "nós". A rota que decola do horizonte é a mudança.
             </p>
-            <ButtonLink to="/cursos" size="lg">
-              Ver os cursos
+            <ButtonLink to="/diario" variant="sun" size="lg">
+              Ler o diário
             </ButtonLink>
           </Glass>
         </Reveal>

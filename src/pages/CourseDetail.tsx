@@ -14,7 +14,7 @@ export function CourseDetail() {
       <section className="section page-top narrow">
         <h1 className="page-title">Curso não encontrado</h1>
         <p>
-          Esse endereço não leva a nenhum curso. <Link to="/cursos">Ver todos os cursos</Link>
+          Esse endereço não leva a nenhum curso. <Link to="/aprender">Voltar</Link>
         </p>
       </section>
     );
@@ -24,8 +24,8 @@ export function CourseDetail() {
     <section className="section page-top course">
       <div className="course-main">
         <Reveal>
-          <Link to="/cursos" className="back">
-            ← Todos os cursos
+          <Link to="/aprender" className="back">
+            ← Quero aprender
           </Link>
           <span className="eyebrow">
             {course.kicker} · voo <span className="mono">{course.code}</span>
