@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 96" role="img" aria-label="Leo &amp; Helena (animado)">
+  <defs>
+  <linearGradient id="m-sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFB878"/><stop offset="1" stop-color="#FF7552"/></linearGradient>
+  <linearGradient id="m-sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6FA3FF"/><stop offset="1" stop-color="#3D6FE8"/></linearGradient>
+  <clipPath id="m-hz"><rect x="0" y="0" width="120" height="80"/></clipPath>
+  <clipPath id="m-hl"><circle cx="47" cy="72" r="22"><animate attributeName="cy" dur="6s" repeatCount="indefinite" calcMode="spline"
+        values="106;106;69.5;72;72" keyTimes="0;0.0417;0.1667;0.2333;1"
+        keySplines="0 0 1 1;0.16 1 0.3 1;0.4 0 0.6 1;0 0 1 1"/></circle></clipPath>
+</defs>
+  <mask id="m-rt" maskUnits="userSpaceOnUse">
+    <path d="M14 72 C 16 40 34 20 70 14.8" fill="none" stroke="#fff" stroke-width="6" pathLength="1" stroke-dasharray="1 1">
+      <animate attributeName="stroke-dashoffset" dur="6s" repeatCount="indefinite" calcMode="spline"
+        values="1;1;0.14;0.14" keyTimes="0;0.1917;0.3917;1" keySplines="0 0 1 1;0.45 0 0.2 1;0 0 1 1"/>
+    </path>
+  </mask>
+  <rect x="-20" y="-20" width="160" height="136" fill="#0B1626"/>
+  <g>
+    <animate attributeName="opacity" dur="6s" repeatCount="indefinite" values="1;1;0;0" keyTimes="0;0.8833;0.9667;1"/>
+    <g transform="translate(0 4)">
+    <g clip-path="url(#m-hz)">
+      <circle cx="47" cy="72" r="22" fill="url(#m-sun)"><animate attributeName="cy" dur="6s" repeatCount="indefinite" calcMode="spline"
+        values="106;106;69.5;72;72" keyTimes="0;0.0417;0.1667;0.2333;1"
+        keySplines="0 0 1 1;0.16 1 0.3 1;0.4 0 0.6 1;0 0 1 1"/></circle>
+      <circle cx="76" cy="64" r="26" fill="url(#m-sea)"><animate attributeName="cy" dur="6s" repeatCount="indefinite" calcMode="spline"
+        values="98;98;61.5;64;64" keyTimes="0;0.0667;0.1917;0.2583;1"
+        keySplines="0 0 1 1;0.16 1 0.3 1;0.4 0 0.6 1;0 0 1 1"/></circle>
+      <circle cx="76" cy="64" r="26" fill="#F3F6FB" clip-path="url(#m-hl)" opacity="0">
+        <animate attributeName="cy" dur="6s" repeatCount="indefinite" calcMode="spline"
+        values="98;98;61.5;64;64" keyTimes="0;0.0667;0.1917;0.2583;1"
+        keySplines="0 0 1 1;0.16 1 0.3 1;0.4 0 0.6 1;0 0 1 1"/>
+        <animate attributeName="opacity" dur="6s" repeatCount="indefinite" values="0;0;1;1" keyTimes="0;0.1583;0.2167;1"/>
+      </circle>
+    </g>
+    <rect y="82" height="5" rx="2.5" fill="#F3F6FB" x="12" width="96">
+      <animate attributeName="x" dur="6s" repeatCount="indefinite" calcMode="spline" values="60;12;12" keyTimes="0;0.1000;1" keySplines="0.65 0 0.35 1;0 0 1 1"/>
+      <animate attributeName="width" dur="6s" repeatCount="indefinite" calcMode="spline" values="0;96;96" keyTimes="0;0.1000;1" keySplines="0.65 0 0.35 1;0 0 1 1"/>
+    </rect>
+    <path d="M14 72 C 16 40 34 20 70 14.8" fill="none" stroke="#F3F6FB" stroke-width="2.6" stroke-dasharray="0.4 6" stroke-linecap="round" mask="url(#m-rt)"/>
+    <path d="M-5.6 -4.3 L5.6 0 L-5.6 4.3 L-3.1 0 Z" fill="#F3F6FB" opacity="0">
+      <animateMotion dur="6s" repeatCount="indefinite" rotate="auto" path="M14 72 C 16 40 34 20 70 14.8" calcMode="spline"
+        keyPoints="0;0;1;1" keyTimes="0;0.1750;0.3917;1" keySplines="0 0 1 1;0.45 0 0.2 1;0 0 1 1"/>
+      <animate attributeName="opacity" dur="6s" repeatCount="indefinite" values="0;0;1;1" keyTimes="0;0.1750;0.1917;1"/>
+    </path>
+    </g>
+  </g>
+</svg>

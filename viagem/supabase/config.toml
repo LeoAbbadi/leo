@@ -1,0 +1,9 @@
+# Configuração das Edge Functions para `supabase functions deploy`.
+# As duas funções são públicas: o checkout aceita compra sem login e o aviso
+# vem dos servidores do Mercado Pago (protegido pela assinatura, não por login).
+
+[functions.create-checkout]
+verify_jwt = false
+
+[functions.mercadopago-webhook]
+verify_jwt = false

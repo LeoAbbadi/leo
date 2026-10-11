@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 4 108 88" role="img" aria-label="Leo &amp; Helena">
+  <defs>
+  <linearGradient id="b-sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFB878"/><stop offset="1" stop-color="#FF7552"/></linearGradient>
+  <linearGradient id="b-sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6FA3FF"/><stop offset="1" stop-color="#3D6FE8"/></linearGradient>
+  <clipPath id="b-hz"><rect x="0" y="0" width="120" height="80"/></clipPath>
+  <clipPath id="b-hl"><circle cx="47" cy="72" r="22"/></clipPath>
+</defs>
+  <g clip-path="url(#b-hz)">
+    <circle cx="47" cy="72" r="22" fill="url(#b-sun)"/>
+    <circle cx="76" cy="64" r="26" fill="url(#b-sea)"/>
+    <circle cx="76" cy="64" r="26" fill="#F3F6FB" clip-path="url(#b-hl)"/>
+  </g>
+  <rect x="12" y="82" width="96" height="5" rx="2.5" fill="#F3F6FB"/>
+  <mask id="b-rt" maskUnits="userSpaceOnUse"><path d="M14 72 C 16 40 34 20 70 14.8" fill="none" stroke="#fff" stroke-width="6" pathLength="1" stroke-dasharray="0.86 1"/></mask><path mask="url(#b-rt)" d="M14 72 C 16 40 34 20 70 14.8" fill="none" stroke="#F3F6FB" stroke-width="2.6" stroke-dasharray="0.4 6" stroke-linecap="round"/>
+  <path d="M-5.6 -4.3 L5.6 0 L-5.6 4.3 L-3.1 0 Z" fill="#F3F6FB" transform="translate(70 14.8) rotate(-8.2)"/>
+</svg>

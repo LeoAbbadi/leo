@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="8 34 104 58" role="img" aria-label="Leo &amp; Helena">
+  <defs>
+  <linearGradient id="c-sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFB46A"/><stop offset="1" stop-color="#FF6A4D"/></linearGradient>
+  <linearGradient id="c-sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3D7BFF"/><stop offset="1" stop-color="#1F4FCC"/></linearGradient>
+  <clipPath id="c-hz"><rect x="0" y="0" width="120" height="80"/></clipPath>
+  <clipPath id="c-hl"><circle cx="47" cy="72" r="22"/></clipPath>
+</defs>
+  <g clip-path="url(#c-hz)">
+    <circle cx="47" cy="72" r="22" fill="url(#c-sun)"/>
+    <circle cx="76" cy="64" r="26" fill="url(#c-sea)"/>
+    <circle cx="76" cy="64" r="26" fill="#0B1626" clip-path="url(#c-hl)"/>
+  </g>
+  <rect x="12" y="82" width="96" height="5" rx="2.5" fill="#0B1626"/>
+  
+</svg>

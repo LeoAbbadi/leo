@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 4 108 88" role="img" aria-label="Leo &amp; Helena">
+  <defs>
+  <clipPath id="d-hz"><rect x="0" y="0" width="120" height="80"/></clipPath>
+  <clipPath id="d-hl"><circle cx="47" cy="72" r="22"/></clipPath>
+</defs>
+  <mask id="d-knock" maskUnits="userSpaceOnUse"><rect width="120" height="120" fill="#fff"/><circle cx="76" cy="64" r="26" fill="#000" clip-path="url(#d-hl)"/></mask>
+  <g clip-path="url(#d-hz)" mask="url(#d-knock)" fill="#0B1626"><circle cx="47" cy="72" r="22"/><circle cx="76" cy="64" r="26"/></g>
+  <rect x="12" y="82" width="96" height="5" rx="2.5" fill="#0B1626"/>
+  <mask id="d-rt" maskUnits="userSpaceOnUse"><path d="M14 72 C 16 40 34 20 70 14.8" fill="none" stroke="#fff" stroke-width="6" pathLength="1" stroke-dasharray="0.86 1"/></mask><path mask="url(#d-rt)" d="M14 72 C 16 40 34 20 70 14.8" fill="none" stroke="#0B1626" stroke-width="2.6" stroke-dasharray="0.4 6" stroke-linecap="round"/>
+  <path d="M-5.6 -4.3 L5.6 0 L-5.6 4.3 L-3.1 0 Z" fill="#0B1626" transform="translate(70 14.8) rotate(-8.2)"/>
+</svg>
