@@ -13,6 +13,10 @@ export const site = {
     /** Primeira linha fixa; a segunda vai trocando. */
     lead: "Morando na Irlanda",
     rotating: ["e viajando a Europa", "e mostrando o caminho", "e contando tudo"],
+    subtitle:
+      "Somos o Leo e a Helena. Aqui a gente mostra as viagens pela Europa e ensina, passo a passo, como sair do Brasil e começar a vida na Irlanda.",
+    /** Texto do botão de vídeo do topo (leva para a seção de vídeos). */
+    video: { title: "Assistir ao vídeo", sub: "Nosso 1º mês em Dublin" },
     /** ID de uma foto ou vídeo do Google Drive para o topo. Vazio = ilustração animada. */
     photoDriveId: "",
   },

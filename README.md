@@ -17,11 +17,14 @@ como se mudar para a Irlanda (Pix e cartão, confirmação automática do pagame
   nas bordas (mapa de deslocamento em SVG gerado para cada elemento); nos outros navegadores
   vira vidro fosco com reflexo. Reflexo que segue o ponteiro, botões que "achatam" ao toque,
   indicador do menu que escorre como gota.
-- Estrutura inspirada no Ponto Azul: topo em cartão com cena grande e menu em pílulas de vidro
-  (que se juntam numa barra só ao rolar), título com a segunda linha trocando.
-- Cena do topo animada: pôr do sol nos penhascos da Irlanda com os dois sóis da marca se pondo
-  no mar, pássaros, nuvens e avião, em camadas que se movem com a rolagem e o ponteiro.
-  Troca sozinha por uma foto do Drive quando houver.
+- Topo cinematográfico inspirado no Wanderlust: título em serifa com a segunda linha trocando,
+  botão principal e "Assistir ao vídeo", cartão de vidro "Para onde você vai?" (monta a rota e
+  indica o curso certo), lugares do diário em carrossel e faixa de garantias da compra.
+- Cena do topo: céu e mar em WebGL (ondas, reflexo dos dois sóis na água, nuvens, névoa) com
+  penhascos, rocha no mar, pássaros, rota tracejada com avião e pino em SVG, em camadas que se
+  movem com a rolagem e o ponteiro. Troca sozinha por uma foto do Drive quando houver.
+- Resto da página na estrutura do Ponto Azul; menu sem fundo sobre o topo, que vira barra de
+  vidro ao rolar.
 - Seção escura "Oi, prazer!" com três fotos redondas e adesivos de viagem que dá para arrastar,
   mais uma lente de vidro líquido que entorta as fotos por baixo.
 - Mapa-múndi com os lugares visitados, rotas Brasil → Dublin → Paris e aviões voando.
@@ -72,7 +75,7 @@ npm run worldmap     # recalcula o contorno do mapa-múndi
 ```
 src/
   content/        textos, cursos, lugares, fotos e pontos do mapa
-  components/     Glass (vidro líquido), Logo, HeroScene, Stickers, Sky, WorldMap, Postcard, CourseTicket
+  components/     Glass (vidro líquido), Logo, HeroScene, HeroOcean (WebGL), Planner, Stickers, Sky, WorldMap, Postcard, CourseTicket
   pages/          Início, Sobre, Termos, Cursos, Curso, Checkout, Pedido, Aluno e admin/
   lib/payments/   pagamentos: demonstração (navegador) e real (Supabase + Mercado Pago)
   lib/session.tsx login do aluno e dos donos

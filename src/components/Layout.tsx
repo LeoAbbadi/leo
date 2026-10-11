@@ -81,7 +81,10 @@ export function Layout() {
         <Glass as="nav" className={`nav ${split ? "is-split" : "is-merged"}`} radius={999} bezel={18} strength={32} blur={4} aria-label="Principal">
           <Link to="/" className="nav-brand" aria-label={`${site.name}, início`}>
             <LogoMark intro loop />
-            <Wordmark />
+            <span className="nav-brand-text">
+              <Wordmark />
+              <span className="nav-tag">{site.tagline}</span>
+            </span>
           </Link>
           <LayoutGroup id="nav">
             <motion.div className="nav-links" layout transition={{ type: "spring", stiffness: 300, damping: 30 }}>
